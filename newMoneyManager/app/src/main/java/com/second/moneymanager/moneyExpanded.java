@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -86,19 +88,25 @@ public class moneyExpanded extends AppCompatActivity {
                 if (spinnerMonthly2.getAdapter().getItem(which).toString().trim().equals("Yearly")) {
 
                     prefs.edit().putString("monthlyOrYearly", "Yearly").apply();
-//                    calendar.set(YEAR, Integer.parseInt(prefs.getString("year", "")));
-//                    tvToday.setText(String.valueOf(calendar.get(Calendar.YEAR)));
+                    calendar.set(YEAR, Integer.parseInt(prefs.getString("year", "")));
+                    tvToday.setText(String.valueOf(calendar.get(Calendar.YEAR)));
 //                    Toast.makeText(moneyExpanded.this, "etwas", Toast.LENGTH_SHORT).show();
 
                 } else if (spinnerMonthly2.getAdapter().getItem(which).toString().trim().equals("Monthly")) {
 
                     prefs.edit().putString("monthlyOrYearly", "Monthly").apply();
+                    calendar.set(MONTH, Integer.parseInt(prefs.getString("month","")));
+                    calendar.set(YEAR, Integer.parseInt(prefs.getString("year", "")));
                     tvToday.setText(calendar.getDisplayName(MONTH, Calendar.LONG, Locale.getDefault()) + " - " + calendar.get(Calendar.YEAR));
 
 
                 } else if (spinnerMonthly2.getAdapter().getItem(which).toString().trim().equals("Daily")) {
 
                     prefs.edit().putString("monthlyOrYearly", "Daily").apply();
+
+
+                    calendar.set(MONTH, Integer.parseInt(prefs.getString("month","")));
+                    calendar.set(DAY_OF_MONTH, Integer.parseInt(prefs.getString("day","")));
 
                     tvToday.setText(calendar.get(Calendar.DAY_OF_MONTH) + " - " +
                             calendar.getDisplayName(MONTH, Calendar.LONG, Locale.getDefault())
@@ -118,7 +126,7 @@ public class moneyExpanded extends AppCompatActivity {
                 break;
 
             case R.id.changeCurrency:
-                b.show().getWindow();
+                b.show();
                 Toast.makeText(this, "Currency Works", Toast.LENGTH_SHORT).show();
 
         }
@@ -149,6 +157,17 @@ public class moneyExpanded extends AppCompatActivity {
         spinnerMonthly2.setVisibility(View.GONE);
 
         prefs = getSharedPreferences("com.mycompany.MoneyManager", moneyExpanded.MODE_PRIVATE);
+
+        final ArrayAdapter<String> adapterForCurrency = new ArrayAdapter<>(moneyExpanded.this,
+                android.R.layout.simple_spinner_item, paths);
+
+        final ArrayAdapter<String> adapterMonthly = new ArrayAdapter<>(moneyExpanded.this,
+                android.R.layout.simple_spinner_item, valuesToShowAccount);
+
+        adapterForCurrency.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCurrency2.setAdapter(adapterForCurrency);
+        spinnerMonthly2.setAdapter(adapterMonthly);
+        Arrays.sort(paths);
 
         calendar.set(YEAR, Integer.parseInt(prefs.getString("year", "")));
         calendar.set(MONTH, Integer.parseInt(prefs.getString("month", "")));

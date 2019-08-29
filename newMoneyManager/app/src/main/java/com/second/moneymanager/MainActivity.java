@@ -327,13 +327,12 @@ public class MainActivity extends AppCompatActivity {
             tvCurrencyExpenses.setText(prefs.getString("currency", ""));
             tvCurrencyIncomes.setText(prefs.getString("currency", ""));
 
-            Calendar calendar = Calendar.getInstance();
-            prefs.edit().putString("year", String.valueOf(calendar.get(YEAR)));
-            prefs.edit().putString("month", String.valueOf(calendar.get(MONTH)));
-            prefs.edit().putString("day", String.valueOf(calendar.get(DAY_OF_MONTH)));
-
 
         }
+
+        calendar.set(YEAR, Integer.parseInt(prefs.getString("year","")));
+        calendar.set(MONTH, Integer.parseInt(prefs.getString("month","")));
+        calendar.set(DAY_OF_MONTH, Integer.parseInt(prefs.getString("day","")));
 
 
         Toast.makeText(this, prefs.getString("year", "") + " - " +
