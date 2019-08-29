@@ -2,6 +2,7 @@ package com.second.moneymanager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
+import android.content.SharedPreferences;
 import android.database.SQLException;
 import android.os.Bundle;
 import android.view.View;
@@ -24,6 +25,8 @@ public class AddExpense extends AppCompatActivity {
     private Calendar myCalendar = Calendar.getInstance();
     private int day, month, year;
 
+    SharedPreferences prefs = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +42,8 @@ public class AddExpense extends AppCompatActivity {
         day = myCalendar.get(Calendar.DAY_OF_MONTH);
         year = myCalendar.get(Calendar.YEAR);
         month = myCalendar.get(Calendar.MONTH);
+
+        prefs = getSharedPreferences("com.mycompany.MoneyManager", moneyExpanded.MODE_PRIVATE);
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override

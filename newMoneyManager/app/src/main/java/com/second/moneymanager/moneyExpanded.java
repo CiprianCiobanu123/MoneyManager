@@ -86,9 +86,9 @@ public class moneyExpanded extends AppCompatActivity {
                 if (spinnerMonthly2.getAdapter().getItem(which).toString().trim().equals("Yearly")) {
 
                     prefs.edit().putString("monthlyOrYearly", "Yearly").apply();
-                    calendar.set(YEAR, Integer.parseInt(prefs.getString("year", "")));
-                    tvToday.setText(String.valueOf(calendar.get(Calendar.YEAR)));
-                    Toast.makeText(moneyExpanded.this, "etwas", Toast.LENGTH_SHORT).show();
+//                    calendar.set(YEAR, Integer.parseInt(prefs.getString("year", "")));
+//                    tvToday.setText(String.valueOf(calendar.get(Calendar.YEAR)));
+//                    Toast.makeText(moneyExpanded.this, "etwas", Toast.LENGTH_SHORT).show();
 
                 } else if (spinnerMonthly2.getAdapter().getItem(which).toString().trim().equals("Monthly")) {
 
@@ -113,12 +113,12 @@ public class moneyExpanded extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.monthlyYearly:
-//                b1.show();
+                b1.show();
                 Toast.makeText(this, "Period Works", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.changeCurrency:
-//                b.show().getWindow();
+                b.show().getWindow();
                 Toast.makeText(this, "Currency Works", Toast.LENGTH_SHORT).show();
 
         }
