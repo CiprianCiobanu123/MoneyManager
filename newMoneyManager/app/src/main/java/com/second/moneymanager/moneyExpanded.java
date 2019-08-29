@@ -22,7 +22,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
-import java.util.StringTokenizer;
 
 import static java.util.Calendar.*;
 
@@ -330,8 +329,8 @@ public class moneyExpanded extends AppCompatActivity {
                     try {
                         ExpensesDB db = new ExpensesDB(moneyExpanded.this);
                         db.open();
-                        incomes = db.getIncomesByDate(String.valueOf(calendar.get(DAY_OF_MONTH)), calendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), String.valueOf(calendar.get(YEAR)));
-                        expenses = db.getExpensesByDate(String.valueOf(calendar.get(DAY_OF_MONTH)), calendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), String.valueOf(calendar.get(YEAR)));
+                        incomes = db.getIncomesByMonthAndYear(calendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), String.valueOf(calendar.get(YEAR)));
+                        expenses = db.getExpensesByMonthAndYear(calendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), String.valueOf(calendar.get(YEAR)));
 
                         db.close();
 
