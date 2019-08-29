@@ -9,13 +9,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.SQLException;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,8 +39,92 @@ public class moneyExpanded extends AppCompatActivity {
     ArrayList items = new ArrayList();
     ArrayList<Income> incomes = new ArrayList<>();
     ArrayList<Expense> expenses = new ArrayList<>();
+    Spinner spinnerCurrency2, spinnerMonthly2;
+
+    Calendar calendar = Calendar.getInstance();
+
+
+    MenuItem menuItemCurrency, menuitemYearly;
+
+    private static final String[] paths = {"RON", "USD", "EUR", "AFN", "ALL",
+            "DZD", "AOA", "ARS", "BSD", "BOB", "BGN",
+            "BIF", "CNY", "CUP", "JPY", "KWD",
+    };
+
+    private static final String[] valuesToShowAccount = {"Yearly", "Monthly", "Daily"};
+
 
     SharedPreferences prefs = null;
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        menuItemCurrency = menu.findItem(R.id.changeCurrency);
+        menuitemYearly = menu.findItem(R.id.monthlyYearly);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        final AlertDialog.Builder b = new AlertDialog.Builder(this);
+        final AlertDialog.Builder b1 = new AlertDialog.Builder(this);
+
+        b.setTitle("Change Currency");
+        b1.setTitle("Sort");
+
+        b.setItems(paths, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                prefs.edit().putString("currency", spinnerCurrency2.getAdapter().getItem(which).toString()).apply();
+                dialog.dismiss();
+            }
+        });
+
+        b1.setItems(valuesToShowAccount, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                if (spinnerMonthly2.getAdapter().getItem(which).toString().trim().equals("Yearly")) {
+
+                    prefs.edit().putString("monthlyOrYearly", "Yearly").apply();
+                    calendar.set(YEAR, Integer.parseInt(prefs.getString("year", "")));
+                    tvToday.setText(String.valueOf(calendar.get(Calendar.YEAR)));
+                    Toast.makeText(moneyExpanded.this, "etwas", Toast.LENGTH_SHORT).show();
+
+                } else if (spinnerMonthly2.getAdapter().getItem(which).toString().trim().equals("Monthly")) {
+
+                    prefs.edit().putString("monthlyOrYearly", "Monthly").apply();
+                    tvToday.setText(calendar.getDisplayName(MONTH, Calendar.LONG, Locale.getDefault()) + " - " + calendar.get(Calendar.YEAR));
+
+
+                } else if (spinnerMonthly2.getAdapter().getItem(which).toString().trim().equals("Daily")) {
+
+                    prefs.edit().putString("monthlyOrYearly", "Daily").apply();
+
+                    tvToday.setText(calendar.get(Calendar.DAY_OF_MONTH) + " - " +
+                            calendar.getDisplayName(MONTH, Calendar.LONG, Locale.getDefault())
+                            + " - " + calendar.get(Calendar.YEAR));
+
+
+                }
+                dialog.dismiss();
+            }
+        });
+
+        switch (item.getItemId()) {
+
+            case R.id.monthlyYearly:
+//                b1.show();
+                Toast.makeText(this, "Period Works", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.changeCurrency:
+//                b.show().getWindow();
+                Toast.makeText(this, "Currency Works", Toast.LENGTH_SHORT).show();
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     @SuppressLint("ClickableViewAccessibility")
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -53,6 +141,12 @@ public class moneyExpanded extends AppCompatActivity {
         nextDay = findViewById(R.id.nextDay);
         lvItems = findViewById(R.id.lvItems);
         tvToday = findViewById(R.id.tvToday);
+
+        spinnerCurrency2 = findViewById(R.id.spinnerCurrency2);
+        spinnerMonthly2 = findViewById(R.id.spinnerMonthly2);
+
+        spinnerCurrency2.setVisibility(View.GONE);
+        spinnerMonthly2.setVisibility(View.GONE);
 
         prefs = getSharedPreferences("com.mycompany.MoneyManager", moneyExpanded.MODE_PRIVATE);
 
