@@ -32,6 +32,7 @@ import static android.view.View.GONE;
 import static java.util.Calendar.DAY_OF_MONTH;
 import static java.util.Calendar.MONTH;
 import static java.util.Calendar.SHORT;
+import static java.util.Calendar.YEAR;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -328,9 +329,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         }
-        calendar.set(Calendar.YEAR, Integer.parseInt(prefs.getString("year","")));
+        calendar.set(Calendar.YEAR, Integer.parseInt(prefs.getString("year", "")));
         calendar.set(MONTH, Integer.parseInt(prefs.getString("month", "")));
-        calendar.set(DAY_OF_MONTH, Integer.parseInt(prefs.getString("day","")));
+        calendar.set(DAY_OF_MONTH, Integer.parseInt(prefs.getString("day", "")));
 
         Toast.makeText(this, prefs.getString("year", "") + " - " +
                 prefs.getString("month", "") + " - " + prefs.getString("day", ""), Toast.LENGTH_SHORT).show();
@@ -467,7 +468,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         } else if (prefs.getString("monthlyOrYearly", "").equals("Daily")) {
-            calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(prefs.getString("day","")));
+            calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(prefs.getString("day", "")));
             tvMonthOrYear.setText(calendar.get(Calendar.DAY_OF_MONTH) + " - " +
                     calendar.getDisplayName(MONTH, Calendar.LONG, Locale.getDefault()) + " - " + calendar.get(Calendar.YEAR));
 
@@ -666,6 +667,53 @@ public class MainActivity extends AppCompatActivity {
                                     calendar.getDisplayName(MONTH, Calendar.LONG, Locale.getDefault()) + " - " + calendar.get(Calendar.YEAR));
                         }
                     }
+                    valueExpenses = 0;
+                    valueIncomes = 0;
+
+                    try {
+                        ExpensesDB db = new ExpensesDB(MainActivity.this);
+                        db.open();
+
+                        incomes = db.getIncomesByDate(String.valueOf(calendar.get(DAY_OF_MONTH)), calendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), String.valueOf(calendar.get(YEAR)));
+                        expenses = db.getExpensesByDate(String.valueOf(calendar.get(DAY_OF_MONTH)), calendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), String.valueOf(calendar.get(YEAR)));
+
+
+                        db.close();
+                        items.clear();
+
+                        for (int i = 0; i < incomes.size(); i++) {
+                            items.add(incomes.get(i));
+                            valueIncomes = valueIncomes + incomes.get(i).getSum();
+
+                        }
+                        for (int i = 0; i < expenses.size(); i++) {
+                            items.add(expenses.get(i));
+                            valueExpenses = valueExpenses + expenses.get(i).getSpent();
+
+                        }
+
+                        MyApplication app = (MyApplication) MainActivity.this.getApplication();
+                        app.setItems(items);
+
+                        tvIncomesSum.setText(String.valueOf(valueIncomes));
+                        tvExpenseSum.setText(String.valueOf(valueExpenses));
+
+                        double amountToSet = valueIncomes - valueExpenses;
+                        tvAccount.setText(String.valueOf(amountToSet));
+
+
+                        if (amountToSet == 0) {
+                            tvAccount.setText("0");
+                        } else if (amountToSet > 0) {
+                            tvAccount.setTextColor(Color.parseColor("#388e3c"));
+                        } else {
+                            tvAccount.setTextColor(Color.parseColor("#b91400"));
+                        }
+
+
+                    } catch (SQLException e) {
+                        Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -813,7 +861,62 @@ public class MainActivity extends AppCompatActivity {
                             calendar.set(MONTH, calendar.get(MONTH));
                             tvMonthOrYear.setText(calendar.get(Calendar.DAY_OF_MONTH) + " - " +
                                     calendar.getDisplayName(MONTH, Calendar.LONG, Locale.getDefault()) + " - " + calendar.get(Calendar.YEAR));
+
+
+                            prefs.edit().putString("day", String.valueOf(calendar.get(DAY_OF_MONTH))).apply();
+                            prefs.edit().putString("month", String.valueOf(calendar.get(MONTH))).apply();
+                            prefs.edit().putString("year", String.valueOf(calendar.get(YEAR))).apply();
                         }
+
+
+                    }
+
+                    valueExpenses = 0;
+                    valueIncomes = 0;
+
+                    try {
+                        ExpensesDB db = new ExpensesDB(MainActivity.this);
+                        db.open();
+
+                        incomes = db.getIncomesByDate(String.valueOf(calendar.get(DAY_OF_MONTH)), calendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), String.valueOf(calendar.get(YEAR)));
+                        expenses = db.getExpensesByDate(String.valueOf(calendar.get(DAY_OF_MONTH)), calendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), String.valueOf(calendar.get(YEAR)));
+
+
+                        db.close();
+                        items.clear();
+
+                        for (int i = 0; i < incomes.size(); i++) {
+                            items.add(incomes.get(i));
+                            valueIncomes = valueIncomes + incomes.get(i).getSum();
+
+                        }
+                        for (int i = 0; i < expenses.size(); i++) {
+                            items.add(expenses.get(i));
+                            valueExpenses = valueExpenses + expenses.get(i).getSpent();
+
+                        }
+
+                        MyApplication app = (MyApplication) MainActivity.this.getApplication();
+                        app.setItems(items);
+
+                        tvIncomesSum.setText(String.valueOf(valueIncomes));
+                        tvExpenseSum.setText(String.valueOf(valueExpenses));
+
+                        double amountToSet = valueIncomes - valueExpenses;
+                        tvAccount.setText(String.valueOf(amountToSet));
+
+
+                        if (amountToSet == 0) {
+                            tvAccount.setText("0");
+                        } else if (amountToSet > 0) {
+                            tvAccount.setTextColor(Color.parseColor("#388e3c"));
+                        } else {
+                            tvAccount.setTextColor(Color.parseColor("#b91400"));
+                        }
+
+
+                    } catch (SQLException e) {
+                        Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
 
