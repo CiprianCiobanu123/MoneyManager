@@ -325,7 +325,12 @@ public class MainActivity extends AppCompatActivity {
             tvCurrency.setText(prefs.getString("currency", ""));
             tvCurrencyExpenses.setText(prefs.getString("currency", ""));
             tvCurrencyIncomes.setText(prefs.getString("currency", ""));
+
+
         }
+        calendar.set(Calendar.YEAR, Integer.parseInt(prefs.getString("year","")));
+        calendar.set(MONTH, Integer.parseInt(prefs.getString("month", "")));
+        calendar.set(DAY_OF_MONTH, Integer.parseInt(prefs.getString("day","")));
 
         Toast.makeText(this, prefs.getString("year", "") + " - " +
                 prefs.getString("month", "") + " - " + prefs.getString("day", ""), Toast.LENGTH_SHORT).show();
@@ -462,7 +467,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         } else if (prefs.getString("monthlyOrYearly", "").equals("Daily")) {
-            calendar.set(Calendar.DAY_OF_MONTH, day);
+            calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(prefs.getString("day","")));
             tvMonthOrYear.setText(calendar.get(Calendar.DAY_OF_MONTH) + " - " +
                     calendar.getDisplayName(MONTH, Calendar.LONG, Locale.getDefault()) + " - " + calendar.get(Calendar.YEAR));
 
@@ -671,7 +676,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (prefs.getString("monthlyOrYearly", "").equals("Yearly")) {
                     calendar.set(Calendar.YEAR, Integer.parseInt(prefs.getString("year", "")) + 1);
-                    tvMonthOrYear.setText(calendar.get(Calendar.YEAR) + "");
+                    tvMonthOrYear.setText(String.valueOf(calendar.get(Calendar.YEAR)));
                     Toast.makeText(MainActivity.this, calendar.get(Calendar.YEAR) + "", Toast.LENGTH_SHORT).show();
                     prefs.edit().putString("year", String.valueOf(calendar.get(Calendar.YEAR))).apply();
 
@@ -730,7 +735,6 @@ public class MainActivity extends AppCompatActivity {
 
                     prefs.edit().putString("year", String.valueOf(calendar.get(Calendar.YEAR))).apply();
                     prefs.edit().putString("month", String.valueOf(calendar.get(MONTH))).apply();
-
 
                     valueExpenses = 0;
                     valueIncomes = 0;
