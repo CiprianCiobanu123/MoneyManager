@@ -74,14 +74,25 @@ public class moneyExpanded extends AppCompatActivity {
         b1.setTitle("Sort");
 
         b.setItems(paths, new DialogInterface.OnClickListener() {
+            Intent refresh = getIntent();
+
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 prefs.edit().putString("currency", spinnerCurrency2.getAdapter().getItem(which).toString()).apply();
+
+                startActivity(refresh);
+                overridePendingTransition(0, 0);
+                moneyExpanded.this.finish();
+                overridePendingTransition(0, 0);
+
                 dialog.dismiss();
             }
         });
 
         b1.setItems(valuesToShowAccount, new DialogInterface.OnClickListener() {
+
+            Intent refresh = getIntent();
+
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
@@ -90,14 +101,26 @@ public class moneyExpanded extends AppCompatActivity {
                     prefs.edit().putString("monthlyOrYearly", "Yearly").apply();
                     calendar.set(YEAR, Integer.parseInt(prefs.getString("year", "")));
                     tvToday.setText(String.valueOf(calendar.get(Calendar.YEAR)));
-//                    Toast.makeText(moneyExpanded.this, "etwas", Toast.LENGTH_SHORT).show();
+
+
+                    startActivity(refresh);
+                    overridePendingTransition(0, 0);
+                    moneyExpanded.this.finish();
+                    overridePendingTransition(0, 0);
+
 
                 } else if (spinnerMonthly2.getAdapter().getItem(which).toString().trim().equals("Monthly")) {
 
                     prefs.edit().putString("monthlyOrYearly", "Monthly").apply();
-                    calendar.set(MONTH, Integer.parseInt(prefs.getString("month","")));
+                    calendar.set(MONTH, Integer.parseInt(prefs.getString("month", "")));
                     calendar.set(YEAR, Integer.parseInt(prefs.getString("year", "")));
                     tvToday.setText(calendar.getDisplayName(MONTH, Calendar.LONG, Locale.getDefault()) + " - " + calendar.get(Calendar.YEAR));
+
+
+                    startActivity(refresh);
+                    overridePendingTransition(0, 0);
+                    moneyExpanded.this.finish();
+                    overridePendingTransition(0, 0);
 
 
                 } else if (spinnerMonthly2.getAdapter().getItem(which).toString().trim().equals("Daily")) {
@@ -105,12 +128,18 @@ public class moneyExpanded extends AppCompatActivity {
                     prefs.edit().putString("monthlyOrYearly", "Daily").apply();
 
 
-                    calendar.set(MONTH, Integer.parseInt(prefs.getString("month","")));
-                    calendar.set(DAY_OF_MONTH, Integer.parseInt(prefs.getString("day","")));
+                    calendar.set(MONTH, Integer.parseInt(prefs.getString("month", "")));
+                    calendar.set(DAY_OF_MONTH, Integer.parseInt(prefs.getString("day", "")));
 
                     tvToday.setText(calendar.get(Calendar.DAY_OF_MONTH) + " - " +
                             calendar.getDisplayName(MONTH, Calendar.LONG, Locale.getDefault())
                             + " - " + calendar.get(Calendar.YEAR));
+
+
+                    startActivity(refresh);
+                    overridePendingTransition(0, 0);
+                    moneyExpanded.this.finish();
+                    overridePendingTransition(0, 0);
 
 
                 }
@@ -122,13 +151,10 @@ public class moneyExpanded extends AppCompatActivity {
 
             case R.id.monthlyYearly:
                 b1.show();
-                Toast.makeText(this, "Period Works", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.changeCurrency:
                 b.show();
-                Toast.makeText(this, "Currency Works", Toast.LENGTH_SHORT).show();
-
         }
 
         return super.onOptionsItemSelected(item);
