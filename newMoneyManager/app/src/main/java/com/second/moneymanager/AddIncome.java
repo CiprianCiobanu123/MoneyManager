@@ -1,18 +1,24 @@
 package com.second.moneymanager;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.SQLException;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import static java.util.Calendar.MONTH;
@@ -20,10 +26,16 @@ import static java.util.Calendar.SHORT;
 
 public class AddIncome extends AppCompatActivity {
 
-    EditText etCategory, etAmount, etNotes;
+    EditText etAmount, etNotes;
     Button btnAdd, btnCancel, btnDate;
+    TextView etCategory;
     private Calendar myCalendar = Calendar.getInstance();
     private int day, month, year;
+    SharedPreferences prefs = null;
+    public static final int requestCodeForIncomeCategories = 1;
+
+    Set<String> incomeCategories = new HashSet<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +52,11 @@ public class AddIncome extends AppCompatActivity {
         day = myCalendar.get(Calendar.DAY_OF_MONTH);
         year = myCalendar.get(Calendar.YEAR);
         month = myCalendar.get(Calendar.MONTH);
+
+        prefs = getSharedPreferences("com.mycompany.MoneyManager", MainActivity.MODE_PRIVATE);
+        incomeCategories.add("Salary");
+        incomeCategories.add("Social Media");
+        prefs.edit().putStringSet("incomeCategories", incomeCategories);
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +84,15 @@ public class AddIncome extends AppCompatActivity {
 
                 DatePickerDialog dpDialog = new DatePickerDialog(AddIncome.this, listener, year, month, day);
                 dpDialog.show();
+            }
+        });
+
+        etCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AddIncome.this,
+                        com.second.moneymanager.Categories.class);
+                startActivityForResult(intent, requestCodeForIncomeCategories);
             }
         });
 
@@ -101,9 +127,9 @@ public class AddIncome extends AppCompatActivity {
                     try {
                         ExpensesDB db = new ExpensesDB(AddIncome.this);
                         db.open();
-                        db.createEntryIncome( sum, dayFromButton, myCalendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), yearFromButton,category, notes);
+                        db.createEntryIncome(sum, dayFromButton, myCalendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), yearFromButton, category, notes);
                         MyApplication app = (MyApplication) AddIncome.this.getApplication();
-                        app.addIncomeToItems(new Income(sum,  dayFromButton, myCalendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), yearFromButton, null, category,notes));
+                        app.addIncomeToItems(new Income(sum, dayFromButton, myCalendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), yearFromButton, null, category, notes));
                         db.close();
                         Toast.makeText(AddIncome.this, "Succesfully saved", Toast.LENGTH_SHORT).show();
                     } catch (SQLException e) {
@@ -114,5 +140,18 @@ public class AddIncome extends AppCompatActivity {
                 }
             }
         });
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == requestCodeForIncomeCategories) {
+            if (resultCode == RESULT_OK) {
+                etCategory.setText(data.getStringExtra("categoryIncome"));
+            }
+        }
     }
 }

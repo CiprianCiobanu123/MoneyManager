@@ -1,8 +1,10 @@
 package com.second.moneymanager;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.SQLException;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -21,10 +24,12 @@ import static java.util.Calendar.SHORT;
 
 public class AddExpense extends AppCompatActivity {
 
-    EditText  etPrice,  etCategoryExpense, etNotesExpense;
+    EditText  etPrice,   etNotesExpense;
+    TextView etCategoryExpense;
     Button btnAdd, btnCancel, btnDate;
     private Calendar myCalendar = Calendar.getInstance();
     private int day, month, year;
+    public static final int requestCodeForExpenseCategories = 1;
 
     SharedPreferences prefs = null;
 
@@ -76,6 +81,16 @@ public class AddExpense extends AppCompatActivity {
             }
         });
 
+        etCategoryExpense.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AddExpense.this,
+                        com.second.moneymanager.Categories.class);
+                startActivityForResult(intent,requestCodeForExpenseCategories);
+
+            }
+        });
+
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,9 +119,9 @@ public class AddExpense extends AppCompatActivity {
                     try {
                         ExpensesDB db = new ExpensesDB(AddExpense.this);
                         db.open();
-                        db.createEntryExpense( price, dayFromButton, myCalendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), yearFromButton, category, notes);
+                        db.createEntryExpense( price, dayFromButton, myCalendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), yearFromButton, notes, category);
                         MyApplication app = (MyApplication) AddExpense.this.getApplication();
-                        app.addExpenseToItems(new Expense( price, dayFromButton, myCalendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), yearFromButton, null, category, notes));
+                        app.addExpenseToItems(new Expense( price, dayFromButton, myCalendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), yearFromButton, null, notes, category));
                         db.close();
                         Toast.makeText(AddExpense.this, "Succesfully Saved", Toast.LENGTH_SHORT).show();
                     } catch (SQLException e) {
@@ -116,5 +131,16 @@ public class AddExpense extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == requestCodeForExpenseCategories){
+            if(resultCode == RESULT_OK){
+                etCategoryExpense.setText(data.getStringExtra("categoryExpense"));
+            }
+        }
+
     }
 }

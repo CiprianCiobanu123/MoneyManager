@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ShowExpense"></activity>
+        <activity android:name=".Categories"></activity>
+        <activity android:name=".ShowExpense" />
         <activity android:name=".ShowIncome" />
         <activity android:name=".AddIncome" />
         <activity android:name=".AddExpense" />
@@ -24,6 +25,5 @@
             </intent-filter>
         </activity>
     </application>
-
 
 </manifest>

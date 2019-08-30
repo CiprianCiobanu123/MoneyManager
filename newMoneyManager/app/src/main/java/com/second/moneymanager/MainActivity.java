@@ -342,6 +342,9 @@ public class MainActivity extends AppCompatActivity {
         btnAddExepense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                prefs.edit().putBoolean("isExpense", true).apply();
+                prefs.edit().putBoolean("isIncome", false).apply();
+
                 Intent intent = new Intent(MainActivity.this,
                         AddExpense.class);
                 startActivityForResult(intent, requestCodeActivityAddExpense);
@@ -351,6 +354,9 @@ public class MainActivity extends AppCompatActivity {
         btnAddIncome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                prefs.edit().putBoolean("isIncome", true).apply();
+                prefs.edit().putBoolean("isExpense", false).apply();
+
                 Intent intent = new Intent(MainActivity.this,
                         AddIncome.class);
                 startActivityForResult(intent, requestCodeActivityAddIncome);
