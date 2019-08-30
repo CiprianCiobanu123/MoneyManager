@@ -1,6 +1,7 @@
 package com.second.moneymanager;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.app.DatePickerDialog;
 import android.database.SQLException;
 import android.os.Bundle;
@@ -46,7 +47,7 @@ public class AddIncome extends AppCompatActivity {
                 AddIncome.this.finish();
             }
         });
-        btnDate.setText(year + "-" + myCalendar.getDisplayName(MONTH,SHORT, Locale.getDefault()) + "-"  + day );
+        btnDate.setText(year + "-" + myCalendar.getDisplayName(MONTH, Calendar.LONG, Locale.getDefault()) + "-" + day);
 
         btnDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +60,7 @@ public class AddIncome extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         myCalendar.set(MONTH, monthOfYear);
-                        btnDate.setText(year + "-" + myCalendar.getDisplayName(MONTH,SHORT, Locale.getDefault()) + "-"  + dayOfMonth );
+                        btnDate.setText(year + "-" + myCalendar.getDisplayName(MONTH, Calendar.LONG, Locale.getDefault()) + "-" + dayOfMonth);
                     }
                 };
 
@@ -79,24 +80,27 @@ public class AddIncome extends AppCompatActivity {
                 } else if (etSum.getText().toString().isEmpty()) {
                     Toast.makeText(AddIncome.this, "Please enter all fields!", Toast.LENGTH_SHORT).show();
                 } else {
+                    if (etSum.getText().toString().trim().charAt(0) == '.') {
+                        etSum.setText("0" + etSum.getText().toString().trim());
+                    }
                     double sum = Double.parseDouble(etSum.getText().toString().trim());
                     String type = etType.getText().toString().trim();
                     String dateFromInput = btnDate.getText().toString().trim();
 
-                    StringTokenizer tokens = new StringTokenizer(dateFromInput,"-");
-                    int yearFromButton =  Integer.parseInt(tokens.nextToken());
+                    StringTokenizer tokens = new StringTokenizer(dateFromInput, "-");
+                    int yearFromButton = Integer.parseInt(tokens.nextToken());
                     String monthFromButton = tokens.nextToken();
-                    int dayFromButton =  Integer.parseInt(tokens.nextToken());
+                    int dayFromButton = Integer.parseInt(tokens.nextToken());
 
-                    try{
+                    try {
                         ExpensesDB db = new ExpensesDB(AddIncome.this);
                         db.open();
-                        db.createEntryIncome(type,sum,dayFromButton, myCalendar.getDisplayName(MONTH,SHORT, Locale.getDefault()),yearFromButton);
-                       MyApplication app = (MyApplication) AddIncome.this.getApplication();
-                        app.addIncomeToItems(new Income(sum,type,dayFromButton, myCalendar.getDisplayName(MONTH,SHORT, Locale.getDefault()),yearFromButton,null));
+                        db.createEntryIncome(type, sum, dayFromButton, myCalendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), yearFromButton);
+                        MyApplication app = (MyApplication) AddIncome.this.getApplication();
+                        app.addIncomeToItems(new Income(sum, type, dayFromButton, myCalendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), yearFromButton, null));
                         db.close();
                         Toast.makeText(AddIncome.this, "Succesfully saved", Toast.LENGTH_SHORT).show();
-                    }catch(SQLException e){
+                    } catch (SQLException e) {
                         Toast.makeText(AddIncome.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 

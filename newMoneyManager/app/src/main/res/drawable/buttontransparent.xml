@@ -6,7 +6,7 @@
             <solid android:color="@color/colorPrimary"/>
             <!--make button border solid color, nontransparent-->
             <!--<stroke android:color="@color/colorAccent" android:width="2dp"/>-->
-            <!--<stroke android:color="#1b5e20" android:width="2dp"/>-->
+            <stroke android:color="@color/colorAccent" android:width="2dp"/>
             <text android:color = "@color/colorAccent"/>
             <corners android:radius="20dp"/>
 

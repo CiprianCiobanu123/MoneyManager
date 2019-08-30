@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
             tvBalanceIncomes, tvBalanceExpense, tvIncomesSum, tvExpenseSum,
             tvCurrencyIncomes, tvCurrencyExpenses;
 
-    Button btnAddExepense, btnAddIncome, btnPreviousDate, btnNextDate;
+    Button btnAddExepense, btnAddIncome, btnPreviousDate, btnNextDate, btnChangeColors;
     Spinner spinnerCurrency, spinnerMonthly;
     LinearLayout llAccount;
     ArrayList<Income> incomes = new ArrayList<>();
@@ -300,11 +300,13 @@ public class MainActivity extends AppCompatActivity {
         tvBalanceIncomes.setText("Income");
         tvBalanceExpense.setText("Expense");
 
+
         btnNextDate.setBackgroundResource(R.drawable.nexttotomorrow);
 
         prefs = getSharedPreferences("com.mycompany.MoneyManager", MainActivity.MODE_PRIVATE);
 
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
+
 
         if (prefs.getBoolean("firstrun", true)) {
             Calendar calendar = Calendar.getInstance();
@@ -312,6 +314,8 @@ public class MainActivity extends AppCompatActivity {
             prefs.edit().putString("year", String.valueOf(calendar.get(Calendar.YEAR))).apply();
             prefs.edit().putString("month", String.valueOf(calendar.get(MONTH))).apply();
             prefs.edit().putString("day", String.valueOf(calendar.get(DAY_OF_MONTH))).apply();
+
+            prefs.edit().putString("idForTheme", String.valueOf(R.style.AppTheme)).apply();
 
             tvCurrency.setText("EUR");
             tvCurrencyExpenses.setText("EUR");
@@ -330,9 +334,9 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        calendar.set(YEAR, Integer.parseInt(prefs.getString("year","")));
-        calendar.set(MONTH, Integer.parseInt(prefs.getString("month","")));
-        calendar.set(DAY_OF_MONTH, Integer.parseInt(prefs.getString("day","")));
+        calendar.set(YEAR, Integer.parseInt(prefs.getString("year", "")));
+        calendar.set(MONTH, Integer.parseInt(prefs.getString("month", "")));
+        calendar.set(DAY_OF_MONTH, Integer.parseInt(prefs.getString("day", "")));
 
 
         Toast.makeText(this, prefs.getString("year", "") + " - " +
