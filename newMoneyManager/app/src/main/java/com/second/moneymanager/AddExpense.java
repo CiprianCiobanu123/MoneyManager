@@ -21,7 +21,7 @@ import static java.util.Calendar.SHORT;
 
 public class AddExpense extends AppCompatActivity {
 
-    EditText etProduct, etPrice, etCantity;
+    EditText  etPrice,  etCategoryExpense, etNotesExpense;
     Button btnAdd, btnCancel, btnDate;
     private Calendar myCalendar = Calendar.getInstance();
     private int day, month, year;
@@ -35,10 +35,10 @@ public class AddExpense extends AppCompatActivity {
 
         btnDate = findViewById(R.id.btnDate);
         etPrice = findViewById(R.id.etPrice);
-        etProduct = findViewById(R.id.etProduct);
-        etCantity = findViewById(R.id.etCantity);
         btnAdd = findViewById(R.id.btnAdd);
         btnCancel = findViewById(R.id.btnCancel);
+        etCategoryExpense = findViewById(R.id.etCategoryExpense);
+        etNotesExpense = findViewById(R.id.etNotesExpense);
 
         day = myCalendar.get(Calendar.DAY_OF_MONTH);
         year = myCalendar.get(Calendar.YEAR);
@@ -82,19 +82,17 @@ public class AddExpense extends AppCompatActivity {
 
                 if (etPrice.getText().toString().trim().isEmpty()) {
                     Toast.makeText(AddExpense.this, "Please enter all fields", Toast.LENGTH_SHORT).show();
-                } else if (etProduct.getText().toString().trim().isEmpty()) {
+                }else if (btnDate.getText().toString().trim().isEmpty()) {
                     Toast.makeText(AddExpense.this, "Please enter all fields", Toast.LENGTH_SHORT).show();
-                } else if (btnDate.getText().toString().trim().isEmpty()) {
-                    Toast.makeText(AddExpense.this, "Please enter all fields", Toast.LENGTH_SHORT).show();
-                } else if (etCantity.getText().toString().trim().isEmpty()) {
+                } else if (etCategoryExpense.getText().toString().isEmpty()) {
                     Toast.makeText(AddExpense.this, "Please enter all fields", Toast.LENGTH_SHORT).show();
                 } else {
 
                     if (etPrice.getText().toString().trim().charAt(0) == '.') {
                         etPrice.setText("0" + etPrice.getText().toString().trim());
                     }
-                    String product = etProduct.getText().toString().trim();
-                    int cantity = Integer.parseInt(etCantity.getText().toString().trim());
+                    String category = etCategoryExpense.getText().toString().trim();
+                    String notes = etNotesExpense.getText().toString().trim();
                     double price = Double.parseDouble(etPrice.getText().toString().trim());
                     String dateFromInput = btnDate.getText().toString().trim();
 
@@ -106,9 +104,9 @@ public class AddExpense extends AppCompatActivity {
                     try {
                         ExpensesDB db = new ExpensesDB(AddExpense.this);
                         db.open();
-                        db.createEntryExpense(product, price, cantity, dayFromButton, myCalendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), yearFromButton);
+                        db.createEntryExpense( price, dayFromButton, myCalendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), yearFromButton, category, notes);
                         MyApplication app = (MyApplication) AddExpense.this.getApplication();
-                        app.addExpenseToItems(new Expense(product, price, cantity, dayFromButton, myCalendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), yearFromButton, null));
+                        app.addExpenseToItems(new Expense( price, dayFromButton, myCalendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), yearFromButton, null, category, notes));
                         db.close();
                         Toast.makeText(AddExpense.this, "Succesfully Saved", Toast.LENGTH_SHORT).show();
                     } catch (SQLException e) {

@@ -1,44 +1,60 @@
 package com.second.moneymanager;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
 
 public class Income implements Parcelable {
     private double sum;
-    private String type;
     private int dayIncome;
     private String monthIncome;
     private int yearIncome;
     private String id;
-    public Income (double sum, String type, int dayIncome, String monthIncome, int yearIncome, String id){
+    private String notes;
+    private String category;
+
+    public Income(double sum, int dayIncome, String monthIncome, int yearIncome, String id, String category, String notes) {
         this.sum = sum;
-        this.type= type;
-        this.dayIncome= dayIncome;
-        this.monthIncome=monthIncome;
-        this.yearIncome=yearIncome;
+        this.dayIncome = dayIncome;
+        this.monthIncome = monthIncome;
+        this.yearIncome = yearIncome;
+        this.id = id;
+        this.notes = notes;
+        this.category = category;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public Income(double sum, String monthIncome, int yearIncome, String id) {
+        this.sum = sum;
+        this.monthIncome = monthIncome;
+        this.yearIncome = yearIncome;
         this.id = id;
     }
 
 
-    public Income(double sum, String type, String monthIncome, int yearIncome, String id){
+    public Income(double sum,  int yearIncome, String id) {
         this.sum = sum;
-        this.type= type;
-        this.monthIncome=monthIncome;
-        this.yearIncome=yearIncome;
+        this.yearIncome = yearIncome;
         this.id = id;
     }
 
+    public String getCategory() {
+        return category;
+    }
 
-    public Income(double sum, String type, int yearIncome, String id){
-        this.sum = sum;
-        this.type= type;
-        this.yearIncome=yearIncome;
-        this.id = id;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     protected Income(Parcel in) {
         sum = in.readDouble();
-        type = in.readString();
     }
 
     public String getId() {
@@ -52,7 +68,6 @@ public class Income implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeDouble(sum);
-        dest.writeString(type);
     }
 
     @Override
@@ -80,20 +95,13 @@ public class Income implements Parcelable {
         this.sum = sum;
     }
 
-    public String getType() {
-        return type;
-    }
 
-    public void setType(String type) {
-        this.type = type;
-    }
 
 
     @Override
     public String toString() {
         return "Income{" +
                 "sum=" + sum +
-                ", type='" + type + '\'' +
                 ", dayIncome=" + dayIncome +
                 ", monthIncome=" + monthIncome +
                 ", yearIncome=" + yearIncome +

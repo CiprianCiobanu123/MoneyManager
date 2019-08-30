@@ -11,7 +11,7 @@ import java.time.LocalDate;
 
 public class ShowExpense extends AppCompatActivity {
 
-    TextView tvShowExpenseProduct, tvShowExpensePrice, tvShowExpenseCantity, tvShowExpenseDate, tvShowExpenseTotalSpent, tvLabelSpent;
+    TextView tvShowExpenseProduct, tvShowExpensePrice, tvShowExpenseCantity, tvShowExpenseDate, tvShowExpenseTotalSpent;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -21,27 +21,24 @@ public class ShowExpense extends AppCompatActivity {
 
         tvShowExpenseProduct = findViewById(R.id.tvShowExpenseProduct);
         tvShowExpensePrice = findViewById(R.id.tvShowExpensePrice);
-        tvShowExpenseCantity = findViewById(R.id.tvShowExpenseCantity);
         tvShowExpenseDate = findViewById(R.id.tvShowExpenseDate);
         tvShowExpenseTotalSpent = findViewById(R.id.tvShowExpenseTotalSpent);
 
 
-        final String product = getIntent().getStringExtra("product");
-        final double price = getIntent().getDoubleExtra("price",0);
-        final int cantity = getIntent().getIntExtra("cantity",0);
-        final double amountSpent = getIntent().getDoubleExtra("amountSpent",0);
-        final int day = getIntent().getIntExtra("day",0);
+        final String category = getIntent().getStringExtra("category");
+        final String notes = getIntent().getStringExtra("notes");
+        final double amountSpent = getIntent().getDoubleExtra("amountSpent", 0);
+        final int day = getIntent().getIntExtra("day", 0);
         final String month = getIntent().getStringExtra("month");
-        final int year = getIntent().getIntExtra("year",0);
+        final int year = getIntent().getIntExtra("year", 0);
 
         String date = day + "-" + month + "-" + year;
 
         tvShowExpenseTotalSpent.setTextColor(Color.parseColor("#b91400"));
 
-        tvShowExpenseProduct.setText(String.format(""+product));
-        tvShowExpensePrice.setText(String.format(""+ price));
-        tvShowExpenseCantity.setText(String.format( ""+cantity));
-        tvShowExpenseDate.setText(String.format(""+ date));
-        tvShowExpenseTotalSpent.setText(""+amountSpent);
+        tvShowExpenseProduct.setText(String.format("" + notes));
+        tvShowExpensePrice.setText(category);
+        tvShowExpenseDate.setText(String.format("" + date));
+        tvShowExpenseTotalSpent.setText("" + amountSpent);
     }
 }

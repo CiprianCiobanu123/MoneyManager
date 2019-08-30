@@ -20,7 +20,7 @@ import static java.util.Calendar.SHORT;
 
 public class AddIncome extends AppCompatActivity {
 
-    EditText etType, etSum;
+    EditText etCategory, etAmount, etNotes;
     Button btnAdd, btnCancel, btnDate;
     private Calendar myCalendar = Calendar.getInstance();
     private int day, month, year;
@@ -32,9 +32,10 @@ public class AddIncome extends AppCompatActivity {
 
         btnDate = findViewById(R.id.btnDate);
         btnAdd = findViewById(R.id.btnAdd);
-        etType = findViewById(R.id.etType);
+        etCategory = findViewById(R.id.etCategory);
         btnCancel = findViewById(R.id.btnCancel);
-        etSum = findViewById(R.id.etSum);
+        etAmount = findViewById(R.id.etAmount);
+        etNotes = findViewById(R.id.etNotes);
 
         day = myCalendar.get(Calendar.DAY_OF_MONTH);
         year = myCalendar.get(Calendar.YEAR);
@@ -73,18 +74,23 @@ public class AddIncome extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (etType.getText().toString().isEmpty()) {
+                //type a devenit category
+                //sum a devenit amount
+                //notes a fost nou creat
+                if (btnDate.getText().toString().isEmpty()) {
                     Toast.makeText(AddIncome.this, "Please enter all fields!", Toast.LENGTH_SHORT).show();
-                } else if (btnDate.getText().toString().isEmpty()) {
+                } else if (etAmount.getText().toString().isEmpty()) {
                     Toast.makeText(AddIncome.this, "Please enter all fields!", Toast.LENGTH_SHORT).show();
-                } else if (etSum.getText().toString().isEmpty()) {
+                } else if (etNotes.getText().toString().trim().isEmpty()) {
                     Toast.makeText(AddIncome.this, "Please enter all fields!", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (etSum.getText().toString().trim().charAt(0) == '.') {
-                        etSum.setText("0" + etSum.getText().toString().trim());
+
+                    if (etAmount.getText().toString().trim().charAt(0) == '.') {
+                        etAmount.setText("0" + etAmount.getText().toString().trim());
                     }
-                    double sum = Double.parseDouble(etSum.getText().toString().trim());
-                    String type = etType.getText().toString().trim();
+                    String notes = etNotes.getText().toString().trim();
+                    double sum = Double.parseDouble(etAmount.getText().toString().trim());
+                    String category = etCategory.getText().toString().trim();
                     String dateFromInput = btnDate.getText().toString().trim();
 
                     StringTokenizer tokens = new StringTokenizer(dateFromInput, "-");
@@ -95,9 +101,9 @@ public class AddIncome extends AppCompatActivity {
                     try {
                         ExpensesDB db = new ExpensesDB(AddIncome.this);
                         db.open();
-                        db.createEntryIncome(type, sum, dayFromButton, myCalendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), yearFromButton);
+                        db.createEntryIncome( sum, dayFromButton, myCalendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), yearFromButton,category, notes);
                         MyApplication app = (MyApplication) AddIncome.this.getApplication();
-                        app.addIncomeToItems(new Income(sum, type, dayFromButton, myCalendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), yearFromButton, null));
+                        app.addIncomeToItems(new Income(sum,  dayFromButton, myCalendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), yearFromButton, null, category,notes));
                         db.close();
                         Toast.makeText(AddIncome.this, "Succesfully saved", Toast.LENGTH_SHORT).show();
                     } catch (SQLException e) {

@@ -9,7 +9,7 @@
     tools:context=".AddExpense">
 
     <EditText
-        android:id="@+id/etProduct"
+        android:id="@+id/etCategoryExpense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -17,7 +17,7 @@
         android:layout_marginRight="20dp"
         android:ems="10"
         android:gravity="center_horizontal|center_vertical"
-        android:hint="@string/product"
+        android:hint="Category"
         android:inputType="textPersonName" />
 
     <EditText
@@ -29,11 +29,11 @@
         android:layout_marginRight="20dp"
         android:ems="10"
         android:gravity="center_horizontal|center_vertical"
-        android:hint="@string/price"
+        android:hint="Amount"
         android:inputType="numberDecimal" />
 
     <EditText
-        android:id="@+id/etCantity"
+        android:id="@+id/etNotesExpense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -41,8 +41,8 @@
         android:layout_marginRight="20dp"
         android:ems="10"
         android:gravity="center_horizontal|center_vertical"
-        android:hint="@string/quantity"
-        android:inputType="number" />
+        android:hint="Notes"
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/btnDate"

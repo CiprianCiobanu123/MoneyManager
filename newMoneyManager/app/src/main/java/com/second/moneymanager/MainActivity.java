@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
             tvBalanceIncomes, tvBalanceExpense, tvIncomesSum, tvExpenseSum,
             tvCurrencyIncomes, tvCurrencyExpenses;
 
-    Button btnAddExepense, btnAddIncome, btnPreviousDate, btnNextDate, btnChangeColors;
+    Button btnAddExepense, btnAddIncome, btnPreviousDate, btnNextDate;
     Spinner spinnerCurrency, spinnerMonthly;
     LinearLayout llAccount;
     ArrayList<Income> incomes = new ArrayList<>();
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         for (int i = 0; i < expenses.size(); i++) {
                             items.add(expenses.get(i));
-                            valueExpenses = valueExpenses + expenses.get(i).getSpent();
+                            valueExpenses = valueExpenses + expenses.get(i).getPrice();
                         }
 
                         MyApplication app = (MyApplication) MainActivity.this.getApplication();
@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         for (int i = 0; i < expenses.size(); i++) {
                             items.add(expenses.get(i));
-                            valueExpenses = valueExpenses + expenses.get(i).getSpent();
+                            valueExpenses = valueExpenses + expenses.get(i).getPrice();
                         }
 
                         MyApplication app = (MyApplication) MainActivity.this.getApplication();
@@ -222,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         for (int i = 0; i < expenses.size(); i++) {
                             items.add(expenses.get(i));
-                            valueExpenses = valueExpenses + expenses.get(i).getSpent();
+                            valueExpenses = valueExpenses + expenses.get(i).getPrice();
 
                         }
 
@@ -339,9 +339,6 @@ public class MainActivity extends AppCompatActivity {
         calendar.set(DAY_OF_MONTH, Integer.parseInt(prefs.getString("day", "")));
 
 
-        Toast.makeText(this, prefs.getString("year", "") + " - " +
-                prefs.getString("month", "") + " - " + prefs.getString("day", ""), Toast.LENGTH_SHORT).show();
-
         btnAddExepense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -397,8 +394,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 for (int i = 0; i < expenses.size(); i++) {
                     items.add(expenses.get(i));
-                    valueExpenses = valueExpenses + expenses.get(i).getSpent();
+                    valueExpenses = valueExpenses + expenses.get(i).getPrice();
                 }
+
 
                 MyApplication app = (MyApplication) MainActivity.this.getApplication();
                 app.setItems(items);
@@ -447,7 +445,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 for (int i = 0; i < expenses.size(); i++) {
                     items.add(expenses.get(i));
-                    valueExpenses = valueExpenses + expenses.get(i).getSpent();
+                    valueExpenses = valueExpenses + expenses.get(i).getPrice();
 
                 }
 
@@ -501,7 +499,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 for (int i = 0; i < expenses.size(); i++) {
                     items.add(expenses.get(i));
-                    valueExpenses = valueExpenses + expenses.get(i).getSpent();
+                    valueExpenses = valueExpenses + expenses.get(i).getPrice();
 
                 }
 
@@ -556,7 +554,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         for (int i = 0; i < expenses.size(); i++) {
                             items.add(expenses.get(i));
-                            valueExpenses = valueExpenses + expenses.get(i).getSpent();
+                            valueExpenses = valueExpenses + expenses.get(i).getPrice();
                         }
 
                         MyApplication app = (MyApplication) MainActivity.this.getApplication();
@@ -614,7 +612,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         for (int i = 0; i < expenses.size(); i++) {
                             items.add(expenses.get(i));
-                            valueExpenses = valueExpenses + expenses.get(i).getSpent();
+                            valueExpenses = valueExpenses + expenses.get(i).getPrice();
 
                         }
 
@@ -694,7 +692,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         for (int i = 0; i < expenses.size(); i++) {
                             items.add(expenses.get(i));
-                            valueExpenses = valueExpenses + expenses.get(i).getSpent();
+                            valueExpenses = valueExpenses + expenses.get(i).getPrice();
 
                         }
 
@@ -753,7 +751,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         for (int i = 0; i < expenses.size(); i++) {
                             items.add(expenses.get(i));
-                            valueExpenses = valueExpenses + expenses.get(i).getSpent();
+                            valueExpenses = valueExpenses + expenses.get(i).getPrice();
                         }
 
                         MyApplication app = (MyApplication) MainActivity.this.getApplication();
@@ -810,7 +808,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         for (int i = 0; i < expenses.size(); i++) {
                             items.add(expenses.get(i));
-                            valueExpenses = valueExpenses + expenses.get(i).getSpent();
+                            valueExpenses = valueExpenses + expenses.get(i).getPrice();
 
                         }
 
@@ -898,7 +896,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         for (int i = 0; i < expenses.size(); i++) {
                             items.add(expenses.get(i));
-                            valueExpenses = valueExpenses + expenses.get(i).getSpent();
+                            valueExpenses = valueExpenses + expenses.get(i).getPrice();
 
                         }
 

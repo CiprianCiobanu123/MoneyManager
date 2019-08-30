@@ -550,11 +550,13 @@ public class moneyExpanded extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapter, View view, int i, long l) {
                 if (adapter.getItemAtPosition(i) instanceof Income) {
                     Income income = (Income) adapter.getItemAtPosition(i);
-                    String type = income.getType();
+                    String notes = income.getNotes();
+                    String category = income.getCategory();
                     double sum = income.getSum();
                     Intent intent = new Intent(moneyExpanded.this,
                             ShowIncome.class);
-                    intent.putExtra("type", type);
+                    intent.putExtra("notes", notes);
+                    intent.putExtra("category", category);
                     intent.putExtra("sum", sum);
                     intent.putExtra("day", income.getDayIncome());
                     intent.putExtra("month", income.getMonthIncome());
@@ -563,20 +565,18 @@ public class moneyExpanded extends AppCompatActivity {
                     startActivity(intent);
                 } else if (adapter.getItemAtPosition(i) instanceof Expense) {
                     Expense expense = (Expense) adapter.getItemAtPosition(i);
-                    String product = expense.getProduct();
-                    int cantity = expense.getCantity();
-                    double price = expense.getPrice();
-                    double amountSpent = expense.getSpent();
+                    double amountSpent = expense.getPrice();
+                    String category = expense.getCategory();
+                    String notes = expense.getNotes();
 
                     Intent intent = new Intent(moneyExpanded.this,
                             ShowExpense.class);
-                    intent.putExtra("product", product);
-                    intent.putExtra("cantity", cantity);
-                    intent.putExtra("price", price);
                     intent.putExtra("amountSpent", amountSpent);
                     intent.putExtra("day", expense.getDayExpense());
                     intent.putExtra("month", expense.getMonthExpense());
                     intent.putExtra("year", expense.getYearExpense());
+                    intent.putExtra("category", category);
+                    intent.putExtra("notes", notes);
                     startActivity(intent);
                 }
             }
