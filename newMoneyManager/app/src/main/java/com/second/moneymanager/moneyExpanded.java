@@ -60,33 +60,34 @@ public class moneyExpanded extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         menuItemCurrency = menu.findItem(R.id.changeCurrency);
+        menuItemCurrency.setVisible(false);
         menuitemYearly = menu.findItem(R.id.monthlyYearly);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        final AlertDialog.Builder b = new AlertDialog.Builder(this);
+//        final AlertDialog.Builder b = new AlertDialog.Builder(this);
         final AlertDialog.Builder b1 = new AlertDialog.Builder(this);
 
-        b.setTitle("Change Currency");
+//        b.setTitle("Change Currency");
         b1.setTitle("Sort");
 
-        b.setItems(paths, new DialogInterface.OnClickListener() {
-            Intent refresh = getIntent();
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                prefs.edit().putString("currency", spinnerCurrency2.getAdapter().getItem(which).toString()).apply();
-
-                startActivity(refresh);
-                overridePendingTransition(0, 0);
-                moneyExpanded.this.finish();
-                overridePendingTransition(0, 0);
-
-                dialog.dismiss();
-            }
-        });
+//        b.setItems(paths, new DialogInterface.OnClickListener() {
+//            Intent refresh = getIntent();
+//
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                prefs.edit().putString("currency", spinnerCurrency2.getAdapter().getItem(which).toString()).apply();
+//
+//                startActivity(refresh);
+//                overridePendingTransition(0, 0);
+//                moneyExpanded.this.finish();
+//                overridePendingTransition(0, 0);
+//
+//                dialog.dismiss();
+//            }
+//        });
 
         b1.setItems(valuesToShowAccount, new DialogInterface.OnClickListener() {
 
@@ -152,8 +153,8 @@ public class moneyExpanded extends AppCompatActivity {
                 b1.show();
                 break;
 
-            case R.id.changeCurrency:
-                b.show();
+//            case R.id.changeCurrency:
+////                b.show();
         }
 
         return super.onOptionsItemSelected(item);
@@ -567,6 +568,7 @@ public class moneyExpanded extends AppCompatActivity {
                     Expense expense = (Expense) adapter.getItemAtPosition(i);
                     double amountSpent = expense.getPrice();
                     String category = expense.getCategory();
+                    Toast.makeText(moneyExpanded.this, category, Toast.LENGTH_SHORT).show();
                     String notes = expense.getNotes();
 
                     Intent intent = new Intent(moneyExpanded.this,

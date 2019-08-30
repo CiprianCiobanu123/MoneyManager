@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Categories"></activity>
+        <activity android:name=".PieChartActivity"></activity>
+        <activity android:name=".PieChart" />
+        <activity android:name=".Categories" />
         <activity android:name=".ShowExpense" />
         <activity android:name=".ShowIncome" />
         <activity android:name=".AddIncome" />

@@ -23,6 +23,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.PieChart;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -254,7 +256,11 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.monthlyYearly:
-                b1.show();
+//                b1.show();
+
+                Intent intent = new Intent(MainActivity.this,
+                        com.second.moneymanager.PieChartActivity.class);
+                startActivity(intent);
                 break;
 
             case R.id.changeCurrency:
@@ -347,6 +353,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity.this,
                         AddExpense.class);
+
                 startActivityForResult(intent, requestCodeActivityAddExpense);
             }
         });
@@ -403,6 +410,8 @@ public class MainActivity extends AppCompatActivity {
                     valueExpenses = valueExpenses + expenses.get(i).getPrice();
                 }
 
+                prefs.edit().putString("valueExpenses",String.valueOf(valueExpenses)).apply();
+
 
                 MyApplication app = (MyApplication) MainActivity.this.getApplication();
                 app.setItems(items);
@@ -454,6 +463,9 @@ public class MainActivity extends AppCompatActivity {
                     valueExpenses = valueExpenses + expenses.get(i).getPrice();
 
                 }
+
+                prefs.edit().putString("valueExpenses",String.valueOf(valueExpenses)).apply();
+
 
                 MyApplication app = (MyApplication) MainActivity.this.getApplication();
                 app.setItems(items);
@@ -509,6 +521,8 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
+                prefs.edit().putString("valueExpenses",String.valueOf(valueExpenses)).apply();
+
                 MyApplication app = (MyApplication) MainActivity.this.getApplication();
                 app.setItems(items);
 
@@ -562,6 +576,8 @@ public class MainActivity extends AppCompatActivity {
                             items.add(expenses.get(i));
                             valueExpenses = valueExpenses + expenses.get(i).getPrice();
                         }
+
+                        prefs.edit().putString("valueExpenses",String.valueOf(valueExpenses)).apply();
 
                         MyApplication app = (MyApplication) MainActivity.this.getApplication();
                         app.setItems(items);
@@ -621,6 +637,7 @@ public class MainActivity extends AppCompatActivity {
                             valueExpenses = valueExpenses + expenses.get(i).getPrice();
 
                         }
+                        prefs.edit().putString("valueExpenses",String.valueOf(valueExpenses)).apply();
 
                         MyApplication app = (MyApplication) MainActivity.this.getApplication();
                         app.setItems(items);
@@ -701,6 +718,7 @@ public class MainActivity extends AppCompatActivity {
                             valueExpenses = valueExpenses + expenses.get(i).getPrice();
 
                         }
+                        prefs.edit().putString("valueExpenses",String.valueOf(valueExpenses)).apply();
 
                         MyApplication app = (MyApplication) MainActivity.this.getApplication();
                         app.setItems(items);
@@ -759,6 +777,7 @@ public class MainActivity extends AppCompatActivity {
                             items.add(expenses.get(i));
                             valueExpenses = valueExpenses + expenses.get(i).getPrice();
                         }
+                        prefs.edit().putString("valueExpenses",String.valueOf(valueExpenses)).apply();
 
                         MyApplication app = (MyApplication) MainActivity.this.getApplication();
                         app.setItems(items);
@@ -817,6 +836,7 @@ public class MainActivity extends AppCompatActivity {
                             valueExpenses = valueExpenses + expenses.get(i).getPrice();
 
                         }
+                        prefs.edit().putString("valueExpenses",String.valueOf(valueExpenses)).apply();
 
                         MyApplication app = (MyApplication) MainActivity.this.getApplication();
                         app.setItems(items);
@@ -905,6 +925,7 @@ public class MainActivity extends AppCompatActivity {
                             valueExpenses = valueExpenses + expenses.get(i).getPrice();
 
                         }
+                        prefs.edit().putString("valueExpenses",String.valueOf(valueExpenses)).apply();
 
                         MyApplication app = (MyApplication) MainActivity.this.getApplication();
                         app.setItems(items);
