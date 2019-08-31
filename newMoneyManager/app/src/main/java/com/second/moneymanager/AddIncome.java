@@ -150,7 +150,7 @@ public class AddIncome extends AppCompatActivity {
 
         if (requestCode == requestCodeForIncomeCategories) {
             if (resultCode == RESULT_OK) {
-                etCategory.setText(data.getStringExtra("categoryIncome"));
+                etCategory.setText(data.getStringExtra("IncomeOrExpense"));
             }
         }
     }

@@ -48,53 +48,48 @@ public class PieChartActivity extends AppCompatActivity {
 
         ArrayList<Expense> expenses = new ArrayList<>();
 
-        if (prefs.getString("monthlyOrYearly", "").equals("Yearly")) {
+        if (prefs.getString("monthlyOrYearly", "").equals("Monthly")) {
             try {
                 ExpensesDB db = new ExpensesDB(PieChartActivity.this);
                 db.open();
-
                 expenses = db.getExpensesByYear(String.valueOf(calendar.get(Calendar.YEAR)));
-
                 db.close();
-
-
                 for (int i = 0; i < expenses.size(); i++) {
                     valueExpenses = (float) (valueExpenses + expenses.get(i).getPrice());
-
-                    switch (expenses.get(i).getCategory()) {
-                        case "Fuel":
-                            valueExpensesForFuel = (float) (valueExpensesForFuel + expenses.get(i).getPrice());
-                            break;
-                        case "Coffe":
-                            valueExpensesForDrinks = (float) (valueExpensesForDrinks + expenses.get(i).getPrice());
-                            break;
-                        case "Eating Out":
-                            valueExpensesForEatingOut = (float) (valueExpensesForEatingOut + expenses.get(i).getPrice());
-                            break;
-                        case "Clothes":
-                            valueExpensesForClothes = (float) (valueExpensesForClothes + expenses.get(i).getPrice());
-                            break;
-                        case "Video Games":
-                            valueExpensesForVideoGames = (float) (valueExpensesForVideoGames + expenses.get(i).getPrice());
-                            break;
-                        case "Gifts":
-                            valueExpensesForGifts = (float) (valueExpensesForGifts + expenses.get(i).getPrice());
-                            break;
-                        case "Holiday":
-                            valueExpensesForHoliday = (float) (valueExpensesForHoliday + expenses.get(i).getPrice());
-                            break;
-                        case "Kids":
-                            valueExpensesForKids = (float) (valueExpensesForKids + expenses.get(i).getPrice());
-                            break;
-                        case "Sport":
-                            valueExpensesForSport = (float) (valueExpensesForSport + expenses.get(i).getPrice());
-                            break;
-                        case "Travel":
-                            valueExpensesForTravel = (float) (valueExpensesForTravel + expenses.get(i).getPrice());
-                            break;
-                        default:
-                            return ;
-                    }
+//                    switch (expenses.get(i).getCategory()) {
+//                        case "Fuel":
+//                            valueExpensesForFuel = (float) (valueExpensesForFuel + expenses.get(i).getPrice());
+//                            break;
+//                        case "Coffe":
+//                            valueExpensesForDrinks = (float) (valueExpensesForDrinks + expenses.get(i).getPrice());
+//                            break;
+//                        case "Eating Out":
+//                            valueExpensesForEatingOut = (float) (valueExpensesForEatingOut + expenses.get(i).getPrice());
+//                            break;
+//                        case "Clothes":
+//                            valueExpensesForClothes = (float) (valueExpensesForClothes + expenses.get(i).getPrice());
+//                            break;
+//                        case "Video Games":
+//                            valueExpensesForVideoGames = (float) (valueExpensesForVideoGames + expenses.get(i).getPrice());
+//                            break;
+//                        case "Gifts":
+//                            valueExpensesForGifts = (float) (valueExpensesForGifts + expenses.get(i).getPrice());
+//                            break;
+//                        case "Holiday":
+//                            valueExpensesForHoliday = (float) (valueExpensesForHoliday + expenses.get(i).getPrice());
+//                            break;
+//                        case "Kids":
+//                            valueExpensesForKids = (float) (valueExpensesForKids + expenses.get(i).getPrice());
+//                            break;
+//                        case "Sport":
+//                            valueExpensesForSport = (float) (valueExpensesForSport + expenses.get(i).getPrice());
+//                            break;
+//                        case "Travel":
+//                            valueExpensesForTravel = (float) (valueExpensesForTravel + expenses.get(i).getPrice());
+//                            break;
+//                        default:
+//                            return ;
+//                    }
                 }
             } catch (SQLException e) {
                 Toast.makeText(PieChartActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -115,7 +110,6 @@ public class PieChartActivity extends AppCompatActivity {
         PieDataSet dataSet = new PieDataSet(expensesForChart, "Balance");
 
         ArrayList<String> categories = new ArrayList<>();
-
 
 
         categories.add("Fuel");

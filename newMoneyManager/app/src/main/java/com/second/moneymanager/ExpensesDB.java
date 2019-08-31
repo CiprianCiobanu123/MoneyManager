@@ -78,7 +78,7 @@ public class ExpensesDB {
                     KEY_CATEGORY_FOR_INCOME_TABLE + " TEXT NOT NULL)";
 
             String sqlCodeForCategoriesExpense = "CREATE TABLE " + DATABASE_TABLE_CATEGORIES_FOR_EXPENSE + " (" +
-                    KEY_ROWID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                    KEY_ROWID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     KEY_CATEGORY_FOR_EXPENSE_TABLE + " TEXT NOT NULL)";
 
             sqLiteDatabase.execSQL(sqlCodeForExpense);
@@ -107,7 +107,7 @@ public class ExpensesDB {
         ourHelper.close();
     }
 
-    public long createEntryIncomeCategory(String category){
+    public long createEntryIncomeCategory(String category) {
         ContentValues cv = new ContentValues();
         cv.put(KEY_CATEGORY_FOR_INCOME_TABLE, category);
         return ourDatabase.insert(DATABASE_TABLE_CATEGORIES_FOR_INCOME, null, cv);
@@ -126,7 +126,7 @@ public class ExpensesDB {
         return incomeCategoriesArray;
     }
 
-    public long createEntryExpenseCategory(String category){
+    public long createEntryExpenseCategory(String category) {
         ContentValues cv = new ContentValues();
         cv.put(KEY_CATEGORY_FOR_EXPENSE_TABLE, category);
         return ourDatabase.insert(DATABASE_TABLE_CATEGORIES_FOR_EXPENSE, null, cv);

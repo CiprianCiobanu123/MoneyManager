@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Categories">
@@ -9,5 +10,14 @@
     <ListView
         android:id="@+id/lvCategories"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="590dp">
+
+    </ListView>
+
+    <Button
+        android:id="@+id/btnAddCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Category" />
+
 </LinearLayout>
