@@ -116,6 +116,8 @@ public class PieChartActivity extends AppCompatActivity {
 
         ArrayList<String> categories = new ArrayList<>();
 
+
+
         categories.add("Fuel");
         categories.add("Coffe");
         categories.add("Eating Out");

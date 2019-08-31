@@ -317,6 +317,30 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (prefs.getBoolean("firstrun", true)) {
+            try {
+                ExpensesDB db = new ExpensesDB(MainActivity.this);
+                db.open();
+                db.createEntryIncomeCategory("Salary");
+                db.createEntryIncomeCategory("Social Media");
+                db.createEntryIncomeCategory("Sales");
+                db.createEntryIncomeCategory("Bonus");
+
+                db.createEntryExpenseCategory("Fuel");
+                db.createEntryExpenseCategory("Coffe");
+                db.createEntryExpenseCategory("Eating Out");
+                db.createEntryExpenseCategory("Clothes");
+                db.createEntryExpenseCategory("Video Games");
+                db.createEntryExpenseCategory("Gifts");
+                db.createEntryExpenseCategory("Holiday");
+                db.createEntryExpenseCategory("Kids");
+                db.createEntryExpenseCategory("Sport");
+                db.createEntryExpenseCategory("Travel");
+                db.close();
+            } catch (SQLException e) {
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+
+
             Calendar calendar = Calendar.getInstance();
             // Do first run stuff here then set 'firstrun' as false
             prefs.edit().putString("year", String.valueOf(calendar.get(Calendar.YEAR))).apply();
@@ -412,7 +436,7 @@ public class MainActivity extends AppCompatActivity {
                     valueExpenses = valueExpenses + expenses.get(i).getPrice();
                 }
 
-                prefs.edit().putString("valueExpenses",String.valueOf(valueExpenses)).apply();
+                prefs.edit().putString("valueExpenses", String.valueOf(valueExpenses)).apply();
 
 
                 MyApplication app = (MyApplication) MainActivity.this.getApplication();
@@ -466,7 +490,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
-                prefs.edit().putString("valueExpenses",String.valueOf(valueExpenses)).apply();
+                prefs.edit().putString("valueExpenses", String.valueOf(valueExpenses)).apply();
 
 
                 MyApplication app = (MyApplication) MainActivity.this.getApplication();
@@ -523,7 +547,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
-                prefs.edit().putString("valueExpenses",String.valueOf(valueExpenses)).apply();
+                prefs.edit().putString("valueExpenses", String.valueOf(valueExpenses)).apply();
 
                 MyApplication app = (MyApplication) MainActivity.this.getApplication();
                 app.setItems(items);
@@ -579,7 +603,7 @@ public class MainActivity extends AppCompatActivity {
                             valueExpenses = valueExpenses + expenses.get(i).getPrice();
                         }
 
-                        prefs.edit().putString("valueExpenses",String.valueOf(valueExpenses)).apply();
+                        prefs.edit().putString("valueExpenses", String.valueOf(valueExpenses)).apply();
 
                         MyApplication app = (MyApplication) MainActivity.this.getApplication();
                         app.setItems(items);
@@ -639,7 +663,7 @@ public class MainActivity extends AppCompatActivity {
                             valueExpenses = valueExpenses + expenses.get(i).getPrice();
 
                         }
-                        prefs.edit().putString("valueExpenses",String.valueOf(valueExpenses)).apply();
+                        prefs.edit().putString("valueExpenses", String.valueOf(valueExpenses)).apply();
 
                         MyApplication app = (MyApplication) MainActivity.this.getApplication();
                         app.setItems(items);
@@ -720,7 +744,7 @@ public class MainActivity extends AppCompatActivity {
                             valueExpenses = valueExpenses + expenses.get(i).getPrice();
 
                         }
-                        prefs.edit().putString("valueExpenses",String.valueOf(valueExpenses)).apply();
+                        prefs.edit().putString("valueExpenses", String.valueOf(valueExpenses)).apply();
 
                         MyApplication app = (MyApplication) MainActivity.this.getApplication();
                         app.setItems(items);
@@ -779,7 +803,7 @@ public class MainActivity extends AppCompatActivity {
                             items.add(expenses.get(i));
                             valueExpenses = valueExpenses + expenses.get(i).getPrice();
                         }
-                        prefs.edit().putString("valueExpenses",String.valueOf(valueExpenses)).apply();
+                        prefs.edit().putString("valueExpenses", String.valueOf(valueExpenses)).apply();
 
                         MyApplication app = (MyApplication) MainActivity.this.getApplication();
                         app.setItems(items);
@@ -838,7 +862,7 @@ public class MainActivity extends AppCompatActivity {
                             valueExpenses = valueExpenses + expenses.get(i).getPrice();
 
                         }
-                        prefs.edit().putString("valueExpenses",String.valueOf(valueExpenses)).apply();
+                        prefs.edit().putString("valueExpenses", String.valueOf(valueExpenses)).apply();
 
                         MyApplication app = (MyApplication) MainActivity.this.getApplication();
                         app.setItems(items);
@@ -927,7 +951,7 @@ public class MainActivity extends AppCompatActivity {
                             valueExpenses = valueExpenses + expenses.get(i).getPrice();
 
                         }
-                        prefs.edit().putString("valueExpenses",String.valueOf(valueExpenses)).apply();
+                        prefs.edit().putString("valueExpenses", String.valueOf(valueExpenses)).apply();
 
                         MyApplication app = (MyApplication) MainActivity.this.getApplication();
                         app.setItems(items);

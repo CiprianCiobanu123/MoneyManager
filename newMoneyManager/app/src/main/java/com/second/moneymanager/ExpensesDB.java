@@ -28,12 +28,13 @@ public class ExpensesDB {
     public static final String KEY_FOR_NOTES_INCOMES = "notes_for_incomes";
     public static final String KEY_FOR_CATEGORY_FOR_INCOME = "_category_for_income";
 
-    public static final String KEY_CURRENCY = "year_for_incomes";
+    public static final String KEY_CATEGORY_FOR_INCOME_TABLE = "_category_for_income_table";
+    public static final String KEY_CATEGORY_FOR_EXPENSE_TABLE = "_category_for_expense_table";
 
-    private final String DATABASE_NAME = "SpendingDB";
     private final String DATABASE_TABLE_EXPENSE = "ExpenseTable";
     private final String DATABASE_TABLE_INCOME = "IncomeTable";
-    private final String DATABASE_TABLE_CURRENCY = "CurrencyTable";
+    private final String DATABASE_TABLE_CATEGORIES_FOR_INCOME = "CategoriesIncome";
+    private final String DATABASE_TABLE_CATEGORIES_FOR_EXPENSE = "CategoriesExpense";
     private final int DATABASE_VERSION = 1;
 
     private DBHelper ourHelper;
@@ -72,8 +73,18 @@ public class ExpensesDB {
                     KEY_MONTH_FOR_INCOMES + " INTEGER, " +
                     KEY_YEAR_FOR_INCOMES + " INTEGER)";
 
+            String sqlCodeForCategoriesIncome = "CREATE TABLE " + DATABASE_TABLE_CATEGORIES_FOR_INCOME + " (" +
+                    KEY_ROWID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    KEY_CATEGORY_FOR_INCOME_TABLE + " TEXT NOT NULL)";
+
+            String sqlCodeForCategoriesExpense = "CREATE TABLE " + DATABASE_TABLE_CATEGORIES_FOR_EXPENSE + " (" +
+                    KEY_ROWID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                    KEY_CATEGORY_FOR_EXPENSE_TABLE + " TEXT NOT NULL)";
+
             sqLiteDatabase.execSQL(sqlCodeForExpense);
             sqLiteDatabase.execSQL(sqlCodeForIncome);
+            sqLiteDatabase.execSQL(sqlCodeForCategoriesIncome);
+            sqLiteDatabase.execSQL(sqlCodeForCategoriesExpense);
 
         }
 
@@ -92,8 +103,48 @@ public class ExpensesDB {
     }
 
     public void close() {
+
         ourHelper.close();
     }
+
+    public long createEntryIncomeCategory(String category){
+        ContentValues cv = new ContentValues();
+        cv.put(KEY_CATEGORY_FOR_INCOME_TABLE, category);
+        return ourDatabase.insert(DATABASE_TABLE_CATEGORIES_FOR_INCOME, null, cv);
+    }
+
+    public ArrayList<String> getAllIncomeCategories() {
+        SQLiteDatabase db = this.ourHelper.getReadableDatabase();
+        ArrayList<String> incomeCategoriesArray = new ArrayList<>();
+        Cursor res = db.rawQuery("select * from " + DATABASE_TABLE_CATEGORIES_FOR_INCOME, null);
+        res.moveToFirst();
+        while (!res.isAfterLast()) {
+            String category = res.getString(res.getColumnIndex(KEY_CATEGORY_FOR_INCOME_TABLE));
+            incomeCategoriesArray.add(category);
+            res.moveToNext();
+        }
+        return incomeCategoriesArray;
+    }
+
+    public long createEntryExpenseCategory(String category){
+        ContentValues cv = new ContentValues();
+        cv.put(KEY_CATEGORY_FOR_EXPENSE_TABLE, category);
+        return ourDatabase.insert(DATABASE_TABLE_CATEGORIES_FOR_EXPENSE, null, cv);
+    }
+
+    public ArrayList<String> getAllExpenseCategories() {
+        SQLiteDatabase db = this.ourHelper.getReadableDatabase();
+        ArrayList<String> expenseCategoriesArray = new ArrayList<>();
+        Cursor res = db.rawQuery("select * from " + DATABASE_TABLE_CATEGORIES_FOR_EXPENSE, null);
+        res.moveToFirst();
+        while (!res.isAfterLast()) {
+            String category = res.getString(res.getColumnIndex(KEY_CATEGORY_FOR_EXPENSE_TABLE));
+            expenseCategoriesArray.add(category);
+            res.moveToNext();
+        }
+        return expenseCategoriesArray;
+    }
+
 
     public long createEntryExpense(double price, int dayExpense, String monthExpense, int yearExpense, String category, String notes) {
         ContentValues cv = new ContentValues();
