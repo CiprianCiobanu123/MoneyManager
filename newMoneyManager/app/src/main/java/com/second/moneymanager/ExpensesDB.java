@@ -28,17 +28,13 @@ public class ExpensesDB {
     public static final String KEY_FOR_NOTES_INCOMES = "notes_for_incomes";
     public static final String KEY_FOR_CATEGORY_FOR_INCOME = "_category_for_income";
 
-
-
     public static final String KEY_CURRENCY = "year_for_incomes";
-
 
     private final String DATABASE_NAME = "SpendingDB";
     private final String DATABASE_TABLE_EXPENSE = "ExpenseTable";
     private final String DATABASE_TABLE_INCOME = "IncomeTable";
     private final String DATABASE_TABLE_CURRENCY = "CurrencyTable";
     private final int DATABASE_VERSION = 1;
-
 
     private DBHelper ourHelper;
     private final Context ourContext;
@@ -47,7 +43,6 @@ public class ExpensesDB {
     public ExpensesDB(Context context) {
         ourContext = context;
     }
-
 
     public class DBHelper extends SQLiteOpenHelper {
 
