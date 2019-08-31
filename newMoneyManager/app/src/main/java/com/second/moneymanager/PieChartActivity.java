@@ -114,7 +114,7 @@ public class PieChartActivity extends AppCompatActivity {
 
         PieDataSet dataSet = new PieDataSet(expensesForChart, "Balance");
 
-        ArrayList<String> categories = new ArrayList<String>();
+        ArrayList<String> categories = new ArrayList<>();
 
         categories.add("Fuel");
         categories.add("Coffe");
@@ -131,6 +131,6 @@ public class PieChartActivity extends AppCompatActivity {
         PieData data = new PieData(categories, dataSet);
         pieChart.setData(data);
         dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        pieChart.animateXY(5000, 5000);
+        pieChart.animateXY(2000, 2000);
     }
 }
