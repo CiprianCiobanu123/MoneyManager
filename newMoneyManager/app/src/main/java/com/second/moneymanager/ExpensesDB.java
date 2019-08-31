@@ -381,7 +381,6 @@ public class ExpensesDB {
         res.moveToFirst();
         while (!res.isAfterLast()) {
             double expenseValue = res.getDouble(res.getColumnIndex(KEY_PRICE));
-            Toast.makeText(ourContext, expenseValue + "", Toast.LENGTH_SHORT).show();
             expenseValues.add(expenseValue);
             res.moveToNext();
         }

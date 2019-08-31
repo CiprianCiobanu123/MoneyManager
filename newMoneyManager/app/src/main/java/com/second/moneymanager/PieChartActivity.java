@@ -28,7 +28,6 @@ public class PieChartActivity extends AppCompatActivity {
         ArrayList<Entry> expensesForChart = new ArrayList<>();
         ArrayList<String> categories = new ArrayList<>();
 
-
         prefs = getSharedPreferences("com.mycompany.MoneyManager", MainActivity.MODE_PRIVATE);
 
         Calendar calendar = Calendar.getInstance();
@@ -45,37 +44,36 @@ public class PieChartActivity extends AppCompatActivity {
         if (prefs.getString("monthlyOrYearly", "").equals("Monthly")) {
 
             try {
-
                 ExpensesDB db = new ExpensesDB(PieChartActivity.this);
                 db.open();
                 expenses = db.getExpensesByYear(String.valueOf(calendar.get(Calendar.YEAR)));
 
                 for (int i = 0; i < expenses.size(); i++) {
+                    valueExpenses = (float) (valueExpenses + expenses.get(i).getPrice());
+                }
+
+                for (int i = 0; i < expenses.size(); i++) {
 
                     totalValuesFromExpenseValues = 0;
-
-                    valueExpenses = (float) (valueExpenses + expenses.get(i).getPrice());
 
                     expensesValues = db.getExpensesValuesByCategory(expenses.get(i).getCategory());
 
                     for (int j = 0; j < expensesValues.size(); j++) {
                         totalValuesFromExpenseValues = totalValuesFromExpenseValues + expensesValues.get(j);
                     }
+
                     if (totalValuesFromExpenseValues > 0) {
                         expensesForChart.add(new Entry(((float) (totalValuesFromExpenseValues * 100) / valueExpenses), i));
                     }
 
                     categories.add(expenses.get(i).getCategory());
                 }
-
                 db.close();
             } catch (SQLException e) {
                 Toast.makeText(PieChartActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-
         }
-
-        PieDataSet dataSet = new PieDataSet(expensesForChart, "Balance");
+        PieDataSet dataSet = new PieDataSet(expensesForChart, "");
         PieData data = new PieData(categories, dataSet);
 
         pieChart.setData(data);

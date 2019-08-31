@@ -53,10 +53,12 @@ public class BarChartActivity extends AppCompatActivity {
                 expenses = db.getExpensesByYear(String.valueOf(calendar.get(Calendar.YEAR)));
 
                 for (int i = 0; i < expenses.size(); i++) {
+                    valueExpenses = (float) (valueExpenses + expenses.get(i).getPrice());
+                }
+                for (int i = 0; i < expenses.size(); i++) {
 
                     totalValuesFromExpenseValues = 0;
 
-                    valueExpenses = (float) (valueExpenses + expenses.get(i).getPrice());
 
                     expensesValues = db.getExpensesValuesByCategory(expenses.get(i).getCategory());
 
@@ -66,7 +68,6 @@ public class BarChartActivity extends AppCompatActivity {
                     if (totalValuesFromExpenseValues > 0) {
                         expensesForBarChart.add(new BarEntry(((float) (totalValuesFromExpenseValues * 100) / valueExpenses), i));
                     }
-
                     categories.add(expenses.get(i).getCategory());
                 }
 
@@ -74,10 +75,9 @@ public class BarChartActivity extends AppCompatActivity {
             } catch (SQLException e) {
                 Toast.makeText(BarChartActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-
         }
 
-        BarDataSet bardataset = new BarDataSet(expensesForBarChart, "No Of Employee");
+        BarDataSet bardataset = new BarDataSet(expensesForBarChart, "");
         chart.animateY(2000);
         BarData data = new BarData(categories, bardataset);
         bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
