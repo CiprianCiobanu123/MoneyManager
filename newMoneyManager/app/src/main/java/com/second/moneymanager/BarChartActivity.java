@@ -27,54 +27,55 @@ public class BarChartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bar_chart);
         BarChart chart = findViewById(R.id.barchart);
 
+        ArrayList expensesForBarChart = new ArrayList<>();
+        ArrayList<String> categories = new ArrayList<>();
+
+
         prefs = getSharedPreferences("com.mycompany.MoneyManager", MainActivity.MODE_PRIVATE);
+
         Calendar calendar = Calendar.getInstance();
         final int day = Integer.parseInt(prefs.getString("day", ""));
         final int month = Integer.parseInt(prefs.getString("month", ""));
         final int year = Integer.parseInt(prefs.getString("year", ""));
 
         float valueExpenses = 0;
-        float valueExpensesForFuel = 0;
-        float valueExpensesForDrinks = 0;
-        float valueExpensesForEatingOut = 0;
-        float valueExpensesForClothes = 0;
-        float valueExpensesForVideoGames = 0;
-        float valueExpensesForGifts = 0;
-        float valueExpensesForHoliday = 0;
-        float valueExpensesForKids = 0;
-        float valueExpensesForSport = 0;
-        float valueExpensesForTravel = 0;
 
         ArrayList<Expense> expenses = new ArrayList<>();
+        ArrayList<Double> expensesValues = new ArrayList<>();
+        double totalValuesFromExpenseValues;
 
+        if (prefs.getString("monthlyOrYearly", "").equals("Monthly")) {
 
-        if (prefs.getString("monthlyOrYearly", "").equals("Yearly")) {
             try {
+
                 ExpensesDB db = new ExpensesDB(BarChartActivity.this);
                 db.open();
-
-                expenses = db.getExpensesByYear(prefs.getString("year", ""));
-
-                db.close();
+                expenses = db.getExpensesByYear(String.valueOf(calendar.get(Calendar.YEAR)));
 
                 for (int i = 0; i < expenses.size(); i++) {
+
+                    totalValuesFromExpenseValues = 0;
+
                     valueExpenses = (float) (valueExpenses + expenses.get(i).getPrice());
+
+                    expensesValues = db.getExpensesValuesByCategory(expenses.get(i).getCategory());
+
+                    for (int j = 0; j < expensesValues.size(); j++) {
+                        totalValuesFromExpenseValues = totalValuesFromExpenseValues + expensesValues.get(j);
+                    }
+                    if (totalValuesFromExpenseValues > 0) {
+                        expensesForBarChart.add(new BarEntry(((float) (totalValuesFromExpenseValues * 100) / valueExpenses), i));
+                    }
+
+                    categories.add(expenses.get(i).getCategory());
                 }
 
+                db.close();
             } catch (SQLException e) {
                 Toast.makeText(BarChartActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
+
         }
-
-        ArrayList expensesForBarChart = new ArrayList();
-
-        expensesForBarChart.add(new BarEntry( valueExpenses, 0));
-//        expensesForBarChart.add(new BarEntry((((valueExpensesForDrinks * 100) / valueExpenses)), 1));
-
-        ArrayList categories = new ArrayList();
-
-        categories.add("Fuel");
-//        categories.add("Coffe");
 
         BarDataSet bardataset = new BarDataSet(expensesForBarChart, "No Of Employee");
         chart.animateY(2000);
