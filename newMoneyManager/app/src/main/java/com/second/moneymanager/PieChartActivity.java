@@ -56,6 +56,12 @@ public class PieChartActivity extends AppCompatActivity {
                 db.close();
                 for (int i = 0; i < expenses.size(); i++) {
                     valueExpenses = (float) (valueExpenses + expenses.get(i).getPrice());
+
+
+
+
+
+
 //                    switch (expenses.get(i).getCategory()) {
 //                        case "Fuel":
 //                            valueExpensesForFuel = (float) (valueExpensesForFuel + expenses.get(i).getPrice());

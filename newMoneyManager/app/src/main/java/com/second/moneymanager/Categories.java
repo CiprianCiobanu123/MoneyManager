@@ -73,9 +73,11 @@ public class Categories extends AppCompatActivity {
                 Intent intent = new Intent();
                 if (prefs.getBoolean("isIncome", true)) {
                     intent.putExtra("categoryIncome", itemValue);
+                    prefs.edit().putBoolean("addedNoNewIncomeCategory", true).apply();
+
                 } else if (prefs.getBoolean("isExpense", true)) {
                     intent.putExtra("categoryExpense", itemValue);
-
+                    prefs.edit().putBoolean("addedNoNewExpenseCategory", true).apply();
                 }
 
                 setResult(RESULT_OK, intent);
@@ -87,7 +89,6 @@ public class Categories extends AppCompatActivity {
                         .show();
 
             }
-
         });
 
         final AlertDialog.Builder b = new AlertDialog.Builder(this);
@@ -95,8 +96,6 @@ public class Categories extends AppCompatActivity {
         final EditText inputCategory = new EditText(this);
         inputCategory.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
         b.setView(inputCategory);
-
-
 
         b.setPositiveButton("Add", new DialogInterface.OnClickListener() {
             @Override
@@ -108,8 +107,13 @@ public class Categories extends AppCompatActivity {
                     db.open();
                     if (prefs.getBoolean("isIncome", true)) {
                         db.createEntryIncomeCategory(EnteredText);
+                        prefs.edit().putBoolean("addedNoNewIncomeCategory", false).apply();
+
+
                     } else if (prefs.getBoolean("isExpense", true)) {
                         db.createEntryExpenseCategory(EnteredText);
+                        prefs.edit().putBoolean("addedNoNewExpenseCategory", false).apply();
+
                     }
                     db.close();
                 } catch (SQLException e) {

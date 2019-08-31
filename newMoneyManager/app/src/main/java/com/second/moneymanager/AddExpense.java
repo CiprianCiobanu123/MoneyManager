@@ -138,7 +138,13 @@ public class AddExpense extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == requestCodeForExpenseCategories){
             if(resultCode == RESULT_OK){
-                etCategoryExpense.setText(data.getStringExtra("IncomeOrExpense"));
+                if(prefs.getBoolean("addedNoNewExpenseCategory",true)){
+
+                    etCategoryExpense.setText(data.getStringExtra("categoryExpense"));
+                }else{
+
+                    etCategoryExpense.setText(data.getStringExtra("IncomeOrExpense"));
+                }
             }
         }
 
