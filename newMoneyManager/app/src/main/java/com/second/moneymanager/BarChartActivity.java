@@ -57,45 +57,10 @@ public class BarChartActivity extends AppCompatActivity {
 
                 db.close();
 
-
                 for (int i = 0; i < expenses.size(); i++) {
                     valueExpenses = (float) (valueExpenses + expenses.get(i).getPrice());
-
-                    switch (expenses.get(i).getCategory()) {
-                        case "Fuel":
-                            valueExpensesForFuel = (float) (valueExpensesForFuel + expenses.get(i).getPrice());
-                            break;
-                        case "Coffe":
-                            valueExpensesForDrinks = (float) (valueExpensesForDrinks + expenses.get(i).getPrice());
-                            break;
-                        case "Eating Out":
-                            valueExpensesForEatingOut = (float) (valueExpensesForEatingOut + expenses.get(i).getPrice());
-                            break;
-                        case "Clothes":
-                            valueExpensesForClothes = (float) (valueExpensesForClothes + expenses.get(i).getPrice());
-                            break;
-                        case "Video Games":
-                            valueExpensesForVideoGames = (float) (valueExpensesForVideoGames + expenses.get(i).getPrice());
-                            break;
-                        case "Gifts":
-                            valueExpensesForGifts = (float) (valueExpensesForGifts + expenses.get(i).getPrice());
-                            break;
-                        case "Holiday":
-                            valueExpensesForHoliday = (float) (valueExpensesForHoliday + expenses.get(i).getPrice());
-                            break;
-                        case "Kids":
-                            valueExpensesForKids = (float) (valueExpensesForKids + expenses.get(i).getPrice());
-                            break;
-                        case "Sport":
-                            valueExpensesForSport = (float) (valueExpensesForSport + expenses.get(i).getPrice());
-                            break;
-                        case "Travel":
-                            valueExpensesForTravel = (float) (valueExpensesForTravel + expenses.get(i).getPrice());
-                            break;
-                        default:
-                            return;
-                    }
                 }
+
             } catch (SQLException e) {
                 Toast.makeText(BarChartActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -103,29 +68,13 @@ public class BarChartActivity extends AppCompatActivity {
 
         ArrayList expensesForBarChart = new ArrayList();
 
-        expensesForBarChart.add(new BarEntry(((valueExpensesForFuel * 100) / valueExpenses), 0));
-        expensesForBarChart.add(new BarEntry((((valueExpensesForDrinks * 100) / valueExpenses)), 1));
-        expensesForBarChart.add(new BarEntry((((valueExpensesForEatingOut * 100) / valueExpenses)), 2));
-        expensesForBarChart.add(new BarEntry(((valueExpensesForClothes * 100) / valueExpenses), 3));
-        expensesForBarChart.add(new BarEntry(((valueExpensesForVideoGames * 100) / valueExpenses), 4));
-        expensesForBarChart.add(new BarEntry(((valueExpensesForHoliday * 100) / valueExpenses), 5));
-        expensesForBarChart.add(new BarEntry(((valueExpensesForKids * 100) / valueExpenses), 6));
-        expensesForBarChart.add(new BarEntry(((valueExpensesForSport * 100) / valueExpenses), 7));
-        expensesForBarChart.add(new BarEntry(((valueExpensesForTravel * 100) / valueExpenses), 8));
-        expensesForBarChart.add(new BarEntry(((valueExpensesForGifts * 100) / valueExpenses), 8));
+        expensesForBarChart.add(new BarEntry( valueExpenses, 0));
+//        expensesForBarChart.add(new BarEntry((((valueExpensesForDrinks * 100) / valueExpenses)), 1));
 
         ArrayList categories = new ArrayList();
 
         categories.add("Fuel");
-        categories.add("Coffe");
-        categories.add("Eating Out");
-        categories.add("Clothes");
-        categories.add("Video Games");
-        categories.add("Gifts");
-        categories.add("Holiday");
-        categories.add("Kids");
-        categories.add("Sport");
-        categories.add("Travel");
+//        categories.add("Coffe");
 
         BarDataSet bardataset = new BarDataSet(expensesForBarChart, "No Of Employee");
         chart.animateY(2000);
