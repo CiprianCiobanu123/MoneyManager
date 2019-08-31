@@ -255,19 +255,18 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.monthlyYearly:
-//                b1.show();
-
-                Intent intent = new Intent(MainActivity.this,
-                        com.second.moneymanager.PieChartActivity.class);
-                startActivity(intent);
+                b1.show();
                 break;
 
             case R.id.changeCurrency:
-//                b.show().getWindow();
+                b.show().getWindow();
+                break;
 
-                Intent intent1 = new Intent(MainActivity.this,
-                        com.second.moneymanager.BarChartActivity.class);
-                startActivity(intent1);
+            case R.id.chartsButton:
+                Intent intent2 = new Intent(MainActivity.this,
+                        com.second.moneymanager.ChooseChart.class);
+                startActivity(intent2);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -278,7 +277,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         tvAccount = findViewById(R.id.tvAccount);
         tvCurrency = findViewById(R.id.tvCurrency);
