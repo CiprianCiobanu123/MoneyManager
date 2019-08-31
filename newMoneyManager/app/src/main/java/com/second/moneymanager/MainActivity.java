@@ -23,7 +23,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.mikephil.charting.charts.PieChart;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -264,8 +263,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.changeCurrency:
-                b.show().getWindow();
+//                b.show().getWindow();
 
+                Intent intent1 = new Intent(MainActivity.this,
+                        com.second.moneymanager.BarChartActivity.class);
+                startActivity(intent1);
         }
 
         return super.onOptionsItemSelected(item);

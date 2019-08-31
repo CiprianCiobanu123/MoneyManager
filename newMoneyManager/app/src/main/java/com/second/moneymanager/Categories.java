@@ -11,10 +11,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Categories extends AppCompatActivity {
     ListView lvCategories;
     SharedPreferences prefs = null;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,9 @@ public class Categories extends AppCompatActivity {
                 "Fuel", "Coffe", "Eating Out", "Clothes", "Video Games", "Gifts", " Holiday", "Kids", "Sport", "Travel"
         };
 
+        Map<String, String> setCategoriesForIncomes = new HashMap<>();
+        Map<String, String> setCategoriesForExpenses = new HashMap<>();
+
         if (prefs.getBoolean("isExpense", true)) {
 
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
@@ -45,16 +50,13 @@ public class Categories extends AppCompatActivity {
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                     android.R.layout.simple_list_item_1, android.R.id.text1, incomeCategories);
             lvCategories.setAdapter(adapter);
-
         }
-
 
         lvCategories.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-
 
                 // ListView Clicked item value
                 String itemValue = (String) lvCategories.getItemAtPosition(position);

@@ -2,7 +2,6 @@ package com.second.moneymanager;
 
 import android.content.SharedPreferences;
 import android.database.SQLException;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -16,7 +15,6 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Map;
 
 public class PieChartActivity extends AppCompatActivity {
 
@@ -27,7 +25,7 @@ public class PieChartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pie_chart);
         PieChart pieChart = findViewById(R.id.piechart);
-        ArrayList expensesForChart = new ArrayList();
+        ArrayList<Entry> expensesForChart = new ArrayList<>();
 
         prefs = getSharedPreferences("com.mycompany.MoneyManager", MainActivity.MODE_PRIVATE);
 
@@ -36,7 +34,7 @@ public class PieChartActivity extends AppCompatActivity {
         final int month = Integer.parseInt(prefs.getString("month", ""));
         final int year = Integer.parseInt(prefs.getString("year", ""));
 
-        double valueExpenses = 0;
+        float valueExpenses = 0;
         float valueExpensesForFuel = 0;
         float valueExpensesForDrinks = 0;
         float valueExpensesForEatingOut = 0;
@@ -61,7 +59,7 @@ public class PieChartActivity extends AppCompatActivity {
 
 
                 for (int i = 0; i < expenses.size(); i++) {
-                    valueExpenses = valueExpenses + expenses.get(i).getPrice();
+                    valueExpenses = (float) (valueExpenses + expenses.get(i).getPrice());
 
                     switch (expenses.get(i).getCategory()) {
                         case "Fuel":
@@ -103,21 +101,20 @@ public class PieChartActivity extends AppCompatActivity {
             }
         }
 
-
-        expensesForChart.add(new Entry((float) ((valueExpensesForFuel * 100) / valueExpenses), 0));
-        expensesForChart.add(new Entry((float) ((valueExpensesForDrinks * 100) / valueExpenses), 1));
-        expensesForChart.add(new Entry((float) ((valueExpensesForEatingOut * 100) / valueExpenses), 2));
-        expensesForChart.add(new Entry((float) ((valueExpensesForClothes * 100) / valueExpenses), 3));
-        expensesForChart.add(new Entry((float) ((valueExpensesForVideoGames * 100) / valueExpenses), 4));
-        expensesForChart.add(new Entry((float) ((valueExpensesForHoliday * 100) / valueExpenses), 5));
-        expensesForChart.add(new Entry((float) ((valueExpensesForKids * 100) / valueExpenses), 6));
-        expensesForChart.add(new Entry((float) ((valueExpensesForSport * 100) / valueExpenses), 7));
-        expensesForChart.add(new Entry((float) ((valueExpensesForTravel * 100) / valueExpenses), 8));
+        expensesForChart.add(new Entry(((valueExpensesForFuel * 100) / valueExpenses), 0));
+        expensesForChart.add(new Entry((((valueExpensesForDrinks * 100) / valueExpenses)), 1));
+        expensesForChart.add(new Entry((((valueExpensesForEatingOut * 100) / valueExpenses)), 2));
+        expensesForChart.add(new Entry(((valueExpensesForClothes * 100) / valueExpenses), 3));
+        expensesForChart.add(new Entry(((valueExpensesForVideoGames * 100) / valueExpenses), 4));
+        expensesForChart.add(new Entry(((valueExpensesForHoliday * 100) / valueExpenses), 5));
+        expensesForChart.add(new Entry(((valueExpensesForKids * 100) / valueExpenses), 6));
+        expensesForChart.add(new Entry(((valueExpensesForSport * 100) / valueExpenses), 7));
+        expensesForChart.add(new Entry(((valueExpensesForTravel * 100) / valueExpenses), 8));
+        expensesForChart.add(new Entry(((valueExpensesForGifts * 100) / valueExpenses), 8));
 
         PieDataSet dataSet = new PieDataSet(expensesForChart, "Balance");
 
-        ArrayList categories = new ArrayList();
-
+        ArrayList<String> categories = new ArrayList<String>();
 
         categories.add("Fuel");
         categories.add("Coffe");
