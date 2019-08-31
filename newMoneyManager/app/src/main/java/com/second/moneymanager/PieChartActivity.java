@@ -40,53 +40,44 @@ public class PieChartActivity extends AppCompatActivity {
 
         ArrayList<Expense> expenses = new ArrayList<>();
         ArrayList<Double> expensesValues = new ArrayList<>();
-        double totalValuesFromExpenseValues = 0;
+        double totalValuesFromExpenseValues;
 
         if (prefs.getString("monthlyOrYearly", "").equals("Monthly")) {
+
             try {
+
                 ExpensesDB db = new ExpensesDB(PieChartActivity.this);
                 db.open();
                 expenses = db.getExpensesByYear(String.valueOf(calendar.get(Calendar.YEAR)));
 
                 for (int i = 0; i < expenses.size(); i++) {
+
+                    totalValuesFromExpenseValues = 0;
+
                     valueExpenses = (float) (valueExpenses + expenses.get(i).getPrice());
-                    if (categories.contains(expenses.get(i).getCategory())) {
-                        break ;
-                    } else {
-                        expensesValues = db.getExpensesValuesByCategory(expenses.get(i).getCategory());
-                        Toast.makeText(this, expenses.get(i).getCategory(), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(this, expensesValues.size() + "", Toast.LENGTH_SHORT).show();
-                        for (int j = 0; j < expensesValues.size(); j++) {
-                            totalValuesFromExpenseValues = totalValuesFromExpenseValues + expensesValues.get(i);
-                        }
-                        if (totalValuesFromExpenseValues > 0) {
-                            expensesForChart.add(new Entry((float) totalValuesFromExpenseValues, i));
-                        }
-                        categories.add(expenses.get(i).getCategory());
+
+                    expensesValues = db.getExpensesValuesByCategory(expenses.get(i).getCategory());
+
+                    for (int j = 0; j < expensesValues.size(); j++) {
+                        totalValuesFromExpenseValues = totalValuesFromExpenseValues + expensesValues.get(j);
                     }
+                    if (totalValuesFromExpenseValues > 0) {
+                        expensesForChart.add(new Entry(((float) (totalValuesFromExpenseValues * 100) / valueExpenses), i));
+                    }
+
+                    categories.add(expenses.get(i).getCategory());
                 }
+
                 db.close();
             } catch (SQLException e) {
                 Toast.makeText(PieChartActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
+
         }
 
-
         PieDataSet dataSet = new PieDataSet(expensesForChart, "Balance");
-
-//        categories.add("Video Games");
-//        categories.add("Coffe");
-//        categories.add("Eating Out");
-//        categories.add("Clothes");
-//        categories.add("Video Games");
-//        categories.add("Gifts");
-//        categories.add("Holiday");
-//        categories.add("Kids");
-//        categories.add("Sport");
-//        categories.add("Travel");
-
-
         PieData data = new PieData(categories, dataSet);
+
         pieChart.setData(data);
         dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         pieChart.animateXY(2000, 2000);
