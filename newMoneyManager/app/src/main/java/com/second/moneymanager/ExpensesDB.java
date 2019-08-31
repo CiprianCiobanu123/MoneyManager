@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -146,16 +147,15 @@ public class ExpensesDB {
     }
 
 
-    public long createEntryExpense(double price, int dayExpense, String monthExpense, int yearExpense, String category, String notes) {
+    public long createEntryExpense(double price, int dayExpense, String monthExpense, int yearExpense, String notes, String category) {
         ContentValues cv = new ContentValues();
         cv.put(KEY_PRICE, price);
         cv.put(KEY_DAY_FOR_EXPENSES, dayExpense);
         cv.put(KEY_MONTH_FOR_EXPENSES, monthExpense);
-        cv.put(KEY_FOR_CATEGORY, category);
         cv.put(KEY_YEAR_FOR_EXPENSES, yearExpense);
         cv.put(KEY_FOR_NOTES_EXPENSES, notes);
+        cv.put(KEY_FOR_CATEGORY, category);
         return ourDatabase.insert(DATABASE_TABLE_EXPENSE, null, cv);
-
     }
 
     public long createEntryIncome(double sum, int dayIncome, String monthIncome, int yearIncome, String category, String notes) {
@@ -275,7 +275,7 @@ public class ExpensesDB {
             String monthExpense = res.getString(res.getColumnIndex(KEY_MONTH_FOR_EXPENSES));
             int yearExpense = res.getInt(res.getColumnIndex(KEY_YEAR_FOR_EXPENSES));
 
-            Expense expense = new Expense(price, dayExpense, monthExpense, yearExpense, id, category, notes);
+            Expense expense = new Expense(price, dayExpense, monthExpense, yearExpense, id,notes, category);
             expenseArray.add(expense);
             res.moveToNext();
         }
@@ -298,7 +298,7 @@ public class ExpensesDB {
             String monthExpense = res.getString(res.getColumnIndex(KEY_MONTH_FOR_EXPENSES));
             int yearExpense = res.getInt(res.getColumnIndex(KEY_YEAR_FOR_EXPENSES));
 
-            Expense expense = new Expense(price, dayExpense, monthExpense, yearExpense, id, category, notes);
+            Expense expense = new Expense(price, dayExpense, monthExpense, yearExpense, id, notes, category);
             expenseArray.add(expense);
             res.moveToNext();
         }
@@ -319,7 +319,7 @@ public class ExpensesDB {
             String monthExpense = res.getString(res.getColumnIndex(KEY_MONTH_FOR_EXPENSES));
             int yearExpense = res.getInt(res.getColumnIndex(KEY_YEAR_FOR_EXPENSES));
 
-            Expense expense = new Expense(price, dayExpense, monthExpense, yearExpense, id, category, notes);
+            Expense expense = new Expense(price, dayExpense, monthExpense, yearExpense, id, notes, category);
             expenseArray.add(expense);
             res.moveToNext();
         }
@@ -342,7 +342,7 @@ public class ExpensesDB {
             String category = res.getString(res.getColumnIndex(KEY_FOR_CATEGORY_FOR_INCOME));
 
 
-            Income income = new Income(sum, dayIncome, monthIncome, yearIncome, id, category, notes);
+            Income income = new Income(sum, dayIncome, monthIncome, yearIncome, id, notes, category);
             incomeArray.add(income);
             res.moveToNext();
         }
@@ -365,7 +365,7 @@ public class ExpensesDB {
             int yearExpense = res.getInt(res.getColumnIndex(KEY_YEAR_FOR_EXPENSES));
 
 
-            Expense expense = new Expense(price, dayExpense, monthExpense, yearExpense, id, category, notes);
+            Expense expense = new Expense(price, dayExpense, monthExpense, yearExpense, id, notes, category);
             expenseArray.add(expense);
             res.moveToNext();
         }
@@ -373,4 +373,18 @@ public class ExpensesDB {
     }
 
 
+
+    public ArrayList<Double> getExpensesValuesByCategory(String category) {
+        SQLiteDatabase db = this.ourHelper.getReadableDatabase();
+        ArrayList<Double> expenseValues = new ArrayList<>();
+        Cursor res = db.rawQuery("select * from " + DATABASE_TABLE_EXPENSE + " where " + KEY_FOR_CATEGORY + " =? ", new String[]{category});
+        res.moveToFirst();
+        while (!res.isAfterLast()) {
+            double expenseValue = res.getDouble(res.getColumnIndex(KEY_PRICE));
+            Toast.makeText(ourContext, expenseValue + "", Toast.LENGTH_SHORT).show();
+            expenseValues.add(expenseValue);
+            res.moveToNext();
+        }
+        return expenseValues;
+    }
 }

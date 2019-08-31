@@ -109,11 +109,9 @@ public class Categories extends AppCompatActivity {
                         db.createEntryIncomeCategory(EnteredText);
                         prefs.edit().putBoolean("addedNoNewIncomeCategory", false).apply();
 
-
                     } else if (prefs.getBoolean("isExpense", true)) {
                         db.createEntryExpenseCategory(EnteredText);
                         prefs.edit().putBoolean("addedNoNewExpenseCategory", false).apply();
-
                     }
                     db.close();
                 } catch (SQLException e) {

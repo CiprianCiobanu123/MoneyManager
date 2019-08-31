@@ -42,10 +42,13 @@ public class Expense {
     @Override
     public String toString() {
         return "Expense{" +
+                "id='" + id + '\'' +
                 ", price=" + price +
                 ", date=" + date +
                 ", dayExpense=" + dayExpense +
-                ", monthExpense=" + monthExpense +
+                ", monthExpense='" + monthExpense + '\'' +
+                ", notes='" + notes + '\'' +
+                ", category='" + category + '\'' +
                 ", yearExpense=" + yearExpense +
                 '}';
     }
