@@ -14,7 +14,6 @@
         <activity android:name=".ChooseChart"></activity>
         <activity android:name=".BarChartActivity" />
         <activity android:name=".PieChartActivity" />
-        <activity android:name=".PieChart" />
         <activity android:name=".Categories" />
         <activity android:name=".ShowExpense" />
         <activity android:name=".ShowIncome" />

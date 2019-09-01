@@ -3,6 +3,9 @@ package com.second.moneymanager;
 import android.content.SharedPreferences;
 import android.database.SQLException;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,26 +26,34 @@ import static java.util.Calendar.SHORT;
 public class PieChartActivity extends AppCompatActivity {
 
     SharedPreferences prefs = null;
+    Button btnPreviousPieChart, btnNextPieChart;
+    Calendar calendar = Calendar.getInstance();
+    ArrayList<Entry> expensesForChart = new ArrayList<>();
+    ArrayList<String> categories = new ArrayList<>();
+    PieChart pieChart;
+    float valueExpenses;
+    ArrayList<Expense> expenses = new ArrayList<>();
+    ArrayList<Double> expensesValues = new ArrayList<>();
+    double totalValuesFromExpenseValues;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pie_chart);
-        PieChart pieChart = findViewById(R.id.piechart);
-        ArrayList<Entry> expensesForChart = new ArrayList<>();
-        ArrayList<String> categories = new ArrayList<>();
+        pieChart = findViewById(R.id.piechart);
+        valueExpenses = 0;
+        totalValuesFromExpenseValues = 0;
+
+        btnNextPieChart = findViewById(R.id.btnNextPieChart);
+        btnPreviousPieChart = findViewById(R.id.btnPreviousPieChart);
 
         prefs = getSharedPreferences("com.mycompany.MoneyManager", MainActivity.MODE_PRIVATE);
-
-        Calendar calendar = Calendar.getInstance();
-//
         calendar.set(MONTH, Integer.parseInt(prefs.getString("month", "")));
+        calendar.set(Calendar.YEAR, Integer.parseInt(prefs.getString("year", "")));
 
-        float valueExpenses = 0;
+        pieChart.setCenterText(calendar.getDisplayName(MONTH, Calendar.LONG, Locale.getDefault()) + " - " + calendar.get(Calendar.YEAR));
+        pieChart.setCenterTextSizePixels(40);
 
-        ArrayList<Expense> expenses = new ArrayList<>();
-        ArrayList<Double> expensesValues = new ArrayList<>();
-        double totalValuesFromExpenseValues;
 
         if (prefs.getString("monthlyOrYearly", "").equals("Monthly")) {
 
@@ -76,11 +87,136 @@ public class PieChartActivity extends AppCompatActivity {
                 Toast.makeText(PieChartActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
+
         PieDataSet dataSet = new PieDataSet(expensesForChart, "");
         PieData data = new PieData(categories, dataSet);
-
         pieChart.setData(data);
         dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         pieChart.animateXY(2000, 2000);
+
+
+        btnPreviousPieChart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                calendar.set(MONTH, Integer.parseInt(prefs.getString("month", "")) - 1);
+                if (calendar.get(MONTH) < 0) {
+                    calendar.set(Calendar.YEAR, Integer.parseInt(prefs.getString("year", "")) - 1);
+                    calendar.set(MONTH, 11);
+                }
+
+                prefs.edit().putString("year", String.valueOf(calendar.get(Calendar.YEAR))).apply();
+                prefs.edit().putString("month", String.valueOf(calendar.get(MONTH))).apply();
+
+                if ((expensesForChart.isEmpty() && categories.isEmpty())) {
+
+                } else {
+
+                    expensesForChart.clear();
+                    categories.clear();
+                }
+
+                pieChart.setCenterText(calendar.getDisplayName(MONTH, Calendar.LONG, Locale.getDefault()) + " - " + calendar.get(Calendar.YEAR));
+
+                try {
+                    ExpensesDB db = new ExpensesDB(PieChartActivity.this);
+                    db.open();
+                    expenses = db.getExpensesByMonthAndYear(calendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), String.valueOf(calendar.get(Calendar.YEAR)));
+
+                    for (int i = 0; i < expenses.size(); i++) {
+                        valueExpenses = (float) (valueExpenses + expenses.get(i).getPrice());
+                    }
+
+                    for (int i = 0; i < expenses.size(); i++) {
+
+                        totalValuesFromExpenseValues = 0;
+
+                        expensesValues = db.getExpensesValuesByCategory(expenses.get(i).getCategory());
+
+                        for (int j = 0; j < expensesValues.size(); j++) {
+                            totalValuesFromExpenseValues = totalValuesFromExpenseValues + expensesValues.get(j);
+                        }
+
+                        if (totalValuesFromExpenseValues > 0) {
+                            expensesForChart.add(new Entry(((float) (totalValuesFromExpenseValues * 100) / valueExpenses), i));
+                        }
+
+                        categories.add(expenses.get(i).getCategory());
+                    }
+                    db.close();
+                } catch (SQLException e) {
+                    Toast.makeText(PieChartActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+                PieDataSet dataSet = new PieDataSet(expensesForChart, "");
+                PieData data = new PieData(categories, dataSet);
+                pieChart.setData(data);
+                dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+                pieChart.animateXY(2000, 2000);
+            }
+        });
+
+        btnNextPieChart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                calendar.set(MONTH, Integer.parseInt(prefs.getString("month", "")) + 1);
+                if (calendar.get(MONTH) >= 11) {
+                    calendar.set(Calendar.YEAR, Integer.parseInt(prefs.getString("year", "")) + 1);
+                    calendar.set(MONTH, 0);
+                }
+
+                prefs.edit().putString("year", String.valueOf(calendar.get(Calendar.YEAR))).apply();
+                prefs.edit().putString("month", String.valueOf(calendar.get(MONTH))).apply();
+
+                if ((expensesForChart.isEmpty() && categories.isEmpty())) {
+
+                } else {
+
+                    expensesForChart.clear();
+                    categories.clear();
+                }
+
+                pieChart.setCenterText(calendar.getDisplayName(MONTH, Calendar.LONG, Locale.getDefault()) + " - " + calendar.get(Calendar.YEAR));
+
+                try {
+                    ExpensesDB db = new ExpensesDB(PieChartActivity.this);
+                    db.open();
+                    expenses = db.getExpensesByMonthAndYear(calendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), String.valueOf(calendar.get(Calendar.YEAR)));
+
+                    for (int i = 0; i < expenses.size(); i++) {
+                        valueExpenses = (float) (valueExpenses + expenses.get(i).getPrice());
+                    }
+
+                    for (int i = 0; i < expenses.size(); i++) {
+
+                        totalValuesFromExpenseValues = 0;
+
+                        expensesValues = db.getExpensesValuesByCategory(expenses.get(i).getCategory());
+
+                        for (int j = 0; j < expensesValues.size(); j++) {
+                            totalValuesFromExpenseValues = totalValuesFromExpenseValues + expensesValues.get(j);
+                        }
+
+                        if (totalValuesFromExpenseValues > 0) {
+                            expensesForChart.add(new Entry(((float) (totalValuesFromExpenseValues * 100) / valueExpenses), i));
+                        }
+
+                        categories.add(expenses.get(i).getCategory());
+                    }
+                    db.close();
+                } catch (SQLException e) {
+                    Toast.makeText(PieChartActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+                PieDataSet dataSet = new PieDataSet(expensesForChart, "");
+                PieData data = new PieData(categories, dataSet);
+                pieChart.setData(data);
+                dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+                pieChart.animateXY(2000, 2000);
+            }
+        });
+
+
     }
 }

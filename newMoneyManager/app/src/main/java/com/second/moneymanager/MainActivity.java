@@ -78,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
         final AlertDialog.Builder b = new AlertDialog.Builder(this);
         final AlertDialog.Builder b1 = new AlertDialog.Builder(this);
 
+         final int ANOTHER_RESULT_WAIT_FOR_CANCEL_CODE = 9;
+
         b.setTitle("Change Currency");
         b1.setTitle("Sort");
 
@@ -265,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.chartsButton:
                 Intent intent2 = new Intent(MainActivity.this,
                         com.second.moneymanager.ChooseChart.class);
-                startActivity(intent2);
+                startActivityForResult(intent2,ANOTHER_RESULT_WAIT_FOR_CANCEL_CODE);
                 break;
         }
 
@@ -310,6 +312,8 @@ public class MainActivity extends AppCompatActivity {
         btnNextDate.setBackgroundResource(R.drawable.nexttotomorrow);
 
         prefs = getSharedPreferences("com.mycompany.MoneyManager", MainActivity.MODE_PRIVATE);
+
+
 
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
 

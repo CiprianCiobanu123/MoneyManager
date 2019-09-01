@@ -26,9 +26,8 @@ import static java.util.Calendar.SHORT;
 
 public class AddIncome extends AppCompatActivity {
 
-    EditText etAmount, etNotes;
+    EditText etAmount, etNotes,etCategory;
     Button btnAdd, btnCancel, btnDate;
-    TextView etCategory;
     private Calendar myCalendar = Calendar.getInstance();
     private int day, month, year;
     SharedPreferences prefs = null;

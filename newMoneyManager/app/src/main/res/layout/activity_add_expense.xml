@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:context=".AddExpense">
 
-    <TextView
+    <EditText
         android:id="@+id/etCategoryExpense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,11 +16,11 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
         android:ems="10"
+        android:focusable="false"
         android:gravity="center_horizontal|center_vertical"
         android:hint="Category"
         android:inputType="textPersonName"
-        android:textColor="@color/colorAccent"
-        android:textColorHint="@color/colorAccent"
+        android:textColor="@color/lightPrimaryColor"
         android:textSize="18sp" />
 
     <EditText

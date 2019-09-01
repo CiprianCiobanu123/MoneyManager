@@ -24,8 +24,7 @@ import static java.util.Calendar.SHORT;
 
 public class AddExpense extends AppCompatActivity {
 
-    EditText  etPrice,   etNotesExpense;
-    TextView etCategoryExpense;
+    EditText  etPrice,   etNotesExpense,etCategoryExpense;
     Button btnAdd, btnCancel, btnDate;
     private Calendar myCalendar = Calendar.getInstance();
     private int day, month, year;
