@@ -4,14 +4,15 @@
         android:bottom="10dp"
         android:left="-10dp">
         <shape android:shape="rectangle">
-            <solid android:color="@color/colorPrimary" />
+            <gradient
+                android:angle="45"
+                android:centerColor="@color/lightPrimaryColor"
+                android:endColor="@color/colorAccent"
+                android:startColor="#00223E" />
 
             <corners
-                android:radius="1dp"
-                android:bottomLeftRadius="0.1dp"
-                android:bottomRightRadius="0.1dp"
-                android:topLeftRadius="6dp"
-                android:topRightRadius="6dp" />
+                android:radius="20dp"
+               />
         </shape>
     </item>
 </layer-list>

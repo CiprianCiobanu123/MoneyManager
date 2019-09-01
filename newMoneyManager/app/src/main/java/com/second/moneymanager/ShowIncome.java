@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.time.LocalDate;
@@ -12,7 +13,9 @@ import java.util.Calendar;
 public class ShowIncome extends AppCompatActivity {
 
     TextView tvShowIncome, tvShowType, tvShowDate,tvShowExpensePrice;
+    ImageView ivAmountIncome;
     Calendar myCalendar = Calendar.getInstance();
+
     private int day, month, year;
 
 
@@ -31,6 +34,8 @@ public class ShowIncome extends AppCompatActivity {
         tvShowDate = findViewById(R.id.tvShowDate);
         tvShowExpensePrice = findViewById(R.id.tvShowExpensePrice);
 
+
+
         String notes = getIntent().getStringExtra("notes");
         String category = getIntent().getStringExtra("category");
         double sum = getIntent().getDoubleExtra("sum", 0);
@@ -47,5 +52,8 @@ public class ShowIncome extends AppCompatActivity {
         tvShowDate.setText(String.format("" + date));
         tvShowExpensePrice.setText(String.format("" + notes));
         tvShowType.setText(String.format("" + category));
+
+//        ivAmountIncome.setBackgroundResource(R.mipmap.ic_amount);
+
     }
 }

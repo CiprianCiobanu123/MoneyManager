@@ -34,7 +34,7 @@ public class ShowExpense extends AppCompatActivity {
 
         String date = day + "-" + month + "-" + year;
 
-        tvShowExpenseTotalSpent.setTextColor(Color.parseColor("#b91400"));
+        tvShowExpenseTotalSpent.setTextColor(Color.parseColor("#531507"));
 
         tvShowExpenseProduct.setText(String.format("" + category));
         tvShowExpensePrice.setText(notes);

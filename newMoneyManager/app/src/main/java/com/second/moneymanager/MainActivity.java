@@ -1019,9 +1019,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_CANCELED) {
-            Intent refresh = getIntent();
+
             this.finish();
-            startActivity(refresh);
+            startActivity(getIntent());
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
+
+
         }
     }
 }
