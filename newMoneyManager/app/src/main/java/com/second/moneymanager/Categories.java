@@ -98,9 +98,11 @@ public class Categories extends AppCompatActivity {
         } else {
             b.setTitle("Add Category - Expense");
         }
+
         final EditText inputCategory = new EditText(this);
         inputCategory.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
         b.setView(inputCategory);
+
 
         b.setPositiveButton("Add", new DialogInterface.OnClickListener() {
             @Override
@@ -110,7 +112,11 @@ public class Categories extends AppCompatActivity {
                 String EnteredText = "";
                 if (inputCategory.getText() == null || inputCategory.getText().toString().isEmpty()) {
                     Toast.makeText(Categories.this, "Please add a category", Toast.LENGTH_SHORT).show();
+                    inputCategory.requestFocus();
+                    inputCategory.setError("Must not be empty");
                     Categories.this.finish();
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
 
                 } else {
                     EnteredText = inputCategory.getText().toString().trim();
@@ -132,21 +138,16 @@ public class Categories extends AppCompatActivity {
                     intent.putExtra("IncomeOrExpense", EnteredText);
                     setResult(RESULT_OK, intent);
                     Categories.this.finish();
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 }
             }
         });
 
-        b.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-
-            }
-        });
 
         btnAddCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                b.setCancelable(false);
                 b.show();
             }
         });

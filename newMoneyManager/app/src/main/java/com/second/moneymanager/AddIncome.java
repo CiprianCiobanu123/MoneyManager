@@ -24,6 +24,7 @@ import java.util.StringTokenizer;
 import static java.util.Calendar.MONTH;
 import static java.util.Calendar.SHORT;
 
+
 public class AddIncome extends AppCompatActivity {
 
     EditText etAmount, etNotes,etCategory;
@@ -32,8 +33,6 @@ public class AddIncome extends AppCompatActivity {
     private int day, month, year;
     SharedPreferences prefs = null;
     public static final int requestCodeForIncomeCategories = 1;
-
-    Set<String> incomeCategories = new HashSet<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +51,6 @@ public class AddIncome extends AppCompatActivity {
         month = myCalendar.get(Calendar.MONTH);
 
         prefs = getSharedPreferences("com.mycompany.MoneyManager", MainActivity.MODE_PRIVATE);
-        incomeCategories.add("Salary");
-        incomeCategories.add("Social Media");
-        prefs.edit().putStringSet("incomeCategories", incomeCategories);
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,9 +94,6 @@ public class AddIncome extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                //type a devenit category
-                //sum a devenit amount
-                //notes a fost nou creat
                 if (btnDate.getText().toString().isEmpty()) {
                     Toast.makeText(AddIncome.this, "Please enter all fields!", Toast.LENGTH_SHORT).show();
                 } else if (etAmount.getText().toString().isEmpty()) {
@@ -148,7 +141,13 @@ public class AddIncome extends AppCompatActivity {
 
         if (requestCode == requestCodeForIncomeCategories) {
             if (resultCode == RESULT_OK) {
-                etCategory.setText(data.getStringExtra("IncomeOrExpense"));
+                if(prefs.getBoolean("addedNoNewIncomeCategory",true)){
+
+                    etCategory.setText(data.getStringExtra("categoryIncome"));
+                }else{
+
+                    etCategory.setText(data.getStringExtra("IncomeOrExpense"));
+                }
             }
         }
     }
