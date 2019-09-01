@@ -35,7 +35,6 @@ public class AddIncome extends AppCompatActivity {
 
     Set<String> incomeCategories = new HashSet<>();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

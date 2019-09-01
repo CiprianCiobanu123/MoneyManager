@@ -92,7 +92,12 @@ public class Categories extends AppCompatActivity {
         });
 
         final AlertDialog.Builder b = new AlertDialog.Builder(this);
-        b.setTitle("Add Category");
+        if (prefs.getBoolean("isIncome", true)) {
+            b.setTitle("Add Category - Income");
+
+        } else {
+            b.setTitle("Add Category - Expense");
+        }
         final EditText inputCategory = new EditText(this);
         inputCategory.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
         b.setView(inputCategory);
@@ -100,33 +105,42 @@ public class Categories extends AppCompatActivity {
         b.setPositiveButton("Add", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                String EnteredText = inputCategory.getText().toString().trim();
-                Intent intent = new Intent();
-                try {
-                    ExpensesDB db = new ExpensesDB(Categories.this);
-                    db.open();
-                    if (prefs.getBoolean("isIncome", true)) {
-                        db.createEntryIncomeCategory(EnteredText);
-                        prefs.edit().putBoolean("addedNoNewIncomeCategory", false).apply();
 
-                    } else if (prefs.getBoolean("isExpense", true)) {
-                        db.createEntryExpenseCategory(EnteredText);
-                        prefs.edit().putBoolean("addedNoNewExpenseCategory", false).apply();
+                Intent intent = new Intent();
+                String EnteredText = "";
+                if (inputCategory.getText() == null || inputCategory.getText().toString().isEmpty()) {
+                    Toast.makeText(Categories.this, "Please add a category", Toast.LENGTH_SHORT).show();
+                    Categories.this.finish();
+
+                } else {
+                    EnteredText = inputCategory.getText().toString().trim();
+                    try {
+                        ExpensesDB db = new ExpensesDB(Categories.this);
+                        db.open();
+                        if (prefs.getBoolean("isIncome", true)) {
+                            db.createEntryIncomeCategory(EnteredText);
+                            prefs.edit().putBoolean("addedNoNewIncomeCategory", false).apply();
+
+                        } else if (prefs.getBoolean("isExpense", true)) {
+                            db.createEntryExpenseCategory(EnteredText);
+                            prefs.edit().putBoolean("addedNoNewExpenseCategory", false).apply();
+                        }
+                        db.close();
+                    } catch (SQLException e) {
+                        Toast.makeText(Categories.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                    db.close();
-                } catch (SQLException e) {
-                    Toast.makeText(Categories.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    intent.putExtra("IncomeOrExpense", EnteredText);
+                    setResult(RESULT_OK, intent);
+                    Categories.this.finish();
                 }
-                intent.putExtra("IncomeOrExpense", EnteredText);
-                setResult(RESULT_OK, intent);
-                Categories.this.finish();
             }
         });
 
         b.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.cancel();
+                dialogInterface.dismiss();
+
             }
         });
 
