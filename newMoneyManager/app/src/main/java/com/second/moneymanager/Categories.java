@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -91,65 +92,117 @@ public class Categories extends AppCompatActivity {
             }
         });
 
-        final AlertDialog.Builder b = new AlertDialog.Builder(this);
-        if (prefs.getBoolean("isIncome", true)) {
-            b.setTitle("Add Category - Income");
-
-        } else {
-            b.setTitle("Add Category - Expense");
-        }
-
-        final EditText inputCategory = new EditText(this);
-        inputCategory.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
-        b.setView(inputCategory);
-
-
-        b.setPositiveButton("Add", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-                Intent intent = new Intent();
-                String EnteredText = "";
-                if (inputCategory.getText() == null || inputCategory.getText().toString().isEmpty()) {
-                    Toast.makeText(Categories.this, "Please add a category", Toast.LENGTH_SHORT).show();
-                    inputCategory.requestFocus();
-                    inputCategory.setError("Must not be empty");
-                    Categories.this.finish();
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-
-
-                } else {
-                    EnteredText = inputCategory.getText().toString().trim();
-                    try {
-                        ExpensesDB db = new ExpensesDB(Categories.this);
-                        db.open();
-                        if (prefs.getBoolean("isIncome", true)) {
-                            db.createEntryIncomeCategory(EnteredText);
-                            prefs.edit().putBoolean("addedNoNewIncomeCategory", false).apply();
-
-                        } else if (prefs.getBoolean("isExpense", true)) {
-                            db.createEntryExpenseCategory(EnteredText);
-                            prefs.edit().putBoolean("addedNoNewExpenseCategory", false).apply();
-                        }
-                        db.close();
-                    } catch (SQLException e) {
-                        Toast.makeText(Categories.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                    intent.putExtra("IncomeOrExpense", EnteredText);
-                    setResult(RESULT_OK, intent);
-                    Categories.this.finish();
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                }
-            }
-        });
-
-
         btnAddCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                b.setCancelable(false);
-                b.show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+
+                if (prefs.getBoolean("isIncome", true)) {
+                    builder.setTitle("Add Category - Income");
+
+                } else {
+                    builder.setTitle("Add Category - Expense");
+                }
+
+                builder.setView(R.layout.alertdialogforcategory);
+
+                //create Dialog and show
+                final AlertDialog dialog = builder.create();
+                dialog.show();
+                builder.setCancelable(false);
+
+                //Get AlertDialog from dialog
+                final AlertDialog dialogView = dialog;
+                Button ok = dialogView.findViewById(R.id.btnAddNewCategory);
+
+                //custom lisenter for Positive button
+                ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        EditText tvNewCategory = dialogView.findViewById(R.id.tvNewCategory);
+
+                        Intent intent = new Intent();
+                        String EnteredText = "";
+                        if (tvNewCategory.getText() == null || tvNewCategory.getText().toString().isEmpty()) {
+                            tvNewCategory.setError("Must not be empty");
+
+                        } else {
+                            EnteredText = tvNewCategory.getText().toString().trim();
+                            try {
+                                ExpensesDB db = new ExpensesDB(Categories.this);
+                                db.open();
+                                if (prefs.getBoolean("isIncome", true)) {
+                                    db.createEntryIncomeCategory(EnteredText);
+                                    prefs.edit().putBoolean("addedNoNewIncomeCategory", false).apply();
+
+                                } else if (prefs.getBoolean("isExpense", true)) {
+                                    db.createEntryExpenseCategory(EnteredText);
+                                    prefs.edit().putBoolean("addedNoNewExpenseCategory", false).apply();
+                                }
+                                db.close();
+                            } catch (SQLException e) {
+                                Toast.makeText(Categories.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                            intent.putExtra("IncomeOrExpense", EnteredText);
+                            setResult(RESULT_OK, intent);
+                            Categories.this.finish();
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                            dialog.dismiss();
+                        }
+
+
+                    }
+                });
             }
         });
+
+
+//        b.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                Intent intent = new Intent();
+//                String EnteredText = "";
+//                if (tvNewCategory.getText() == null || tvNewCategory.getText().toString().isEmpty()) {
+//                    Toast.makeText(Categories.this, "Please add a category", Toast.LENGTH_SHORT).show();
+//                    tvNewCategory.requestFocus();
+//                    tvNewCategory.setError("Must not be empty");
+//                    Categories.this.finish();
+//                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+//
+//
+//                } else {
+//                    EnteredText = tvNewCategory.getText().toString().trim();
+//                    try {
+//                        ExpensesDB db = new ExpensesDB(Categories.this);
+//                        db.open();
+//                        if (prefs.getBoolean("isIncome", true)) {
+//                            db.createEntryIncomeCategory(EnteredText);
+//                            prefs.edit().putBoolean("addedNoNewIncomeCategory", false).apply();
+//
+//                        } else if (prefs.getBoolean("isExpense", true)) {
+//                            db.createEntryExpenseCategory(EnteredText);
+//                            prefs.edit().putBoolean("addedNoNewExpenseCategory", false).apply();
+//                        }
+//                        db.close();
+//                    } catch (SQLException e) {
+//                        Toast.makeText(Categories.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                    }
+//                    intent.putExtra("IncomeOrExpense", EnteredText);
+//                    setResult(RESULT_OK, intent);
+//                    Categories.this.finish();
+//                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+//                }
+//            }
+//        });
+//
+//
+//        btnAddCategory.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                b.setCancelable(false);
+//                b.show();
+//            }
+//        });
     }
 }

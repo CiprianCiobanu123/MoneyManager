@@ -3,15 +3,19 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/button"
+    <EditText
+        android:id="@+id/tvNewCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="80dp"
+        android:gravity="clip_horizontal|center_horizontal"
+        android:hint="Category" />
 
-    <TextView
-        android:id="@+id/textView"
+    <Button
+        android:id="@+id/btnAddNewCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="Add" />
+
 </LinearLayout>
