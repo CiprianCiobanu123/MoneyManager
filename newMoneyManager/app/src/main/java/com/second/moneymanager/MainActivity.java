@@ -823,8 +823,6 @@ public class MainActivity extends AppCompatActivity {
                     } catch (SQLException e) {
                         Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-
-
                 } else if (prefs.getString("monthlyOrYearly", "").equals("Monthly")) {
 
                     calendar.set(MONTH, Integer.parseInt(prefs.getString("month", "")) + 1);
@@ -836,7 +834,7 @@ public class MainActivity extends AppCompatActivity {
 
                     prefs.edit().putString("year", String.valueOf(calendar.get(Calendar.YEAR))).apply();
                     prefs.edit().putString("month", String.valueOf(calendar.get(MONTH))).apply();
-                    Toast.makeText(MainActivity.this, prefs.getString("month",""), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, prefs.getString("month", ""), Toast.LENGTH_SHORT).show();
 
                     valueExpenses = 0;
                     valueIncomes = 0;
@@ -880,8 +878,6 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             tvAccount.setTextColor(Color.parseColor("#b91400"));
                         }
-
-
                     } catch (SQLException e) {
                         Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }

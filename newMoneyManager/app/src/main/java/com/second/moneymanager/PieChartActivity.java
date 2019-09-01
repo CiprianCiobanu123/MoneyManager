@@ -15,6 +15,10 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
+
+import static java.util.Calendar.MONTH;
+import static java.util.Calendar.SHORT;
 
 public class PieChartActivity extends AppCompatActivity {
 
@@ -31,9 +35,8 @@ public class PieChartActivity extends AppCompatActivity {
         prefs = getSharedPreferences("com.mycompany.MoneyManager", MainActivity.MODE_PRIVATE);
 
         Calendar calendar = Calendar.getInstance();
-        final int day = Integer.parseInt(prefs.getString("day", ""));
-        final int month = Integer.parseInt(prefs.getString("month", ""));
-        final int year = Integer.parseInt(prefs.getString("year", ""));
+//
+        calendar.set(MONTH, Integer.parseInt(prefs.getString("month", "")));
 
         float valueExpenses = 0;
 
@@ -46,7 +49,7 @@ public class PieChartActivity extends AppCompatActivity {
             try {
                 ExpensesDB db = new ExpensesDB(PieChartActivity.this);
                 db.open();
-                expenses = db.getExpensesByYear(String.valueOf(calendar.get(Calendar.YEAR)));
+                expenses = db.getExpensesByMonthAndYear(calendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), String.valueOf(calendar.get(Calendar.YEAR)));
 
                 for (int i = 0; i < expenses.size(); i++) {
                     valueExpenses = (float) (valueExpenses + expenses.get(i).getPrice());

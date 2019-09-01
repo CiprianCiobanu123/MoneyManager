@@ -378,6 +378,8 @@ public class ExpensesDB {
         SQLiteDatabase db = this.ourHelper.getReadableDatabase();
         ArrayList<Double> expenseValues = new ArrayList<>();
         Cursor res = db.rawQuery("select * from " + DATABASE_TABLE_EXPENSE + " where " + KEY_FOR_CATEGORY + " =? ", new String[]{category});
+//        Cursor res = db.rawQuery("select * from " + DATABASE_TABLE_EXPENSE + " where " + KEY_FOR_CATEGORY + " =? AND "
+//                + KEY_YEAR_FOR_EXPENSES + " =? AND " + KEY_MONTH_FOR_EXPENSES +  " =? ", new String[]{month, year});
         res.moveToFirst();
         while (!res.isAfterLast()) {
             double expenseValue = res.getDouble(res.getColumnIndex(KEY_PRICE));
