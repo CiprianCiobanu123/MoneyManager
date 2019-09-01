@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Expense> expenses = new ArrayList<>();
     ArrayList items = new ArrayList();
     SharedPreferences prefs = null;
-    MenuItem menuItemCurrency, menuitemYearly;
+    MenuItem menuItemCurrency, menuitemYearly, chartsButton;
 
     double valueIncomes, valueExpenses;
     Calendar calendar = Calendar.getInstance();
@@ -70,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main, menu);
         menuItemCurrency = menu.findItem(R.id.changeCurrency);
         menuitemYearly = menu.findItem(R.id.monthlyYearly);
+        chartsButton = menu.findItem(R.id.chartsButton);
+        chartsButton.setIcon(ContextCompat.getDrawable(this, R.mipmap.chartpiebutton));
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -78,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         final AlertDialog.Builder b = new AlertDialog.Builder(this);
         final AlertDialog.Builder b1 = new AlertDialog.Builder(this);
 
-         final int ANOTHER_RESULT_WAIT_FOR_CANCEL_CODE = 9;
+        final int ANOTHER_RESULT_WAIT_FOR_CANCEL_CODE = 9;
 
         b.setTitle("Change Currency");
         b1.setTitle("Sort");
@@ -267,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.chartsButton:
                 Intent intent2 = new Intent(MainActivity.this,
                         com.second.moneymanager.ChooseChart.class);
-                startActivityForResult(intent2,ANOTHER_RESULT_WAIT_FOR_CANCEL_CODE);
+                startActivityForResult(intent2, ANOTHER_RESULT_WAIT_FOR_CANCEL_CODE);
                 break;
         }
 
@@ -312,7 +316,6 @@ public class MainActivity extends AppCompatActivity {
         btnNextDate.setBackgroundResource(R.drawable.nexttotomorrow);
 
         prefs = getSharedPreferences("com.mycompany.MoneyManager", MainActivity.MODE_PRIVATE);
-
 
 
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -1023,7 +1026,6 @@ public class MainActivity extends AppCompatActivity {
             this.finish();
             startActivity(getIntent());
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-
 
 
         }

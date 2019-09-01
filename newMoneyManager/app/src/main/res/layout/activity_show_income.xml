@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:layout_gravity="center_horizontal|center_vertical"
-android:gravity="center_horizontal|center_vertical"
-android:orientation="vertical"
-tools:context=".ShowExpense">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal|center_vertical"
+    android:background="@drawable/multicolorforshowingincomrorexpense"
+    android:gravity="center_horizontal|center_vertical"
+    android:orientation="vertical"
+    tools:context=".ShowExpense">
 
-<!--FIRST ROW-->
+    <!--FIRST ROW-->
 
     <TableRow
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp"
         android:gravity="center_vertical">
 
         <TableRow
@@ -62,12 +61,10 @@ tools:context=".ShowExpense">
     </TableRow>
 
 
-<!--Second ROW-->
+    <!--Second ROW-->
     <TableRow
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp"
         android:gravity="center_vertical">
 
         <TableRow
@@ -109,13 +106,11 @@ tools:context=".ShowExpense">
 
     </TableRow>
 
-<!--Table 3-->
+    <!--Table 3-->
 
     <TableRow
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp"
         android:gravity="center_vertical">
 
         <TableRow
@@ -162,9 +157,7 @@ tools:context=".ShowExpense">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp"
         android:gravity="center_vertical">
 
         <TableRow

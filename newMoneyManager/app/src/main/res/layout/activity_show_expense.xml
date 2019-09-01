@@ -7,6 +7,7 @@
     android:layout_gravity="center_horizontal|center_vertical"
     android:gravity="center_horizontal|center_vertical"
     android:orientation="vertical"
+    android:background="@drawable/multicolorforshowingincomrorexpense"
     tools:context=".ShowExpense">
 
     <!--FIRST ROW-->
@@ -14,9 +15,7 @@
         android:layout_marginLeft="5dp"
 
 
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp">
+        android:layout_marginRight="5dp">
 
         <TableRow>
 
@@ -60,9 +59,7 @@
     <!--Second ROW-->
     <TableRow
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp">
+        android:layout_marginRight="5dp">
 
         <TableRow
             android:layout_width="wrap_content"
@@ -112,9 +109,7 @@
 
     <TableRow
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp">
+        android:layout_marginRight="5dp">
 
         <TableRow
             android:layout_width="wrap_content"
@@ -159,9 +154,7 @@
 
     <TableRow
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp">
+        android:layout_marginRight="5dp">
 
         <TableRow
             android:layout_width="wrap_content"

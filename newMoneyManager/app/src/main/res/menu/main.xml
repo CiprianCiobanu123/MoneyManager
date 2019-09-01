@@ -17,8 +17,8 @@
     <item
         android:id="@+id/chartsButton"
         android:orderInCategory="100"
-        android:title="Charts"
-        app:showAsAction="never" />
+        android:title=""
+        app:showAsAction="always" />
 
 
 
