@@ -3,11 +3,13 @@ package com.second.moneymanager;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.SQLException;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -27,13 +29,14 @@ import static java.util.Calendar.SHORT;
 
 public class AddIncome extends AppCompatActivity {
 
-    EditText etAmount, etNotes,etCategory;
+    EditText etAmount, etNotes, etCategory;
     Button btnAdd, btnCancel, btnDate;
     private Calendar myCalendar = Calendar.getInstance();
     private int day, month, year;
     SharedPreferences prefs = null;
     public static final int requestCodeForIncomeCategories = 1;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +81,47 @@ public class AddIncome extends AppCompatActivity {
 
                 DatePickerDialog dpDialog = new DatePickerDialog(AddIncome.this, listener, year, month, day);
                 dpDialog.show();
+            }
+        });
+
+        etAmount.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                etAmount.setHint("");
+                return false;
+            }
+
+        });
+
+        etAmount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    etAmount.setHint("Amount");
+                }
+            }
+        });
+
+
+        etNotes.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                etNotes.setHint("");
+                return false;
+            }
+
+        });
+
+        etNotes.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    etNotes.setHint("Notes");
+                }
             }
         });
 
@@ -141,10 +185,10 @@ public class AddIncome extends AppCompatActivity {
 
         if (requestCode == requestCodeForIncomeCategories) {
             if (resultCode == RESULT_OK) {
-                if(prefs.getBoolean("addedNoNewIncomeCategory",true)){
+                if (prefs.getBoolean("addedNoNewIncomeCategory", true)) {
 
                     etCategory.setText(data.getStringExtra("categoryIncome"));
-                }else{
+                } else {
 
                     etCategory.setText(data.getStringExtra("IncomeOrExpense"));
                 }

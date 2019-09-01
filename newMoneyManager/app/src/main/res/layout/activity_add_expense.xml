@@ -4,71 +4,75 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="150dp"
     android:orientation="vertical"
+    android:background="@drawable/multicolorlistview"
     tools:context=".AddExpense">
 
-    <EditText
-        android:id="@+id/etCategoryExpense"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
-        android:ems="10"
-        android:focusable="false"
-        android:gravity="center_horizontal|center_vertical"
-        android:hint="Category"
-        android:inputType="textPersonName"
-        android:textColor="@color/lightPrimaryColor"
-        android:textSize="18sp" />
-
-    <EditText
-        android:id="@+id/etPrice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
-        android:ems="10"
-        android:gravity="center_horizontal|center_vertical"
-        android:hint="Amount"
-        android:inputType="numberDecimal" />
-
-    <EditText
-        android:id="@+id/etNotesExpense"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
-        android:ems="10"
-        android:gravity="center_horizontal|center_vertical"
-        android:hint="Notes"
-        android:inputType="textPersonName" />
-
-    <Button
-        android:id="@+id/btnDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/rectangularbutton"
-        android:gravity="center_horizontal|center_vertical"
-        android:hint="@string/date"
-        android:padding="10dp"
-        android:textColor="#ffffff"
-        android:textColorHint="#ffffff" />
-
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:layout_marginTop="5dp"
-        android:gravity="center_horizontal|center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="150dp"
+        android:layout_marginBottom="150dp"
         android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/etCategoryExpense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:ems="10"
+            android:focusable="false"
+            android:gravity="center_horizontal|center_vertical"
+            android:hint="Category"
+            android:inputType="textPersonName"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorAccent"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/etPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:ems="10"
+            android:gravity="center_horizontal|center_vertical"
+            android:hint="Amount"
+            android:inputType="numberDecimal"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorAccent" />
+
+        <EditText
+            android:id="@+id/etNotesExpense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:ems="10"
+            android:gravity="center_horizontal|center_vertical"
+            android:hint="Notes"
+            android:inputType="textPersonName"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorAccent" />
+
+        <Button
+            android:id="@+id/btnDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/rectangularbutton"
+            android:gravity="center_horizontal|center_vertical"
+            android:hint="@string/date"
+            android:padding="10dp"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -76,37 +80,46 @@
             android:layout_gravity="center_horizontal|center_vertical"
             android:layout_marginTop="5dp"
             android:gravity="center_horizontal|center_vertical"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btnCancel"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/roundedbuttonadd"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_marginTop="5dp"
                 android:gravity="center_horizontal|center_vertical"
-                android:text="@string/cancel"
-                android:textColor="@color/colorAccent"
-                android:textColorHint="@color/colorAccent"
-                android:textSize="10sp" />
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btnAdd"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/roundedbuttonfilled"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="@string/add"
-                android:textColor="#ffffff"
-                android:textColorHint="@color/colorAccent"
-                android:textSize="10sp" />
+                <Button
+                    android:id="@+id/btnCancel"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/roundedbuttonadd"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/cancel"
+                    android:textColor="@color/colorAccent"
+                    android:textColorHint="@color/colorAccent"
+                    android:textSize="10sp" />
+
+                <Button
+                    android:id="@+id/btnAdd"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/roundedbuttonfilled"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/add"
+                    android:textColor="#ffffff"
+                    android:textColorHint="@color/colorAccent"
+                    android:textSize="10sp" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
