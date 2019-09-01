@@ -251,9 +251,9 @@ public class moneyExpanded extends AppCompatActivity {
             }
         } else if (prefs.getString("monthlyOrYearly", "").equals("Daily")) {
 
-            calendar.set(MONTH, Integer.valueOf(prefs.getString("month", "")));
-            calendar.set(YEAR, Integer.valueOf(prefs.getString("year", "")));
-            calendar.set(DAY_OF_MONTH, Integer.valueOf(prefs.getString("day", "")));
+//            calendar.set(MONTH, Integer.valueOf(prefs.getString("month", "")));
+//            calendar.set(YEAR, Integer.valueOf(prefs.getString("year", "")));
+//            calendar.set(DAY_OF_MONTH, Integer.valueOf(prefs.getString("day", "")));
 
             tvToday.setText(calendar.get(Calendar.DAY_OF_MONTH) + " - " +
                     calendar.getDisplayName(MONTH, Calendar.LONG, Locale.getDefault()) + " - " + calendar.get(Calendar.YEAR));
@@ -286,9 +286,9 @@ public class moneyExpanded extends AppCompatActivity {
         nextDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                calendar.set(YEAR, Integer.parseInt(prefs.getString("year", "")));
-//                calendar.set(MONTH, Integer.parseInt(prefs.getString("month", "")));
-//                calendar.set(DAY_OF_MONTH, Integer.parseInt(prefs.getString("day", "")));
+                calendar.set(YEAR, Integer.parseInt(prefs.getString("year", "")));
+                calendar.set(MONTH, Integer.parseInt(prefs.getString("month", "")));
+                calendar.set(DAY_OF_MONTH, Integer.parseInt(prefs.getString("day", "")));
 
                 if (prefs.getString("monthlyOrYearly", "").equals("Yearly")) {
                     calendar.set(YEAR, Integer.parseInt(prefs.getString("year", "")) + 1);

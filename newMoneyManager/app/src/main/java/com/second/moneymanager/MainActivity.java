@@ -836,6 +836,7 @@ public class MainActivity extends AppCompatActivity {
 
                     prefs.edit().putString("year", String.valueOf(calendar.get(Calendar.YEAR))).apply();
                     prefs.edit().putString("month", String.valueOf(calendar.get(MONTH))).apply();
+                    Toast.makeText(MainActivity.this, prefs.getString("month",""), Toast.LENGTH_SHORT).show();
 
                     valueExpenses = 0;
                     valueIncomes = 0;
