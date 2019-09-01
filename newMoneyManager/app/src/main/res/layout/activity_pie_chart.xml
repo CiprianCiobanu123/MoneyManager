@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/multicolorlistview"
     android:orientation="vertical">
 
     <LinearLayout
@@ -20,22 +21,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_marginLeft="5dp"
             android:layout_marginTop="0dp"
             android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btnPreviousPieChart"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginRight="0dp"
-                android:layout_marginBottom="5dp"
                 android:layout_weight="0"
-                android:gravity="center_horizontal" />
+                android:background="@mipmap/leftwhitearrow" />
 
             <View
                 android:id="@+id/view3"
@@ -45,13 +41,13 @@
 
             <Button
                 android:id="@+id/btnNextPieChart"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginLeft="0dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginBottom="0dp"
-                android:layout_weight="0" />
+                android:layout_weight="0"
+                android:background="@mipmap/rightwhitearrow" />
         </LinearLayout>
     </LinearLayout>
 

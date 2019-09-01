@@ -31,7 +31,7 @@
                 android:tint="@android:color/white"
                 android:layout_marginLeft="20dp"
                 android:layout_weight="0"
-                android:background="@drawable/previoustoyesterday"
+                android:background="@mipmap/leftwhitearrow"
                 android:textSize="8sp" />
 
 
@@ -53,7 +53,7 @@
                 android:layout_height="30dp"
                 android:layout_marginRight="20dp"
                 android:layout_weight="0"
-                android:background="@drawable/nexttotomorrow"
+                android:background="@mipmap/rightwhitearrow"
                 android:textSize="8sp" />
 
         </LinearLayout>

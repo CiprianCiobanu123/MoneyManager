@@ -313,8 +313,6 @@ public class MainActivity extends AppCompatActivity {
         tvBalanceExpense.setText("Expense");
 
 
-        btnNextDate.setBackgroundResource(R.drawable.nexttotomorrow);
-
         prefs = getSharedPreferences("com.mycompany.MoneyManager", MainActivity.MODE_PRIVATE);
 
 

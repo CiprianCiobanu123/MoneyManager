@@ -3,6 +3,7 @@ package com.second.moneymanager;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
@@ -45,12 +46,8 @@ public class moneyExpanded extends AppCompatActivity {
     Calendar calendar = Calendar.getInstance();
 
 
-    MenuItem menuItemCurrency, menuitemYearly;
+    MenuItem menuItemCurrency, menuitemYearly, chartsButton;
 
-    private static final String[] paths = {"RON", "USD", "EUR", "AFN", "ALL",
-            "DZD", "AOA", "ARS", "BSD", "BOB", "BGN",
-            "BIF", "CNY", "CUP", "JPY", "KWD",
-    };
 
     private static final String[] valuesToShowAccount = {"Yearly", "Monthly", "Daily"};
 
@@ -62,32 +59,18 @@ public class moneyExpanded extends AppCompatActivity {
         menuItemCurrency = menu.findItem(R.id.changeCurrency);
         menuItemCurrency.setVisible(false);
         menuitemYearly = menu.findItem(R.id.monthlyYearly);
+        chartsButton = menu.findItem(R.id.chartsButton);
+        chartsButton.setIcon(ContextCompat.getDrawable(this, R.mipmap.chartpiebutton));
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-//        final AlertDialog.Builder b = new AlertDialog.Builder(this);
+        final AlertDialog.Builder b = new AlertDialog.Builder(this);
         final AlertDialog.Builder b1 = new AlertDialog.Builder(this);
 
-//        b.setTitle("Change Currency");
         b1.setTitle("Sort");
 
-//        b.setItems(paths, new DialogInterface.OnClickListener() {
-//            Intent refresh = getIntent();
-//
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                prefs.edit().putString("currency", spinnerCurrency2.getAdapter().getItem(which).toString()).apply();
-//
-//                startActivity(refresh);
-//                overridePendingTransition(0, 0);
-//                moneyExpanded.this.finish();
-//                overridePendingTransition(0, 0);
-//
-//                dialog.dismiss();
-//            }
-//        });
 
         b1.setItems(valuesToShowAccount, new DialogInterface.OnClickListener() {
 
@@ -153,8 +136,14 @@ public class moneyExpanded extends AppCompatActivity {
                 b1.show();
                 break;
 
-//            case R.id.changeCurrency:
-////                b.show();
+            case R.id.changeCurrency:
+                b.show();
+
+            case R.id.chartsButton:
+                Intent intent2 = new Intent(moneyExpanded.this,
+                        com.second.moneymanager.ChooseChart.class);
+                startActivity(intent2);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -184,16 +173,11 @@ public class moneyExpanded extends AppCompatActivity {
 
         prefs = getSharedPreferences("com.mycompany.MoneyManager", moneyExpanded.MODE_PRIVATE);
 
-        final ArrayAdapter<String> adapterForCurrency = new ArrayAdapter<>(moneyExpanded.this,
-                android.R.layout.simple_spinner_item, paths);
 
         final ArrayAdapter<String> adapterMonthly = new ArrayAdapter<>(moneyExpanded.this,
                 android.R.layout.simple_spinner_item, valuesToShowAccount);
 
-        adapterForCurrency.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCurrency2.setAdapter(adapterForCurrency);
         spinnerMonthly2.setAdapter(adapterMonthly);
-        Arrays.sort(paths);
 
         calendar.set(YEAR, Integer.parseInt(prefs.getString("year", "")));
         calendar.set(MONTH, Integer.parseInt(prefs.getString("month", "")));
