@@ -147,8 +147,9 @@ public class AddIncome extends AppCompatActivity {
                     Toast.makeText(AddIncome.this, "Please enter all fields!", Toast.LENGTH_SHORT).show();
                 } else if (etNotes.getText().toString().trim().isEmpty()) {
                     Toast.makeText(AddIncome.this, "Please enter all fields!", Toast.LENGTH_SHORT).show();
-                } else {
-
+                } else if(etCategory.getText().toString().trim().isEmpty()) {
+                    Toast.makeText(AddIncome.this, "Please enter all fields!", Toast.LENGTH_SHORT).show();
+                }else{
                     if (etAmount.getText().toString().trim().charAt(0) == '.') {
                         etAmount.setText("0" + etAmount.getText().toString().trim());
                     }

@@ -84,11 +84,6 @@ public class Categories extends AppCompatActivity {
                 setResult(RESULT_OK, intent);
                 Categories.this.finish();
 
-                // Show Alert
-                Toast.makeText(getApplicationContext(),
-                        "Position :" + position + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
-                        .show();
-
             }
         });
 

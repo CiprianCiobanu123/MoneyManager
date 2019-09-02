@@ -18,7 +18,6 @@ public class ShowIncome extends AppCompatActivity {
 
     private int day, month, year;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,13 +27,10 @@ public class ShowIncome extends AppCompatActivity {
         month = myCalendar.get(Calendar.MONTH);
         year = myCalendar.get(Calendar.YEAR);
 
-
         tvShowIncome = findViewById(R.id.tvShowIncome);
         tvShowType = findViewById(R.id.tvShowType);
         tvShowDate = findViewById(R.id.tvShowDate);
         tvShowExpensePrice = findViewById(R.id.tvShowExpensePrice);
-
-
 
         String notes = getIntent().getStringExtra("notes");
         String category = getIntent().getStringExtra("category");
@@ -42,9 +38,6 @@ public class ShowIncome extends AppCompatActivity {
         int day = getIntent().getIntExtra("day", 0);
         String month = getIntent().getStringExtra("month");
         int year = getIntent().getIntExtra("year", 0);
-
-
-        tvShowIncome.setTextColor(Color.parseColor("#388e3c"));
 
         String date = day + "-" + month + "-" + year;
 

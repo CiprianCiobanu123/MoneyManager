@@ -550,7 +550,6 @@ public class moneyExpanded extends AppCompatActivity {
                     Expense expense = (Expense) adapter.getItemAtPosition(i);
                     double amountSpent = expense.getPrice();
                     String category = expense.getCategory();
-                    Toast.makeText(moneyExpanded.this, category, Toast.LENGTH_SHORT).show();
                     String notes = expense.getNotes();
 
                     Intent intent = new Intent(moneyExpanded.this,

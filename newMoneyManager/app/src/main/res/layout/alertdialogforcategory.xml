@@ -18,7 +18,7 @@
         android:id="@+id/btnAddNewCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/buttonforalert"
+        android:background="@drawable/buttonforaddingcategorytodatabase"
         android:textColor="@color/colorAccent"
         android:text="Add" />
 

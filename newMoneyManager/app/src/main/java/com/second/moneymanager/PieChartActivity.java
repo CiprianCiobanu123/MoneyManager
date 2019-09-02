@@ -59,13 +59,20 @@ public class PieChartActivity extends AppCompatActivity {
 
 
         if (prefs.getString("monthlyOrYearly", "").equals("Monthly")) {
+            if ((expensesForChart.isEmpty() && categories.isEmpty())) {
 
+            } else {
+
+                expensesForChart.clear();
+                categories.clear();
+            }
+
+            pieChart.setCenterText(calendar.getDisplayName(MONTH, Calendar.LONG, Locale.getDefault()) + " - " + calendar.get(Calendar.YEAR));
+            boolean categoryExisted = false;
             try {
                 ExpensesDB db = new ExpensesDB(PieChartActivity.this);
                 db.open();
                 expenses = db.getExpensesByMonthAndYear(calendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), String.valueOf(calendar.get(Calendar.YEAR)));
-
-                boolean categoryExisted = false;
 
                 for (int i = 0; i < expenses.size(); i++) {
                     valueExpenses = (float) (valueExpenses + expenses.get(i).getPrice());
@@ -93,8 +100,6 @@ public class PieChartActivity extends AppCompatActivity {
                     if (totalValuesFromExpenseValues > 0 && !categoryExisted) {
                         expensesForChart.add(new Entry(((float) (totalValuesFromExpenseValues * 100) / valueExpenses), i));
                     }
-
-
                 }
                 db.close();
             } catch (SQLException e) {
@@ -177,7 +182,6 @@ public class PieChartActivity extends AppCompatActivity {
                 pieChart.animateXY(3000, 3000);
             }
         });
-
 
 
         btnNextPieChart.setOnClickListener(new View.OnClickListener() {
