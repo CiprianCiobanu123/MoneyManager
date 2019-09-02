@@ -1,5 +1,6 @@
 package com.second.moneymanager;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.SQLException;
 import android.os.Bundle;
@@ -13,6 +14,8 @@ import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
@@ -61,6 +64,8 @@ public class PieChartActivity extends AppCompatActivity {
                 db.open();
                 expenses = db.getExpensesByMonthAndYear(calendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), String.valueOf(calendar.get(Calendar.YEAR)));
 
+                boolean categoryExisted = false;
+
                 for (int i = 0; i < expenses.size(); i++) {
                     valueExpenses = (float) (valueExpenses + expenses.get(i).getPrice());
                 }
@@ -75,11 +80,20 @@ public class PieChartActivity extends AppCompatActivity {
                         totalValuesFromExpenseValues = totalValuesFromExpenseValues + expensesValues.get(j);
                     }
 
-                    if (totalValuesFromExpenseValues > 0) {
+                    if (categories.contains(expenses.get(i).getCategory())) {
+                        categoryExisted = true;
+                        categories.set(categories.indexOf(expenses.get(i).getCategory()), expenses.get(i).getCategory());
+                    } else {
+                        categoryExisted = false;
+                        categories.add(expenses.get(i).getCategory());
+
+                    }
+
+                    if (totalValuesFromExpenseValues > 0 && categoryExisted == false) {
                         expensesForChart.add(new Entry(((float) (totalValuesFromExpenseValues * 100) / valueExpenses), i));
                     }
 
-                    categories.add(expenses.get(i).getCategory());
+
                 }
                 db.close();
             } catch (SQLException e) {
@@ -91,7 +105,7 @@ public class PieChartActivity extends AppCompatActivity {
         PieData data = new PieData(categories, dataSet);
         pieChart.setData(data);
         dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        pieChart.animateXY(5000, 5000);
+        pieChart.animateXY(3000, 3000);
 
 
         btnPreviousPieChart.setOnClickListener(new View.OnClickListener() {
@@ -116,7 +130,7 @@ public class PieChartActivity extends AppCompatActivity {
                 }
 
                 pieChart.setCenterText(calendar.getDisplayName(MONTH, Calendar.LONG, Locale.getDefault()) + " - " + calendar.get(Calendar.YEAR));
-
+                boolean categoryExisted = false;
                 try {
                     ExpensesDB db = new ExpensesDB(PieChartActivity.this);
                     db.open();
@@ -136,11 +150,18 @@ public class PieChartActivity extends AppCompatActivity {
                             totalValuesFromExpenseValues = totalValuesFromExpenseValues + expensesValues.get(j);
                         }
 
-                        if (totalValuesFromExpenseValues > 0) {
-                            expensesForChart.add(new Entry(((float) (totalValuesFromExpenseValues * 100) / valueExpenses), i));
+                        if (categories.contains(expenses.get(i).getCategory())) {
+                            categoryExisted = true;
+                            categories.set(categories.indexOf(expenses.get(i).getCategory()), expenses.get(i).getCategory());
+                        } else {
+                            categoryExisted = false;
+                            categories.add(expenses.get(i).getCategory());
+
                         }
 
-                        categories.add(expenses.get(i).getCategory());
+                        if (totalValuesFromExpenseValues > 0 && categoryExisted == false) {
+                            expensesForChart.add(new Entry(((float) (totalValuesFromExpenseValues * 100) / valueExpenses), i));
+                        }
                     }
                     db.close();
                 } catch (SQLException e) {
@@ -151,9 +172,24 @@ public class PieChartActivity extends AppCompatActivity {
                 PieData data = new PieData(categories, dataSet);
                 pieChart.setData(data);
                 dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-                pieChart.animateXY(5000, 5000);
+                pieChart.animateXY(3000, 3000);
             }
         });
+
+
+//        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+//            @Override
+//            public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
+//                Intent intent = new Intent(PieChartActivity.this, com.second.moneymanager.moneyExpanded.class);
+//                startActivity(intent);
+//            }
+//
+//            @Override
+//            public void onNothingSelected() {
+//
+//            }
+//        });
+
 
         btnNextPieChart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -201,7 +237,13 @@ public class PieChartActivity extends AppCompatActivity {
                             expensesForChart.add(new Entry(((float) (totalValuesFromExpenseValues * 100) / valueExpenses), i));
                         }
 
-                        categories.add(expenses.get(i).getCategory());
+                        if (categories.contains(expenses.get(i).getCategory())) {
+
+                            categories.set(categories.indexOf(expenses.get(i).getCategory()), expenses.get(i).getCategory());
+                        } else {
+                            categories.add(expenses.get(i).getCategory());
+
+                        }
                     }
                     db.close();
                 } catch (SQLException e) {
@@ -212,7 +254,7 @@ public class PieChartActivity extends AppCompatActivity {
                 PieData data = new PieData(categories, dataSet);
                 pieChart.setData(data);
                 dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-                pieChart.animateXY(5000, 5000);
+                pieChart.animateXY(3000, 3000);
             }
         });
 

@@ -14,18 +14,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity
-            android:name=".AddingCategory"
-            android:label="@string/title_activity_adding_category"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ChooseChart" />
         <activity android:name=".BarChartActivity" />
         <activity android:name=".PieChartActivity" />
         <activity android:name=".Categories" />
         <activity android:name=".ShowExpense" />
         <activity android:name=".ShowIncome" />
-        <activity android:name=".AddIncome" />
-        <activity android:name=".AddExpense" />
+        <activity android:name=".AddIncome"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".AddExpense"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".moneyExpanded" />
         <activity android:name=".MainActivity">
             <intent-filter>

@@ -99,7 +99,7 @@ public class BarChartActivity extends AppCompatActivity {
         }
 
         final BarDataSet bardataset = new BarDataSet(expensesForBarChart, "");
-        chart.animateY(5000);
+        chart.animateY(3000);
         BarData data = new BarData(categories, bardataset);
         bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
         chart.setData(data);
@@ -156,7 +156,7 @@ public class BarChartActivity extends AppCompatActivity {
                 }
 
                 BarDataSet bardataset = new BarDataSet(expensesForBarChart, "");
-                chart.animateY(5000);
+                chart.animateY(3000);
                 BarData data1 = new BarData(categories, bardataset);
                 bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
                 chart.setData(data1);
