@@ -47,6 +47,9 @@ public class ItemsAdapter extends ArrayAdapter {
             tvIncomeExpense.setText("+" + String.valueOf(income.getSum()));
             tvDescription.setText(income.getCategory());
             tvCurrencyIncomeExpense.setText(income.getNotes());
+            tvCurrencyIncomeExpense.setTextColor(Color.parseColor("#388e3c"));
+
+
 
         }else{
             tvIncomeExpense.setTextColor(Color.parseColor("#b91400"));
@@ -55,6 +58,8 @@ public class ItemsAdapter extends ArrayAdapter {
             tvIncomeExpense.setText("-" + String.valueOf(expense.getPrice()));
             tvDescription.setText(expense.getCategory());
             tvCurrencyIncomeExpense.setText(expense.getNotes());
+            tvCurrencyIncomeExpense.setTextColor(Color.parseColor("#b91400"));
+
         }
         return rowView;
     }

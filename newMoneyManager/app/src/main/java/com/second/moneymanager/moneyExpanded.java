@@ -183,8 +183,6 @@ public class moneyExpanded extends AppCompatActivity {
         calendar.set(MONTH, Integer.parseInt(prefs.getString("month", "")));
         calendar.set(DAY_OF_MONTH, Integer.parseInt(prefs.getString("day", "")));
 
-        nextDay.setBackgroundResource(R.drawable.nexttotomorrow);
-        btnPrevious.setBackgroundResource(R.drawable.previoustoyesterday);
         final MyApplication app = (MyApplication) moneyExpanded.this.getApplication();
 
         if (prefs.getString("monthlyOrYearly", "").equals("Yearly")) {

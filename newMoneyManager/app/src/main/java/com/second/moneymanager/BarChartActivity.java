@@ -2,13 +2,16 @@ package com.second.moneymanager;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.database.SQLException;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -41,17 +44,20 @@ public class BarChartActivity extends AppCompatActivity {
     ArrayList<String> categories = new ArrayList<>();
     BarChart chart;
 
+    @RequiresApi(api = Build.VERSION_CODES.O_MR1)
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bar_chart);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         chart = findViewById(barchart);
         btnPreviousBarChart = findViewById(R.id.btnPreviousBarChart);
         btnNextBarChart = findViewById(R.id.btnNextBarChart);
         tvTodayForBarChartActivity = findViewById(R.id.tvTodayForBarChartActivity);
 
         prefs = getSharedPreferences("com.mycompany.MoneyManager", MainActivity.MODE_PRIVATE);
+
 
         final Calendar calendar = Calendar.getInstance();
         calendar.set(MONTH, Integer.parseInt(prefs.getString("month", "")));
@@ -93,7 +99,7 @@ public class BarChartActivity extends AppCompatActivity {
         }
 
         final BarDataSet bardataset = new BarDataSet(expensesForBarChart, "");
-        chart.animateY(2000);
+        chart.animateY(5000);
         BarData data = new BarData(categories, bardataset);
         bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
         chart.setData(data);
@@ -150,7 +156,7 @@ public class BarChartActivity extends AppCompatActivity {
                 }
 
                 BarDataSet bardataset = new BarDataSet(expensesForBarChart, "");
-                chart.animateY(2000);
+                chart.animateY(5000);
                 BarData data1 = new BarData(categories, bardataset);
                 bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
                 chart.setData(data1);

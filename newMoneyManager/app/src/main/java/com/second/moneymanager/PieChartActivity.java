@@ -152,7 +152,7 @@ public class PieChartActivity extends AppCompatActivity {
                 PieData data = new PieData(categories, dataSet);
                 pieChart.setData(data);
                 dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-                pieChart.animateXY(2000, 2000);
+                pieChart.animateXY(5000, 5000);
             }
         });
 
@@ -213,7 +213,7 @@ public class PieChartActivity extends AppCompatActivity {
                 PieData data = new PieData(categories, dataSet);
                 pieChart.setData(data);
                 dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-                pieChart.animateXY(2000, 2000);
+                pieChart.animateXY(5000, 5000);
             }
         });
 
