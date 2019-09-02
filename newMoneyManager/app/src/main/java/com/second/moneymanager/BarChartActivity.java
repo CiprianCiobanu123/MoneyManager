@@ -66,20 +66,19 @@ public class BarChartActivity extends AppCompatActivity {
         tvTodayForBarChartActivity.setText(calendar.getDisplayName(MONTH, Calendar.LONG, Locale.getDefault()) + " - " + calendar.get(Calendar.YEAR));
 
 
+
         if (prefs.getString("monthlyOrYearly", "").equals("Monthly")) {
 
             try {
-
+                boolean categoryExisted;
                 ExpensesDB db = new ExpensesDB(BarChartActivity.this);
                 db.open();
-                expenses = db.getExpensesByMonthAndYear(calendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), String.valueOf(calendar.get(Calendar.YEAR)));
 
-                boolean categoryExisted = false;
+                expenses = db.getExpensesByMonthAndYear(calendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), String.valueOf(calendar.get(Calendar.YEAR)));
 
                 for (int i = 0; i < expenses.size(); i++) {
                     valueExpenses = (float) (valueExpenses + expenses.get(i).getPrice());
                 }
-
                 for (int i = 0; i < expenses.size(); i++) {
 
                     totalValuesFromExpenseValues = 0;
@@ -116,8 +115,6 @@ public class BarChartActivity extends AppCompatActivity {
         bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
         chart.setData(data);
 
-//        chart.setVisibleXRangeMinimum(categories.size());
-        data.setDrawValues(true);
         btnPreviousBarChart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -141,7 +138,7 @@ public class BarChartActivity extends AppCompatActivity {
                 }
 
 
-                boolean categoryExisted = false;
+                boolean categoryExisted ;
                 try {
 
                     ExpensesDB db = new ExpensesDB(BarChartActivity.this);

@@ -5,23 +5,26 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/multicolorlistview"
     tools:context=".Categories">
 
     <ListView
         android:id="@+id/lvCategories"
         android:layout_width="match_parent"
-        android:layout_height="590dp">
+        android:layout_height="500dp"
+        android:layout_marginBottom="10dp">
 
     </ListView>
 
     <Button
         android:id="@+id/btnAddCategory"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/rectangularaddcategorybutton"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/buttonforaddingcategorytodatabase"
         android:text="Add Category"
-        android:textColor="@android:color/white"
+        android:textColor="@color/colorAccent"
         android:textColorHighlight="@android:color/white" />
 
 </LinearLayout>

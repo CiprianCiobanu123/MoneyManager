@@ -3,17 +3,17 @@ package com.second.moneymanager;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.SQLException;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +35,6 @@ public class Categories extends AppCompatActivity {
 
         lvCategories = findViewById(R.id.lvCategories);
         btnAddCategory = findViewById(R.id.btnAddCategory);
-
         prefs = getSharedPreferences("com.mycompany.MoneyManager", MainActivity.MODE_PRIVATE);
 
         try {
@@ -52,13 +51,15 @@ public class Categories extends AppCompatActivity {
         if (prefs.getBoolean("isExpense", true)) {
 
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                    android.R.layout.simple_list_item_1, android.R.id.text1, expenseCategories);
+                    R.layout.newrow_layout, R.id.textView2, expenseCategories);
+
             lvCategories.setAdapter(adapter);
 
         } else if (prefs.getBoolean("isIncome", true)) {
 
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                    android.R.layout.simple_list_item_1, android.R.id.text1, incomeCategories);
+                    R.layout.newrow_layout, R.id.textView2, incomeCategories);
+
             lvCategories.setAdapter(adapter);
         }
 
@@ -67,7 +68,6 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-
                 // ListView Clicked item value
                 String itemValue = (String) lvCategories.getItemAtPosition(position);
 
@@ -149,60 +149,9 @@ public class Categories extends AppCompatActivity {
                             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                             dialog.dismiss();
                         }
-
-
                     }
                 });
             }
         });
-
-
-//        b.setPositiveButton("Add", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//
-//                Intent intent = new Intent();
-//                String EnteredText = "";
-//                if (tvNewCategory.getText() == null || tvNewCategory.getText().toString().isEmpty()) {
-//                    Toast.makeText(Categories.this, "Please add a category", Toast.LENGTH_SHORT).show();
-//                    tvNewCategory.requestFocus();
-//                    tvNewCategory.setError("Must not be empty");
-//                    Categories.this.finish();
-//                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-//
-//
-//                } else {
-//                    EnteredText = tvNewCategory.getText().toString().trim();
-//                    try {
-//                        ExpensesDB db = new ExpensesDB(Categories.this);
-//                        db.open();
-//                        if (prefs.getBoolean("isIncome", true)) {
-//                            db.createEntryIncomeCategory(EnteredText);
-//                            prefs.edit().putBoolean("addedNoNewIncomeCategory", false).apply();
-//
-//                        } else if (prefs.getBoolean("isExpense", true)) {
-//                            db.createEntryExpenseCategory(EnteredText);
-//                            prefs.edit().putBoolean("addedNoNewExpenseCategory", false).apply();
-//                        }
-//                        db.close();
-//                    } catch (SQLException e) {
-//                        Toast.makeText(Categories.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                    intent.putExtra("IncomeOrExpense", EnteredText);
-//                    setResult(RESULT_OK, intent);
-//                    Categories.this.finish();
-//                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-//                }
-//            }
-//        });
-//
-//
-//        btnAddCategory.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                b.setCancelable(false);
-//                b.show();
-//            }
-//        });
     }
 }
