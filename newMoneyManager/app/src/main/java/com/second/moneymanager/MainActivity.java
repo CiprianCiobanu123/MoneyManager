@@ -15,6 +15,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -31,6 +32,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import static android.view.View.GONE;
+import static com.second.moneymanager.R.color.colorPrimary;
 import static java.util.Calendar.DAY_OF_MONTH;
 import static java.util.Calendar.MONTH;
 import static java.util.Calendar.SHORT;
@@ -278,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "ClickableViewAccessibility"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -386,6 +388,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, requestCodeActivityAddExpense);
             }
         });
+
+
 
         btnAddIncome.setOnClickListener(new View.OnClickListener() {
             @Override

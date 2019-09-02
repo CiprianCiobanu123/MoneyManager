@@ -26,13 +26,13 @@
 
             <Button
                 android:id="@+id/btnPreviousDate"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:tint="@android:color/white"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginLeft="20dp"
                 android:layout_weight="0"
                 android:background="@mipmap/leftwhitearrow"
-                android:textSize="8sp" />
+                android:textSize="8sp"
+                android:tint="@android:color/white" />
 
 
             <TextView
@@ -48,13 +48,13 @@
 
             <Button
                 android:id="@+id/btnNextDate"
-                android:layout_width="30dp"
-                android:tint="@android:color/white"
-                android:layout_height="30dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginRight="20dp"
                 android:layout_weight="0"
                 android:background="@mipmap/rightwhitearrow"
-                android:textSize="8sp" />
+                android:textSize="8sp"
+                android:tint="@android:color/white" />
 
         </LinearLayout>
 

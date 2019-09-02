@@ -29,15 +29,14 @@
 
             <Button
                 android:id="@+id/btnPrevious"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginRight="0dp"
                 android:layout_marginBottom="5dp"
                 android:layout_weight="0"
-                android:background="@mipmap/leftwhitearrow"
-                android:gravity="center_horizontal" />
+                android:background="@mipmap/leftwhitearrow" />
 
             <TextView
                 android:id="@+id/tvToday"
@@ -56,14 +55,14 @@
 
             <Button
                 android:id="@+id/nextDay"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginLeft="0dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="0dp"
-                android:background="@mipmap/rightwhitearrow"
-                android:layout_weight="0" />
+                android:layout_weight="0"
+                android:background="@mipmap/rightwhitearrow" />
 
 
         </LinearLayout>

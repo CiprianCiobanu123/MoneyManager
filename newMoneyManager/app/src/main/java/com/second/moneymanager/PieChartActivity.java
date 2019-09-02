@@ -5,7 +5,6 @@ import android.database.SQLException;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -92,7 +91,7 @@ public class PieChartActivity extends AppCompatActivity {
         PieData data = new PieData(categories, dataSet);
         pieChart.setData(data);
         dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        pieChart.animateXY(2000, 2000);
+        pieChart.animateXY(5000, 5000);
 
 
         btnPreviousPieChart.setOnClickListener(new View.OnClickListener() {

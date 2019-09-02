@@ -35,7 +35,7 @@ public class ItemsAdapter extends ArrayAdapter {
 
         TextView tvIncomeExpense = rowView.findViewById(R.id.tvIncomeExpense);
         TextView tvDescription = rowView.findViewById(R.id.tvDescription);
-        TextView tvCurrencyIncomeExpense = rowView.findViewById(R.id.tvCurrencyIncomeExpense);
+//        TextView tvCurrencyIncomeExpense = rowView.findViewById(R.id.tvCurrencyIncomeExpense);
         ImageView ivIncome = rowView.findViewById(R.id.ivIncome);
 //        tvCurrencyIncomeExpense.setText(prefs.getString("currency",""));
 
@@ -45,9 +45,9 @@ public class ItemsAdapter extends ArrayAdapter {
            Income income = (Income) items.get(position);
             tvIncomeExpense.setTextColor(Color.parseColor("#388e3c"));
             tvIncomeExpense.setText("+" + String.valueOf(income.getSum()));
-            tvDescription.setText(income.getCategory());
-            tvCurrencyIncomeExpense.setText(income.getNotes());
-            tvCurrencyIncomeExpense.setTextColor(Color.parseColor("#388e3c"));
+            tvDescription.setText(income.getNotes());
+//            tvCurrencyIncomeExpense.setText(income.getNotes());
+//            tvCurrencyIncomeExpense.setTextColor(Color.parseColor("#388e3c"));
 
 
 
@@ -56,9 +56,9 @@ public class ItemsAdapter extends ArrayAdapter {
             ivIncome.setImageResource(R.mipmap.expense);
             Expense expense = (Expense)items.get(position);
             tvIncomeExpense.setText("-" + String.valueOf(expense.getPrice()));
-            tvDescription.setText(expense.getCategory());
-            tvCurrencyIncomeExpense.setText(expense.getNotes());
-            tvCurrencyIncomeExpense.setTextColor(Color.parseColor("#b91400"));
+            tvDescription.setText(expense.getNotes());
+//            tvCurrencyIncomeExpense.setText(expense.getNotes());
+//            tvCurrencyIncomeExpense.setTextColor(Color.parseColor("#b91400"));
 
         }
         return rowView;
