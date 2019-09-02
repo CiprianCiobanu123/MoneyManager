@@ -11,6 +11,7 @@ import android.database.SQLException;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -23,6 +24,7 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import static com.second.moneymanager.AndroidBug5497Workaround.assistActivity;
 import static java.util.Calendar.MONTH;
 import static java.util.Calendar.SHORT;
 
@@ -41,6 +43,7 @@ public class AddIncome extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_income);
+        assistActivity(AddIncome.this);
 
         btnDate = findViewById(R.id.btnDate);
         btnAdd = findViewById(R.id.btnAdd);
