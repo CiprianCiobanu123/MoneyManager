@@ -18,6 +18,7 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
@@ -71,12 +72,14 @@ public class BarChartActivity extends AppCompatActivity {
 
                 ExpensesDB db = new ExpensesDB(BarChartActivity.this);
                 db.open();
-
                 expenses = db.getExpensesByMonthAndYear(calendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), String.valueOf(calendar.get(Calendar.YEAR)));
+
+                boolean categoryExisted = false;
 
                 for (int i = 0; i < expenses.size(); i++) {
                     valueExpenses = (float) (valueExpenses + expenses.get(i).getPrice());
                 }
+
                 for (int i = 0; i < expenses.size(); i++) {
 
                     totalValuesFromExpenseValues = 0;
@@ -86,10 +89,19 @@ public class BarChartActivity extends AppCompatActivity {
                     for (int j = 0; j < expensesValues.size(); j++) {
                         totalValuesFromExpenseValues = totalValuesFromExpenseValues + expensesValues.get(j);
                     }
-                    if (totalValuesFromExpenseValues > 0) {
+
+                    if (categories.contains(expenses.get(i).getCategory())) {
+                        categoryExisted = true;
+                        categories.set(categories.indexOf(expenses.get(i).getCategory()), expenses.get(i).getCategory());
+                    } else {
+                        categoryExisted = false;
+                        categories.add(expenses.get(i).getCategory());
+
+                    }
+
+                    if (totalValuesFromExpenseValues > 0 && !categoryExisted) {
                         expensesForBarChart.add(new BarEntry(((float) (totalValuesFromExpenseValues * 100) / valueExpenses), i));
                     }
-                    categories.add(expenses.get(i).getCategory());
                 }
 
                 db.close();
@@ -98,15 +110,18 @@ public class BarChartActivity extends AppCompatActivity {
             }
         }
 
-        final BarDataSet bardataset = new BarDataSet(expensesForBarChart, "");
+        BarDataSet bardataset = new BarDataSet(expensesForBarChart, "");
         chart.animateY(3000);
         BarData data = new BarData(categories, bardataset);
         bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
         chart.setData(data);
 
+//        chart.setVisibleXRangeMinimum(categories.size());
+        data.setDrawValues(true);
         btnPreviousBarChart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 calendar.set(MONTH, Integer.parseInt(prefs.getString("month", "")) - 1);
                 if (calendar.get(MONTH) < 0) {
                     calendar.set(Calendar.YEAR, Integer.parseInt(prefs.getString("year", "")) - 1);
@@ -125,6 +140,8 @@ public class BarChartActivity extends AppCompatActivity {
                     categories.clear();
                 }
 
+
+                boolean categoryExisted = false;
                 try {
 
                     ExpensesDB db = new ExpensesDB(BarChartActivity.this);
@@ -135,6 +152,7 @@ public class BarChartActivity extends AppCompatActivity {
                     for (int i = 0; i < expenses.size(); i++) {
                         valueExpenses = (float) (valueExpenses + expenses.get(i).getPrice());
                     }
+
                     for (int i = 0; i < expenses.size(); i++) {
 
                         totalValuesFromExpenseValues = 0;
@@ -144,10 +162,19 @@ public class BarChartActivity extends AppCompatActivity {
                         for (int j = 0; j < expensesValues.size(); j++) {
                             totalValuesFromExpenseValues = totalValuesFromExpenseValues + expensesValues.get(j);
                         }
-                        if (totalValuesFromExpenseValues > 0) {
+
+                        if (categories.contains(expenses.get(i).getCategory())) {
+                            categoryExisted = true;
+                            categories.set(categories.indexOf(expenses.get(i).getCategory()), expenses.get(i).getCategory());
+                        } else {
+                            categoryExisted = false;
+                            categories.add(expenses.get(i).getCategory());
+
+                        }
+
+                        if (totalValuesFromExpenseValues > 0 && !categoryExisted) {
                             expensesForBarChart.add(new BarEntry(((float) (totalValuesFromExpenseValues * 100) / valueExpenses), i));
                         }
-                        categories.add(expenses.get(i).getCategory());
                     }
 
                     db.close();
@@ -167,6 +194,7 @@ public class BarChartActivity extends AppCompatActivity {
         btnNextBarChart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 calendar.set(MONTH, Integer.parseInt(prefs.getString("month", "")) + 1);
                 if (calendar.get(MONTH) >= 11) {
                     calendar.set(Calendar.YEAR, Integer.parseInt(prefs.getString("year", "")) + 1);
@@ -185,16 +213,18 @@ public class BarChartActivity extends AppCompatActivity {
                     categories.clear();
                 }
 
-                try {
 
+                try {
                     ExpensesDB db = new ExpensesDB(BarChartActivity.this);
                     db.open();
 
                     expenses = db.getExpensesByMonthAndYear(calendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), String.valueOf(calendar.get(Calendar.YEAR)));
+                    boolean categoryExisted = false;
 
                     for (int i = 0; i < expenses.size(); i++) {
                         valueExpenses = (float) (valueExpenses + expenses.get(i).getPrice());
                     }
+
                     for (int i = 0; i < expenses.size(); i++) {
 
                         totalValuesFromExpenseValues = 0;
@@ -204,10 +234,19 @@ public class BarChartActivity extends AppCompatActivity {
                         for (int j = 0; j < expensesValues.size(); j++) {
                             totalValuesFromExpenseValues = totalValuesFromExpenseValues + expensesValues.get(j);
                         }
-                        if (totalValuesFromExpenseValues > 0) {
+
+                        if (categories.contains(expenses.get(i).getCategory())) {
+                            categoryExisted = true;
+                            categories.set(categories.indexOf(expenses.get(i).getCategory()), expenses.get(i).getCategory());
+                        } else {
+                            categoryExisted = false;
+                            categories.add(expenses.get(i).getCategory());
+
+                        }
+
+                        if (totalValuesFromExpenseValues > 0 && !categoryExisted) {
                             expensesForBarChart.add(new BarEntry(((float) (totalValuesFromExpenseValues * 100) / valueExpenses), i));
                         }
-                        categories.add(expenses.get(i).getCategory());
                     }
 
                     db.close();
@@ -222,5 +261,7 @@ public class BarChartActivity extends AppCompatActivity {
                 chart.setData(data1);
             }
         });
+
+
     }
 }

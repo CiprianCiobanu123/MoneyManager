@@ -89,7 +89,7 @@ public class PieChartActivity extends AppCompatActivity {
 
                     }
 
-                    if (totalValuesFromExpenseValues > 0 && categoryExisted == false) {
+                    if (totalValuesFromExpenseValues > 0 && !categoryExisted) {
                         expensesForChart.add(new Entry(((float) (totalValuesFromExpenseValues * 100) / valueExpenses), i));
                     }
 
@@ -159,7 +159,7 @@ public class PieChartActivity extends AppCompatActivity {
 
                         }
 
-                        if (totalValuesFromExpenseValues > 0 && categoryExisted == false) {
+                        if (totalValuesFromExpenseValues > 0 && !categoryExisted) {
                             expensesForChart.add(new Entry(((float) (totalValuesFromExpenseValues * 100) / valueExpenses), i));
                         }
                     }
@@ -176,19 +176,6 @@ public class PieChartActivity extends AppCompatActivity {
             }
         });
 
-
-//        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-//            @Override
-//            public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
-//                Intent intent = new Intent(PieChartActivity.this, com.second.moneymanager.moneyExpanded.class);
-//                startActivity(intent);
-//            }
-//
-//            @Override
-//            public void onNothingSelected() {
-//
-//            }
-//        });
 
 
         btnNextPieChart.setOnClickListener(new View.OnClickListener() {
@@ -218,7 +205,7 @@ public class PieChartActivity extends AppCompatActivity {
                     ExpensesDB db = new ExpensesDB(PieChartActivity.this);
                     db.open();
                     expenses = db.getExpensesByMonthAndYear(calendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), String.valueOf(calendar.get(Calendar.YEAR)));
-
+                    boolean categoryExisted = false;
                     for (int i = 0; i < expenses.size(); i++) {
                         valueExpenses = (float) (valueExpenses + expenses.get(i).getPrice());
                     }
@@ -233,16 +220,16 @@ public class PieChartActivity extends AppCompatActivity {
                             totalValuesFromExpenseValues = totalValuesFromExpenseValues + expensesValues.get(j);
                         }
 
-                        if (totalValuesFromExpenseValues > 0) {
-                            expensesForChart.add(new Entry(((float) (totalValuesFromExpenseValues * 100) / valueExpenses), i));
-                        }
-
                         if (categories.contains(expenses.get(i).getCategory())) {
-
+                            categoryExisted = true;
                             categories.set(categories.indexOf(expenses.get(i).getCategory()), expenses.get(i).getCategory());
                         } else {
+                            categoryExisted = false;
                             categories.add(expenses.get(i).getCategory());
+                        }
 
+                        if (totalValuesFromExpenseValues > 0 && categoryExisted == false) {
+                            expensesForChart.add(new Entry(((float) (totalValuesFromExpenseValues * 100) / valueExpenses), i));
                         }
                     }
                     db.close();
