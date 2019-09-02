@@ -25,7 +25,7 @@
                     android:layout_height="60dp"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    app:srcCompat="@mipmap/amounticon" />
+                    app:srcCompat="@mipmap/amountcalculatorimage" />
             </TableRow>
 
             <TableRow android:layout_gravity="center_vertical">
@@ -50,6 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="Spent"
+                    android:textColor="@color/colorAccent"
                     android:textSize="24sp" />
             </TableRow>
 
@@ -76,7 +77,7 @@
                     android:layout_height="60dp"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    app:srcCompat="@mipmap/foldericon" />
+                    app:srcCompat="@mipmap/folderimage2" />
             </TableRow>
 
             <TableRow android:layout_gravity="center_vertical">
@@ -102,6 +103,7 @@
                     android:layout_marginTop="0dp"
                     android:gravity="center_vertical"
                     android:text="Category"
+                    android:textColor="@color/colorAccent"
                     android:textSize="24sp" />
             </TableRow>
 
@@ -131,7 +133,7 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginLeft="10dp"
-                    app:srcCompat="@mipmap/calendaricon" />
+                    app:srcCompat="@mipmap/calendar2" />
             </TableRow>
 
             <TableRow android:layout_gravity="center_vertical">
@@ -155,6 +157,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:text="@string/date"
+                    android:textColor="@color/colorAccent"
                     android:textSize="24sp" />
 
             </TableRow>
@@ -181,7 +184,7 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginLeft="10dp"
-                    app:srcCompat="@mipmap/notesicon" />
+                    app:srcCompat="@mipmap/notes2" />
             </TableRow>
 
 
@@ -206,6 +209,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:text="Notes"
+                    android:textColor="@color/colorAccent"
                     android:textSize="24sp" />
             </TableRow>
 

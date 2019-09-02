@@ -22,12 +22,10 @@
         <activity android:name=".ShowIncome" />
         <activity
             android:name=".AddIncome"
-            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".AddExpense"
-            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".moneyExpanded" />
         <activity android:name=".MainActivity">
