@@ -19,6 +19,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.util.ArrayList;
 
 public class Categories extends AppCompatActivity {
@@ -27,12 +30,16 @@ public class Categories extends AppCompatActivity {
     Button btnAddCategory;
     ArrayList<String> incomeCategories = new ArrayList<>();
     ArrayList<String> expenseCategories = new ArrayList<>();
+    private AdView mBannerAd;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
+
+        mBannerAd = (AdView) findViewById(R.id.banner_adViewIncome);
+        showBannerAd();
 
         lvCategories = findViewById(R.id.lvCategories);
         btnAddCategory = findViewById(R.id.btnAddCategory);
@@ -237,5 +244,13 @@ public class Categories extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    private void showBannerAd() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("33BE2250B43518CCDA7DE426D04EE231")
+                .build();
+        mBannerAd.loadAd(adRequest);
+
     }
 }

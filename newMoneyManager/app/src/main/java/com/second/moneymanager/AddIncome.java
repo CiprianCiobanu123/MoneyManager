@@ -11,23 +11,21 @@ import android.database.SQLException;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.util.Calendar;
-import java.util.HashSet;
 import java.util.Locale;
-import java.util.Set;
 import java.util.StringTokenizer;
 
 import static com.second.moneymanager.AndroidBug5497Workaround.assistActivity;
 import static java.util.Calendar.MONTH;
 import static java.util.Calendar.SHORT;
-
 
 public class AddIncome extends AppCompatActivity {
 
@@ -37,6 +35,7 @@ public class AddIncome extends AppCompatActivity {
     private int day, month, year;
     SharedPreferences prefs = null;
     public static final int requestCodeForIncomeCategories = 1;
+    private AdView mBannerAd;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -44,6 +43,9 @@ public class AddIncome extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_income);
         assistActivity(AddIncome.this);
+
+        mBannerAd = (AdView) findViewById(R.id.banner_adViewIncome);
+        showBannerAd();
 
         btnDate = findViewById(R.id.btnDate);
         btnAdd = findViewById(R.id.btnAdd);
@@ -147,9 +149,9 @@ public class AddIncome extends AppCompatActivity {
                     Toast.makeText(AddIncome.this, "Please enter all fields!", Toast.LENGTH_SHORT).show();
                 } else if (etNotes.getText().toString().trim().isEmpty()) {
                     Toast.makeText(AddIncome.this, "Please enter all fields!", Toast.LENGTH_SHORT).show();
-                } else if(etCategory.getText().toString().trim().isEmpty()) {
+                } else if (etCategory.getText().toString().trim().isEmpty()) {
                     Toast.makeText(AddIncome.this, "Please enter all fields!", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     if (etAmount.getText().toString().trim().charAt(0) == '.') {
                         etAmount.setText("0" + etAmount.getText().toString().trim());
                     }
@@ -180,6 +182,14 @@ public class AddIncome extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    private void showBannerAd() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("33BE2250B43518CCDA7DE426D04EE231")
+                .build();
+        mBannerAd.loadAd(adRequest);
 
     }
 

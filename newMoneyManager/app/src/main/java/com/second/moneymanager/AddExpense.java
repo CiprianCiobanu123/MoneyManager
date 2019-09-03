@@ -16,6 +16,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.StringTokenizer;
@@ -25,19 +28,22 @@ import static java.util.Calendar.SHORT;
 
 public class AddExpense extends AppCompatActivity {
 
-    EditText  etPrice,   etNotesExpense,etCategoryExpense;
+    EditText etPrice, etNotesExpense, etCategoryExpense;
     Button btnAdd, btnCancel, btnDate;
     private Calendar myCalendar = Calendar.getInstance();
     private int day, month, year;
     public static final int requestCodeForExpenseCategories = 1;
 
     SharedPreferences prefs = null;
+    private AdView mBannerAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_expense);
 
+        mBannerAd = (AdView) findViewById(R.id.banner_adViewExpense);
+        showBannerAd();
         btnDate = findViewById(R.id.btnDate);
         etPrice = findViewById(R.id.etPrice);
         btnAdd = findViewById(R.id.btnAdd);
@@ -74,7 +80,7 @@ public class AddExpense extends AppCompatActivity {
 
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus){
+                if (!hasFocus) {
                     etPrice.setHint("Amount");
                 }
             }
@@ -95,7 +101,7 @@ public class AddExpense extends AppCompatActivity {
 
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus){
+                if (!hasFocus) {
                     etNotesExpense.setHint("Notes");
                 }
             }
@@ -126,7 +132,7 @@ public class AddExpense extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(AddExpense.this,
                         com.second.moneymanager.Categories.class);
-                startActivityForResult(intent,requestCodeForExpenseCategories);
+                startActivityForResult(intent, requestCodeForExpenseCategories);
 
             }
         });
@@ -137,7 +143,7 @@ public class AddExpense extends AppCompatActivity {
 
                 if (etPrice.getText().toString().trim().isEmpty()) {
                     Toast.makeText(AddExpense.this, "Please enter all fields", Toast.LENGTH_SHORT).show();
-                }else if (btnDate.getText().toString().trim().isEmpty()) {
+                } else if (btnDate.getText().toString().trim().isEmpty()) {
                     Toast.makeText(AddExpense.this, "Please enter all fields", Toast.LENGTH_SHORT).show();
                 } else if (etCategoryExpense.getText().toString().isEmpty()) {
                     Toast.makeText(AddExpense.this, "Please enter all fields", Toast.LENGTH_SHORT).show();
@@ -159,9 +165,9 @@ public class AddExpense extends AppCompatActivity {
                     try {
                         ExpensesDB db = new ExpensesDB(AddExpense.this);
                         db.open();
-                        db.createEntryExpense( price, dayFromButton, myCalendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), yearFromButton, notes, category);
+                        db.createEntryExpense(price, dayFromButton, myCalendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), yearFromButton, notes, category);
                         MyApplication app = (MyApplication) AddExpense.this.getApplication();
-                        app.addExpenseToItems(new Expense( price, dayFromButton, myCalendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), yearFromButton, null, notes, category));
+                        app.addExpenseToItems(new Expense(price, dayFromButton, myCalendar.getDisplayName(MONTH, SHORT, Locale.getDefault()), yearFromButton, null, notes, category));
                         db.close();
                         Toast.makeText(AddExpense.this, "Succesfully Saved", Toast.LENGTH_SHORT).show();
                     } catch (SQLException e) {
@@ -173,20 +179,27 @@ public class AddExpense extends AppCompatActivity {
         });
     }
 
+    private void showBannerAd() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("754DB6521943676637AE86202C5ACE52")
+                .build();
+        mBannerAd.loadAd(adRequest);
+
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == requestCodeForExpenseCategories){
-            if(resultCode == RESULT_OK){
-                if(prefs.getBoolean("addedNoNewExpenseCategory",true)){
+        if (requestCode == requestCodeForExpenseCategories) {
+            if (resultCode == RESULT_OK) {
+                if (prefs.getBoolean("addedNoNewExpenseCategory", true)) {
 
                     etCategoryExpense.setText(data.getStringExtra("categoryExpense"));
-                }else{
+                } else {
 
                     etCategoryExpense.setText(data.getStringExtra("IncomeOrExpense"));
                 }
             }
         }
-
     }
 }
