@@ -18,6 +18,8 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.InterstitialAd;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -43,6 +45,7 @@ public class PieChartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pie_chart);
+
         pieChart = findViewById(R.id.piechart);
         valueExpenses = 0;
         totalValuesFromExpenseValues = 0;
@@ -250,7 +253,5 @@ public class PieChartActivity extends AppCompatActivity {
                 pieChart.animateXY(3000, 3000);
             }
         });
-
-
     }
 }

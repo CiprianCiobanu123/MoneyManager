@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.InterstitialAd;
+
 public class ChooseChart extends AppCompatActivity {
 
     Button btnPieChart, btnBarChart;
@@ -15,6 +18,7 @@ public class ChooseChart extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_chart);
+
 
         btnPieChart = findViewById(R.id.btnPieChart);
         btnBarChart = findViewById(R.id.btnBarChart);
@@ -38,4 +42,6 @@ public class ChooseChart extends AppCompatActivity {
         });
 
     }
+
+
 }
