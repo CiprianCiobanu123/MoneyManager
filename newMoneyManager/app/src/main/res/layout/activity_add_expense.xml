@@ -140,9 +140,9 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.google.android.gms.ads.AdView
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/banner_adViewExpense"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
@@ -150,10 +150,10 @@
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        app:adSize="BANNER"
-        app:adUnitId="@string/ad_id_banner"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-2455024925121197~8233024724"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent"
+        ads:layout_constraintTop_toBottomOf="@+id/linearLayout2"></com.google.android.gms.ads.AdView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

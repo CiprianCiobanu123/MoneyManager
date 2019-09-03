@@ -43,7 +43,9 @@ public class AddExpense extends AppCompatActivity {
         setContentView(R.layout.activity_add_expense);
 
         mBannerAd = (AdView) findViewById(R.id.banner_adViewExpense);
-        showBannerAd();
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mBannerAd.loadAd(adRequest);
+
         btnDate = findViewById(R.id.btnDate);
         etPrice = findViewById(R.id.etPrice);
         btnAdd = findViewById(R.id.btnAdd);
@@ -181,13 +183,6 @@ public class AddExpense extends AppCompatActivity {
         });
     }
 
-    private void showBannerAd() {
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("754DB6521943676637AE86202C5ACE52")
-                .build();
-        mBannerAd.loadAd(adRequest);
-
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

@@ -38,8 +38,9 @@ public class Categories extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
 
-        mBannerAd = (AdView) findViewById(R.id.banner_adViewIncome);
-        showBannerAd();
+        mBannerAd = (AdView) findViewById(R.id.banner_adViewCategories);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mBannerAd.loadAd(adRequest);
 
         lvCategories = findViewById(R.id.lvCategories);
         btnAddCategory = findViewById(R.id.btnAddCategory);
@@ -246,11 +247,4 @@ public class Categories extends AppCompatActivity {
         });
     }
 
-    private void showBannerAd() {
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("33BE2250B43518CCDA7DE426D04EE231")
-                .build();
-        mBannerAd.loadAd(adRequest);
-
-    }
 }

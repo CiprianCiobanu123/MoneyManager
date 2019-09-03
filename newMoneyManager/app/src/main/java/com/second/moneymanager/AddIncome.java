@@ -45,7 +45,8 @@ public class AddIncome extends AppCompatActivity {
         assistActivity(AddIncome.this);
 
         mBannerAd = (AdView) findViewById(R.id.banner_adViewIncome);
-        showBannerAd();
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mBannerAd.loadAd(adRequest);
 
         btnDate = findViewById(R.id.btnDate);
         btnAdd = findViewById(R.id.btnAdd);
@@ -181,17 +182,8 @@ public class AddIncome extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
-    private void showBannerAd() {
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("33BE2250B43518CCDA7DE426D04EE231")
-                .build();
-        mBannerAd.loadAd(adRequest);
-
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

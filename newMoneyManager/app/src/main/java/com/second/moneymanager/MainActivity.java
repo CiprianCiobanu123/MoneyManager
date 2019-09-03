@@ -30,6 +30,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.android.gms.ads.MobileAds;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -297,6 +299,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         tvAccount = findViewById(R.id.tvAccount);
         tvCurrency = findViewById(R.id.tvCurrency);
