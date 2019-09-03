@@ -11,9 +11,7 @@
         android:name="com.google.android.gms.version"
         android:value="@integer/google_play_services_version" />
 
-
     <application
-
         android:name=".MyApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
@@ -27,7 +25,6 @@
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
-
         <activity android:name=".ChooseChart" />
         <activity android:name=".BarChartActivity" />
         <activity android:name=".PieChartActivity" />
@@ -37,7 +34,6 @@
         <activity
             android:name=".AddIncome"
             android:windowSoftInputMode="adjustResize" />
-
         <activity
             android:name=".AddExpense"
             android:windowSoftInputMode="adjustResize" />

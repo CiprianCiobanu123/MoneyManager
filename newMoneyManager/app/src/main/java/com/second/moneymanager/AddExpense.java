@@ -147,6 +147,8 @@ public class AddExpense extends AppCompatActivity {
                     Toast.makeText(AddExpense.this, "Please enter all fields", Toast.LENGTH_SHORT).show();
                 } else if (etCategoryExpense.getText().toString().isEmpty()) {
                     Toast.makeText(AddExpense.this, "Please enter all fields", Toast.LENGTH_SHORT).show();
+                } else if (etNotesExpense.getText().toString().isEmpty()) {
+                    Toast.makeText(AddExpense.this, "Please enter all fields", Toast.LENGTH_SHORT).show();
                 } else {
 
                     if (etPrice.getText().toString().trim().charAt(0) == '.') {

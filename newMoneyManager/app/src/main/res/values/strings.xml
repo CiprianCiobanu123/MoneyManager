@@ -22,5 +22,6 @@
     <string name="yearly">Yearly</string>
     <string name="title_activity_adding_category">AddingCategory</string>
     <string name="ad_id_banner">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="title_activity_privacy_policy">Privacy Policy</string>
 
 </resources>

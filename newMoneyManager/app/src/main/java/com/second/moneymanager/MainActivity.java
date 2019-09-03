@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.SQLException;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
@@ -35,7 +36,6 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import static android.view.View.GONE;
-import static com.second.moneymanager.R.color.colorPrimary;
 import static java.util.Calendar.DAY_OF_MONTH;
 import static java.util.Calendar.MONTH;
 import static java.util.Calendar.SHORT;
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Expense> expenses = new ArrayList<>();
     ArrayList items = new ArrayList();
     SharedPreferences prefs = null;
-    MenuItem menuItemCurrency, menuitemYearly, chartsButton;
+    MenuItem menuItemCurrency, menuitemYearly, chartsButton, privacyPolicy;
 
     double valueIncomes, valueExpenses;
     Calendar calendar = Calendar.getInstance();
@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         menuItemCurrency = menu.findItem(R.id.changeCurrency);
         menuitemYearly = menu.findItem(R.id.monthlyYearly);
         chartsButton = menu.findItem(R.id.chartsButton);
+        privacyPolicy = menu.findItem(R.id.privacyPolicy);
         chartsButton.setIcon(ContextCompat.getDrawable(this, R.mipmap.chartpiebutton));
 
         return super.onCreateOptionsMenu(menu);
@@ -279,6 +280,13 @@ public class MainActivity extends AppCompatActivity {
                         com.second.moneymanager.ChooseChart.class);
                 startActivityForResult(intent2, ANOTHER_RESULT_WAIT_FOR_CANCEL_CODE);
                 break;
+
+            case R.id.privacyPolicy:
+                String url = "https://wbo3j8.webwave.me/";
+
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
         }
 
         return super.onOptionsItemSelected(item);

@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.SQLException;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -46,7 +47,7 @@ public class moneyExpanded extends AppCompatActivity {
     Calendar calendar = Calendar.getInstance();
 
 
-    MenuItem menuItemCurrency, menuitemYearly, chartsButton;
+    MenuItem menuItemCurrency, menuitemYearly, chartsButton,privacyPolicy;
 
 
     private static final String[] valuesToShowAccount = {"Yearly", "Monthly", "Daily"};
@@ -60,6 +61,7 @@ public class moneyExpanded extends AppCompatActivity {
         menuItemCurrency.setVisible(false);
         menuitemYearly = menu.findItem(R.id.monthlyYearly);
         chartsButton = menu.findItem(R.id.chartsButton);
+        privacyPolicy = menu.findItem(R.id.privacyPolicy);
         chartsButton.setIcon(ContextCompat.getDrawable(this, R.mipmap.chartpiebutton));
         return super.onCreateOptionsMenu(menu);
     }
@@ -144,6 +146,13 @@ public class moneyExpanded extends AppCompatActivity {
                         com.second.moneymanager.ChooseChart.class);
                 startActivity(intent2);
                 break;
+
+            case R.id.privacyPolicy:
+                String url = "https://wbo3j8.webwave.me/";
+
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
         }
 
         return super.onOptionsItemSelected(item);

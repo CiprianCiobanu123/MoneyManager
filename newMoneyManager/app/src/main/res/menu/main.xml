@@ -21,5 +21,12 @@
         app:showAsAction="always" />
 
 
+    <item
+        android:id="@+id/privacyPolicy"
+        android:orderInCategory="100"
+        android:title="Privacy Policy"
+        app:showAsAction="never" />
+
+
 
 </menu>
