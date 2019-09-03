@@ -133,6 +133,15 @@ public class ExpensesDB {
         return ourDatabase.insert(DATABASE_TABLE_CATEGORIES_FOR_EXPENSE, null, cv);
     }
 
+    public long deleteCategoryExpense(String name) {
+        return ourDatabase.delete(DATABASE_TABLE_CATEGORIES_FOR_EXPENSE, KEY_CATEGORY_FOR_EXPENSE_TABLE + "=?", new String[]{name});
+    }
+
+
+    public long deleteCategoryIncome(String name) {
+        return ourDatabase.delete(DATABASE_TABLE_CATEGORIES_FOR_INCOME, KEY_CATEGORY_FOR_INCOME_TABLE + "=?", new String[]{name});
+    }
+
     public ArrayList<String> getAllExpenseCategories() {
         SQLiteDatabase db = this.ourHelper.getReadableDatabase();
         ArrayList<String> expenseCategoriesArray = new ArrayList<>();

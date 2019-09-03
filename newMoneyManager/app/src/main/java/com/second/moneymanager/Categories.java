@@ -3,6 +3,7 @@ package com.second.moneymanager;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.SQLException;
@@ -87,6 +88,74 @@ public class Categories extends AppCompatActivity {
             }
         });
 
+        lvCategories.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(final AdapterView<?> parent, View view,
+                                           final int position, long id) {
+
+
+                final String itemValue = (String) lvCategories.getItemAtPosition(position);
+
+                if (prefs.getBoolean("isExpense", true)) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Categories.this);
+                    builder.setMessage("Do you want to remove the selected category?");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            ExpensesDB db = new ExpensesDB(Categories.this);
+                            db.open();
+                            db.deleteCategoryExpense(itemValue);
+                            db.close();
+                            Toast.makeText(Categories.this, "The category has been removed", Toast.LENGTH_SHORT).show();
+
+                            Categories.this.finish();
+                            startActivity(getIntent());
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        }
+                    });
+
+                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                        }
+                    });
+                    builder.show();
+
+                } else if (prefs.getBoolean("isIncome", true)) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Categories.this);
+                    builder.setMessage("Do you want to remove the selected category?");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            ExpensesDB db = new ExpensesDB(Categories.this);
+                            db.open();
+                            db.deleteCategoryIncome(itemValue);
+                            db.close();
+                            Toast.makeText(Categories.this, "The category has been removed", Toast.LENGTH_SHORT).show();
+
+                            Categories.this.finish();
+                            startActivity(getIntent());
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
+
+                        }
+                    });
+                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                        }
+                    });
+                    builder.show();
+                }
+                return true;
+            }
+        });
+
+
         btnAddCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,6 +179,7 @@ public class Categories extends AppCompatActivity {
                 final AlertDialog dialogView = dialog;
                 Button ok = dialogView.findViewById(R.id.btnAddNewCategory);
 
+
                 //custom lisenter for Positive button
                 ok.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -127,22 +197,41 @@ public class Categories extends AppCompatActivity {
                                 ExpensesDB db = new ExpensesDB(Categories.this);
                                 db.open();
                                 if (prefs.getBoolean("isIncome", true)) {
-                                    db.createEntryIncomeCategory(EnteredText);
-                                    prefs.edit().putBoolean("addedNoNewIncomeCategory", false).apply();
+                                    incomeCategories = db.getAllIncomeCategories();
+                                    if (incomeCategories.contains(EnteredText)) {
+                                        tvNewCategory.setError("Already exists");
+                                    } else {
+
+                                        db.createEntryIncomeCategory(EnteredText);
+                                        prefs.edit().putBoolean("addedNoNewIncomeCategory", false).apply();
+                                        intent.putExtra("IncomeOrExpense", EnteredText);
+                                        setResult(RESULT_OK, intent);
+                                        Categories.this.finish();
+                                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                                        dialog.dismiss();
+                                    }
 
                                 } else if (prefs.getBoolean("isExpense", true)) {
-                                    db.createEntryExpenseCategory(EnteredText);
-                                    prefs.edit().putBoolean("addedNoNewExpenseCategory", false).apply();
+                                    expenseCategories = db.getAllExpenseCategories();
+                                    if (expenseCategories.contains(EnteredText)) {
+                                        tvNewCategory.setError("Already exists");
+
+                                    } else {
+
+                                        db.createEntryExpenseCategory(EnteredText);
+                                        prefs.edit().putBoolean("addedNoNewExpenseCategory", false).apply();
+                                        intent.putExtra("IncomeOrExpense", EnteredText);
+                                        setResult(RESULT_OK, intent);
+                                        Categories.this.finish();
+                                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                                        dialog.dismiss();
+                                    }
                                 }
                                 db.close();
                             } catch (SQLException e) {
                                 Toast.makeText(Categories.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
-                            intent.putExtra("IncomeOrExpense", EnteredText);
-                            setResult(RESULT_OK, intent);
-                            Categories.this.finish();
-                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                            dialog.dismiss();
+
                         }
                     }
                 });

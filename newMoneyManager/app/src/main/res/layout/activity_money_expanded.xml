@@ -74,8 +74,8 @@
         android:layout_marginLeft="5dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="5dp"
-        android:choiceMode="multipleChoice"
-        android:layout_marginBottom="15dp">
+        android:layout_marginBottom="15dp"
+        android:choiceMode="multipleChoice">
 
     </ListView>
 

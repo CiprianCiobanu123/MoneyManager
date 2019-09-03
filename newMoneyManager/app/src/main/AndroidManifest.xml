@@ -4,7 +4,9 @@
     package="com.second.moneymanager"
     tools:ignore="ExtraText">
 
+
     <application
+
         android:name=".MyApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
@@ -17,7 +19,7 @@
         <activity android:name=".ChooseChart" />
         <activity android:name=".BarChartActivity" />
         <activity android:name=".PieChartActivity" />
-        <activity android:name=".Categories"/>
+        <activity android:name=".Categories" />
         <activity android:name=".ShowExpense" />
         <activity android:name=".ShowIncome" />
         <activity
