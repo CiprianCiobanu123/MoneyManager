@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/lightPrimaryColor"
-    android:layout_height="match_parent">
+    android:orientation="vertical">
 
     <EditText
         android:id="@+id/tvNewCategory"
@@ -11,6 +12,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="80dp"
         android:gravity="clip_horizontal|center_horizontal"
+        android:maxLength="14"
         android:textColor="#ffffff"
         android:textColorHint="#ffffff" />
 
@@ -19,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/buttonforaddingcategorytodatabase"
-        android:textColor="@color/colorAccent"
-        android:text="Add" />
+        android:text="Add"
+        android:textColor="@color/colorAccent" />
 
 </LinearLayout>
